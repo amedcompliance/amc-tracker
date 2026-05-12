@@ -1012,6 +1012,8 @@ function buildDeptFilter(){
 }
 
 function renderUsers(){
+  if (!cu) { cu = window._currentUser || users[0]; }
+  if (!cu) return;
   const df=document.getElementById('uDeptF').value; const rf=document.getElementById('uRoleF').value;
   const td=todayStr(); const now=new Date(); const wa=new Date(now-7*24*3600*1000);
   const filtered=users.filter(u=>(!df||u.dept==df)&&(!rf||u.role===rf));
@@ -1037,7 +1039,7 @@ function renderUsers(){
       <td><div class="btn-group">
         <button class="btn btn-sm" onclick="openModal('editUser',${u.id})">Edit</button>
         <button class="btn btn-sm" onclick="openModal('viewUser',${u.id})">View</button>
-        ${u.id!==cu.id?`<button class="btn btn-sm btn-danger" onclick="removeUser(${u.id})">Del</button>`:''}
+        ${(!cu||u.id!==cu.id)?`<button class="btn btn-sm btn-danger" onclick="removeUser(${u.id})">Del</button>`:''}
       </div></td>
     </tr>`;
   }).join('');
@@ -1679,6 +1681,12 @@ function completeSetup() {
 function completeLogin(user) {
   var u = user;
   window._currentUser = u;
+  cu = u; // sync global cu for renderUsers etc
+  
+  // Show admin nav items if admin or manager
+  if (u && (u.role === 'admin' || u.role === 'manager')) {
+    document.querySelectorAll('.admin-only').forEach(function(el){ el.style.display = ''; });
+  }
   
   // Hide login screen
   var ls = document.getElementById('loginScreen');
