@@ -1029,7 +1029,7 @@ function renderUsers(){
       <td><div style="font-size:13px;font-weight:500">${u.name}</div><div style="font-size:11px;color:var(--text2)">${u.jobTitle||''}</div></td>
       <td style="font-size:11px;color:var(--text2)">${u.email}</td>
       <td>${dept?`<span class="badge" style="background:${dept.color};color:${dept.tc}">${dept.name}</span>`:'—'}</td>
-      <td><span class="badge ${roleBadge[u.role]||'badge-gray'}">${u.role}</span></td>
+      <td><span class="badge ${roleBadge[u.role]||'badge-gray'}">${(rolePerms[u.role]&&rolePerms[u.role].label)||u.role}</span></td>
       <td style="font-size:11px;color:var(--text2)">${shift?shift.name:'—'}</td>
       <td style="font-family:var(--mono);font-size:12px">${Math.round(ts/3600)}h</td>
       <td style="font-family:var(--mono);font-size:12px">${Math.round(wk/3600)}h</td>
