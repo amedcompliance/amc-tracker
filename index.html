@@ -244,7 +244,7 @@ tr:hover td{background:var(--surface2)}
         <label style="display:block;font-size:13px;font-weight:600;color:#555;margin-bottom:6px;">Email Address</label>
         <input type="email" id="loginEmail" placeholder="your@email.com" style="width:100%;padding:12px;border:2px solid #e0e0e0;border-radius:8px;font-size:15px;box-sizing:border-box;outline:none;transition:border 0.2s;" onfocus="this.style.borderColor='#4a86a8'" onblur="this.style.borderColor='#e0e0e0'"/>
       </div>
-      <div style="margin-bottom:16px;text-align:left;">
+      <div id="loginPwdGroup" style="display:none;margin-bottom:16px;text-align:left;">
         <label style="display:block;font-size:13px;font-weight:600;color:#555;margin-bottom:6px;">Password</label>
         <div style="position:relative;">
           <input type="password" id="loginPassword" placeholder="Enter password" style="width:100%;padding:12px;padding-right:44px;border:2px solid #e0e0e0;border-radius:8px;font-size:15px;box-sizing:border-box;outline:none;transition:border 0.2s;" onfocus="this.style.borderColor='#4a86a8'" onblur="this.style.borderColor='#e0e0e0'" onkeydown="if(event.key==='Enter')handleLoginContinue()"/>
@@ -253,7 +253,7 @@ tr:hover td{background:var(--surface2)}
         <div id="pwdStrength" style="font-size:12px;margin-top:4px;height:16px;"></div>
       </div>
       <div id="loginError" style="color:#e74c3c;font-size:13px;margin-bottom:12px;display:none;"></div>
-      <button onclick="<button onclick="handleLoginContinue()" stylkground:#4a86a8;color:white;border:none;padding:14px;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer;">Continue</button>
+      <button onclick="handleLoginContinue()" style="width:100%;background:#4a86a8;color:white;border:none;padding:14px;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer;">Continue</button>
     </div>
     
     <!-- Step 2: OTP Verification -->
@@ -261,7 +261,7 @@ tr:hover td{background:var(--surface2)}
       <div style="background:#e8f1f7;border-radius:8px;padding:12px;margin-bottom:16px;font-size:13px;color:#2d6080;">
         📧 A verification code has been sent to <strong id="otpEmailDisplay"></strong>
       </div>
-      <div id="loginPwdGroup" style="display:none;margin-bottom:16px;text-align:left;">
+      <div id="otpInputGroup" style="display:block;margin-bottom:16px;text-align:left;">
         <label style="display:block;font-size:13px;font-weight:600;color:#555;margin-bottom:6px;">Verification Code</label>
         <input type="text" id="otpInput" maxlength="6" placeholder="000000" style="width:100%;padding:14px;border:2px solid #e0e0e0;border-radius:8px;font-size:22px;letter-spacing:8px;text-align:center;box-sizing:border-box;outline:none;" onfocus="this.style.borderColor='#4a86a8'" onblur="this.style.borderColor='#e0e0e0'" oninput="this.value=this.value.replace(/[^0-9]/g,'')" onkeydown="if(event.key==='Enter')verifyOtp()"/>
       </div>
@@ -1378,7 +1378,7 @@ function doModal(){
     const name=document.getElementById('f-n').value.trim(); const email=document.getElementById('f-e').value.trim();
     const role=document.getElementById('f-r').value; const pin=document.getElementById('f-p').value;
     if(!name||!pin){alert('Name and PIN required.');return;}
-    const nu={id:nuid++,name,email,role,pin,color:users.length%6,dept:+document.getElementById('f-d').value,shift:+document.getElementById('f-sh').value,manager:+document.getElementById('f-mgr').value||null,customStart:document.getElementById('f-cs').value||null,customEnd:document.getElementById('f-ce').value||null,invited:false,status:document.getElementById('f-st').value,jobTitle:document.getElementById('f-jt').value,startDate:document.getElementById('f-sd').value,leaveBalance:{vacation:+document.getElementById('f-lv').value,sick:+document.getElementById('f-ls').value,personal:+document.getElementById('f-lp').value}};
+    const nu={id:nuid++,name,email,role,pin,color:users.length%6,dept:+document.getElementById('f-d').value,shift:+document.getElementById('f-sh').value,manager:+document.getElementById('f-mgr').value||null,customStart:document.getElementById('f-cs').value||null,customEnd:document.getElementById('f-ce').value||null,invited:false,status:document.getElementById('f-st').value,jobTitle:document.getElementById('f-jt').value,startDate:document.getElementById('f-sd').value,leaveBalance:{vacation:+document.getElementById('f-lv').value,sick:+document.getElementById('f-ls').value,personal:+document.getElementById('f-lp').value},password:'',needsSetup:true};
     users.push(nu);localStorage.setItem('amc_users_extra',JSON.stringify(users.filter(function(u){return u.id>4;})));  addAudit(cu.id,'User added','User',`Added ${name} (${role})`); closeModal(); renderUsers(); buildDeptFilter();
     if(document.getElementById('f-inv')?.checked) sendInvite(nu.id);
 
