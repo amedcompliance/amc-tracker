@@ -484,6 +484,7 @@ tr:hover td{background:var(--surface2)}
   </div>
   <div class="inner-sec" id="admin-shifts">
     <div style="display:flex;justify-content:flex-end;margin-bottom:12px"><button class="btn btn-success" onclick="openModal('addShift')">+ Add shift</button></div>
+    <div id="shiftListNote"></div>
     <div class="card" id="shiftList"></div>
   </div>
   <div class="inner-sec" id="admin-approvals"><div id="approvalList"></div></div>
@@ -1030,7 +1031,7 @@ function renderUsers(){
       <td style="font-size:11px;color:var(--text2)">${u.email}</td>
       <td>${dept?`<span class="badge" style="background:${dept.color};color:${dept.tc}">${dept.name}</span>`:'—'}</td>
       <td><span class="badge ${roleBadge[u.role]||'badge-gray'}">${(rolePerms[u.role]&&rolePerms[u.role].label)||u.role}</span></td>
-      <td style="font-size:11px;color:var(--text2)">${shift?shift.name:'—'}</td>
+      <td style="font-size:11px;color:var(--text2)">${shift?shift.name:'—'}${(u.customStart&&u.customEnd)?'<br><span style="font-size:10px;color:var(--text2);font-family:var(--mono)">'+u.customStart+' – '+u.customEnd+'</span>':shift&&(shift.start||shift.end)?'<br><span style="font-size:10px;color:var(--text3);font-family:var(--mono)">'+shift.start+(shift.end?' – '+shift.end:'')+'</span>':''}</td>
       <td style="font-family:var(--mono);font-size:12px">${Math.round(ts/3600)}h</td>
       <td style="font-family:var(--mono);font-size:12px">${Math.round(wk/3600)}h</td>
       <td style="font-size:13px;font-weight:500">${bal}d</td>
@@ -1070,6 +1071,7 @@ function removeDept(id){ if(!confirm('Remove this department?'))return; departme
 
 // ── ADMIN — SHIFTS ────────────────────────────────────────────────────────────
 function renderShifts(){
+  document.getElementById('shiftListNote').innerHTML='<div style="font-size:12px;color:var(--text2);margin-bottom:12px;padding:8px 12px;background:var(--surface2);border-radius:var(--r-sm);border-left:3px solid var(--primary)">Editing a shift changes the <strong>default hours for everyone</strong> on that shift. To set individual hours for a specific person, use <strong>Edit</strong> on the user and set Custom Hours.</div>';
   document.getElementById('shiftList').innerHTML=shifts.map(s=>{
     const count=users.filter(u=>u.shift===s.id).length;
     return `<div style="display:flex;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid var(--border)">
@@ -1282,6 +1284,7 @@ function openModal(mode,id){
         <div class="form-row"><label>Role</label><select id="f-r"><option value="employee"${u?.role==='employee'?' selected':''}>User</option><option value="manager"${u?.role==='manager'?' selected':''}>Manager</option><option value="admin"${u?.role==='admin'?' selected':''}>Admin</option></select></div>
         <div class="form-row"><label>Department</label><select id="f-d">${departments.map(d=>`<option value="${d.id}"${u?.dept===d.id?' selected':''}>${d.name}</option>`).join('')}</select></div>
         <div class="form-row"><label>Shift</label><select id="f-sh">${shifts.map(s=>`<option value="${s.id}"${u?.shift===s.id?' selected':''}>${s.name}</option>`).join('')}</select></div>
+        <div class="form-row" style="gap:8px"><div style="flex:1"><label style="font-size:11px;color:var(--text2)">Custom start <span style="font-weight:400">(overrides shift)</span></label><input type="time" id="f-cs" value="${u?.customStart||''}" style="font-size:13px"/></div><div style="flex:1"><label style="font-size:11px;color:var(--text2)">Custom end</label><input type="time" id="f-ce" value="${u?.customEnd||''}" style="font-size:13px"/></div></div>
         <div class="form-row"><label>Manager</label><select id="f-mgr"><option value="">None</option>${users.filter(x=>x.role!=='employee').map(x=>`<option value="${x.id}"${u?.manager===x.id?' selected':''}>${x.name}</option>`).join('')}</select></div>
         <div class="form-row"><label>PIN ${mode==='editUser'?'(blank = keep)':''}</label><input type="password" id="f-p" maxlength="6" placeholder="${mode==='editUser'?'leave blank to keep':'4–6 digits'}"/></div>
       </div>
@@ -1304,7 +1307,7 @@ function openModal(mode,id){
       <tr><td style="color:var(--text2);padding:5px 0;width:110px">Email</td><td style="color:var(--blue)">${u.email}</td></tr>
       
       <tr><td style="color:var(--text2);padding:5px 0">Department</td><td>${dept?dept.name:'—'}</td></tr>
-      <tr><td style="color:var(--text2);padding:5px 0">Shift</td><td>${shift?shift.name:'—'}</td></tr>
+      <tr><td style="color:var(--text2);padding:5px 0">Shift</td><td>${shift?shift.name:'—'}${(u.customStart&&u.customEnd)?'<br><span style="font-size:10px;color:var(--text2);font-family:var(--mono)">'+u.customStart+' – '+u.customEnd+'</span>':shift&&(shift.start||shift.end)?'<br><span style="font-size:10px;color:var(--text3);font-family:var(--mono)">'+shift.start+(shift.end?' – '+shift.end:'')+'</span>':''}</td></tr>
       <tr><td style="color:var(--text2);padding:5px 0">Manager</td><td>${mgr?mgr.name:'—'}</td></tr>
       <tr><td style="color:var(--text2);padding:5px 0">Start date</td><td>${u.startDate||'—'}</td></tr>
       <tr><td style="color:var(--text2);padding:5px 0">Today</td><td style="font-family:var(--mono)">${fmtHM(ts)}</td></tr>
@@ -1373,7 +1376,7 @@ function doModal(){
     const name=document.getElementById('f-n').value.trim(); const email=document.getElementById('f-e').value.trim();
     const role=document.getElementById('f-r').value; const pin=document.getElementById('f-p').value;
     if(!name||!pin){alert('Name and PIN required.');return;}
-    const nu={id:nuid++,name,email,role,pin,color:users.length%6,dept:+document.getElementById('f-d').value,shift:+document.getElementById('f-sh').value,manager:+document.getElementById('f-mgr').value||null,invited:false,status:document.getElementById('f-st').value,jobTitle:document.getElementById('f-jt').value,startDate:document.getElementById('f-sd').value,leaveBalance:{vacation:+document.getElementById('f-lv').value,sick:+document.getElementById('f-ls').value,personal:+document.getElementById('f-lp').value}};
+    const nu={id:nuid++,name,email,role,pin,color:users.length%6,dept:+document.getElementById('f-d').value,shift:+document.getElementById('f-sh').value,manager:+document.getElementById('f-mgr').value||null,customStart:document.getElementById('f-cs').value||null,customEnd:document.getElementById('f-ce').value||null,invited:false,status:document.getElementById('f-st').value,jobTitle:document.getElementById('f-jt').value,startDate:document.getElementById('f-sd').value,leaveBalance:{vacation:+document.getElementById('f-lv').value,sick:+document.getElementById('f-ls').value,personal:+document.getElementById('f-lp').value}};
     users.push(nu); addAudit(cu.id,'User added','User',`Added ${name} (${role})`); closeModal(); renderUsers(); buildDeptFilter();
     if(document.getElementById('f-inv')?.checked) sendInvite(nu.id);
 
@@ -1383,6 +1386,7 @@ function doModal(){
     u.email=document.getElementById('f-e').value.trim()||u.email;
     u.role=document.getElementById('f-r').value; u.dept=+document.getElementById('f-d').value;
     u.shift=+document.getElementById('f-sh').value; u.manager=+document.getElementById('f-mgr').value||null;
+    u.customStart=document.getElementById('f-cs').value||null; u.customEnd=document.getElementById('f-ce').value||null;
     u.status=document.getElementById('f-st').value; u.jobTitle=document.getElementById('f-jt').value; u.startDate=document.getElementById('f-sd').value;
     const np=document.getElementById('f-p').value; if(np) u.pin=np;
     u.leaveBalance={vacation:+document.getElementById('f-lv').value,sick:+document.getElementById('f-ls').value,personal:+document.getElementById('f-lp').value};
