@@ -1760,8 +1760,8 @@ function stopIdleTracking() {
 
 // Microsoft 365 integration
 var MS365_CONFIG = {
-  clientId: 'YOUR_AZURE_APP_CLIENT_ID',
-  tenantId: 'YOUR_TENANT_ID',
+  clientId: 'af06f95a-eeef-4b9f-86c0-ce2d2439daea',
+  tenantId: '5a4a9eca-309c-4cb9-8916-77ed2bda3f05',
   scopes: ['User.Read','Calendars.Read','Mail.Read','Chat.Read']
 };
 
@@ -1781,7 +1781,7 @@ function connectMS365() {
     '&scope=' + encodeURIComponent(MS365_CONFIG.scopes.join(' ')) +
     '&response_mode=fragment';
   
-  if (MS365_CONFIG.clientId === 'YOUR_AZURE_APP_CLIENT_ID') {
+  if (MS365_CONFIG.clientId === 'af06f95a-eeef-4b9f-86c0-ce2d2439daea') {
     alert('Microsoft 365 integration requires Azure AD app registration.\n\nTo activate:\n1. Register app at portal.azure.com\n2. Set Client ID and Tenant ID in the app code\n3. Add redirect URI: ' + location.origin);
     if (btn) btn.textContent = 'Connect Microsoft 365';
     return;
