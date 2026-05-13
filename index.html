@@ -1692,6 +1692,7 @@ function completeLogin(user) {
   // Hide login screen
   var ls = document.getElementById('loginScreen');
   if (ls) ls.style.display = 'none';
+  var _w=document.getElementById('ms365Widget');if(_w)_w.style.display=(user.role==='admin')?'block':'none';
   
   // Show app shell
   var appShell = document.getElementById('appShell');
@@ -1922,11 +1923,11 @@ setTimeout(function(){ if(typeof checkMS365AuthReturn==='function') checkMS365Au
     <button onclick="doLogout()" style="background:#e74c3c;color:white;border:none;padding:12px 32px;border-radius:8px;font-size:16px;cursor:pointer;">Log out</button>
   </div>
 </div>
-<div id="ms365Panel" style="display:none;position:fixed;top:0;right:0;width:380px;height:100%;background:white;box-shadow:-4px 0 20px rgba(0,0,0,0.15);z-index:1000;overflow-y:auto;padding:24px;box-sizing:border-box;">
+<div id="ms365Widget" style="display:none;"><div id="ms365Panel" style="display:none;position:fixed;top:0;right:0;width:380px;height:100%;background:white;box-shadow:-4px 0 20px rgba(0,0,0,0.15);z-index:1000;overflow-y:auto;padding:24px;box-sizing:border-box;">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
     <h3 style="margin:0;color:#4a86a8;font-size:18px;">Microsoft 365 Activity</h3>
     <button onclick="toggleMS365()" style="background:none;border:none;font-size:20px;cursor:pointer;color:#666;">✕</button>
-  </div>
+  </div></div>
   <div id="ms365ConnectSection">
     <p style="color:#666;margin-bottom:16px;font-size:14px;">Connect your Microsoft 365 account to track Teams meetings, chats, and Outlook emails.</p>
     <button onclick="connectMS365()" id="ms365ConnectBtn" style="width:100%;background:#4a86a8;color:white;border:none;padding:12px;border-radius:8px;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">
