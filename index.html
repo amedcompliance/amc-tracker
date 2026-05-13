@@ -1762,7 +1762,7 @@ function stopIdleTracking() {
 var MS365_CONFIG = {
   clientId: 'af06f95a-eeef-4b9f-86c0-ce2d2439daea',
   tenantId: '5a4a9eca-309c-4cb9-8916-77ed2bda3f05',
-  scopes: ['User.Read','Calendars.Read','Mail.Read','Chat.Read']
+  scopes: ['User.Read','Calendars.Read','Mail.Read','Chat.Read','OnlineMeetings.Read']
 };
 
 function toggleMS365() {
@@ -1781,13 +1781,35 @@ function connectMS365() {
     '&scope=' + encodeURIComponent(MS365_CONFIG.scopes.join(' ')) +
     '&response_mode=fragment';
   
-  if (MS365_CONFIG.clientId === 'af06f95a-eeef-4b9f-86c0-ce2d2439daea') {
-    alert('Microsoft 365 integration requires Azure AD app registration.\n\nTo activate:\n1. Register app at portal.azure.com\n2. Set Client ID and Tenant ID in the app code\n3. Add redirect URI: ' + location.origin);
-    if (btn) btn.textContent = 'Connect Microsoft 365';
-    return;
-  }
+  // Open OAuth popup - token returned in fragment
+  var popup = window.open(authUrl, 'ms365auth', 'width=520,height=640,scrollbars=yes');
   
-  window.open(authUrl, '_blank', 'width=500,height=600');
+  // Poll for token in popup URL
+  var pollTimer = setInterval(function() {
+    try {
+      if (!popup || popup.closed) {
+        clearInterval(pollTimer);
+        if (btn) btn.textContent = 'Connect Microsoft 365';
+        return;
+      }
+      var popupUrl = popup.location.href;
+      if (popupUrl && popupUrl.indexOf('access_token=') > -1) {
+        clearInterval(pollTimer);
+        popup.close();
+        var hash = popupUrl.split('#')[1] || '';
+        var params = {};
+        hash.split('&').forEach(function(p) {
+          var parts = p.split('=');
+          params[decodeURIComponent(parts[0])] = decodeURIComponent(parts[1] || '');
+        });
+        if (params.access_token) {
+          onMS365Connected(params.access_token);
+        }
+      }
+    } catch(e) {
+      // Cross-origin error means still on Microsoft login page - keep polling
+    }
+  }, 500);
 }
 
 function onMS365Connected(token) {
