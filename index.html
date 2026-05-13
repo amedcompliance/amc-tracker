@@ -1913,9 +1913,13 @@ function doLogout() {
     var emailEl = document.getElementById('loginEmail');
     var pwdEl = document.getElementById('loginPassword');
     var errEl = document.getElementById('loginError');
+    var pwdGroup = document.getElementById('loginPwdGroup');
+    var continueBtn = document.querySelector('#loginStep1 button');
     if (emailEl) emailEl.value = '';
     if (pwdEl) pwdEl.value = '';
     if (errEl) { errEl.textContent = ''; errEl.style.display = 'none'; }
+    if (pwdGroup) pwdGroup.style.display = 'none';
+    if (continueBtn) continueBtn.textContent = 'Continue';
   }
 }
 
