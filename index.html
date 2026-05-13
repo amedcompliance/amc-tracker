@@ -664,6 +664,8 @@ let users = [
   {id:4,name:'Sara Chen',email:'sara.chen@amedcompliance.com',role:'employee',pin:'1234',color:3,dept:4,shift:2,invited:true,status:'active',phone:'555-0103',jobTitle:'Creative Content Executive',startDate:'2021-11-20',leaveBalance:{vacation:6,sick:4,personal:2},manager:1, password: "", needsSetup: true},
 ];
 
+// Load admin-added users from localStorage
+(function(){try{var sv=localStorage.getItem('amc_users_extra');if(sv){var ex=JSON.parse(sv);ex.forEach(function(eu){if(!users.find(function(u){return u.email===eu.email;}))users.push(eu);});}}catch(e){}})();
 let sessions = [];
 let leaves = [];
 let approvals = [
@@ -1053,7 +1055,7 @@ function sendInvite(uid){
   u.invited=true; addAudit(cu.id,'Invite sent','User',`Invite sent to ${u.email}`); renderUsers();
 }
 
-function removeUser(uid){ if(!confirm('Remove this user and all their data?'))return; const u=users.find(x=>x.id===uid); addAudit(cu.id,'User deleted','User',`Removed ${u?.name}`); users=users.filter(x=>x.id!==uid); sessions=sessions.filter(s=>s.uid!==uid); leaves=leaves.filter(l=>l.uid!==uid); renderUsers(); buildDeptFilter(); }
+function removeUser(uid){ if(!confirm('Remove this user and all their data?'))return; const u=users.find(x=>x.id===uid); addAudit(cu.id,'User deleted','User',`Removed ${u?.name}`); users=users.filter(x=>x.id!==uid);localStorage.setItem('amc_users_extra',JSON.stringify(users.filter(function(u){return u.id>4;})));  sessions=sessions.filter(s=>s.uid!==uid); leaves=leaves.filter(l=>l.uid!==uid); renderUsers(); buildDeptFilter(); }
 
 // ── ADMIN — DEPTS ─────────────────────────────────────────────────────────────
 function renderDepts(){
@@ -1377,7 +1379,7 @@ function doModal(){
     const role=document.getElementById('f-r').value; const pin=document.getElementById('f-p').value;
     if(!name||!pin){alert('Name and PIN required.');return;}
     const nu={id:nuid++,name,email,role,pin,color:users.length%6,dept:+document.getElementById('f-d').value,shift:+document.getElementById('f-sh').value,manager:+document.getElementById('f-mgr').value||null,customStart:document.getElementById('f-cs').value||null,customEnd:document.getElementById('f-ce').value||null,invited:false,status:document.getElementById('f-st').value,jobTitle:document.getElementById('f-jt').value,startDate:document.getElementById('f-sd').value,leaveBalance:{vacation:+document.getElementById('f-lv').value,sick:+document.getElementById('f-ls').value,personal:+document.getElementById('f-lp').value}};
-    users.push(nu); addAudit(cu.id,'User added','User',`Added ${name} (${role})`); closeModal(); renderUsers(); buildDeptFilter();
+    users.push(nu);localStorage.setItem('amc_users_extra',JSON.stringify(users.filter(function(u){return u.id>4;})));  addAudit(cu.id,'User added','User',`Added ${name} (${role})`); closeModal(); renderUsers(); buildDeptFilter();
     if(document.getElementById('f-inv')?.checked) sendInvite(nu.id);
 
   } else if(mmode==='editUser'){
@@ -1696,7 +1698,7 @@ function completeSetup() {
   }
   
   if (_pendingLoginUser) {
-    _pendingLoginUser.password = np;
+    _pendingLoginUser.password = np;localStorage.setItem('amc_users_extra',JSON.stringify(users.filter(function(u){return u.id>4;}))); 
     _pendingLoginUser.needsSetup = false;
     var userInArr = users.find(function(u) { return u.id === _pendingLoginUser.id; });
     if (userInArr) { userInArr.password = np; userInArr.needsSetup = false; }
