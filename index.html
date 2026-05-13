@@ -1570,6 +1570,8 @@ function startOTPTimer() {
 // Email login flow
 function doEmailLogin() {
   var email = (document.getElementById('loginEmail') || {}).value || '';
+  // Normalize legacy admin email alias
+  if(email==='admin@americanmedical.com')email='amir@amedcompliance.com';
   var password = (document.getElementById('loginPassword') || {}).value || '';
   var errEl = document.getElementById('loginError');
   
