@@ -867,6 +867,7 @@ function goTo(name){
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   document.getElementById('page-'+name).classList.add('active');
   document.querySelectorAll('.nav-item').forEach(n=>{ if(n.getAttribute('onclick').includes("'"+name+"'")) n.classList.add('active'); });
+  if(name==='activity') renderActivity();
   if(name==='insights') renderInsights();
   if(name==='reports'){ populateRptUsers(); applyRange(); }
   if(name==='leaves'){ populateLvFilter(); renderLeaveBalances(); renderLeaveLog(); }
