@@ -732,7 +732,7 @@ async function amcAddUserToCode(newUser) {
       headers: {'Authorization':'token ' + pat,'Accept':'application/vnd.github.v3+json'}
     });
     const fileData = await fileResp.json();
-    const currentHTML = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g,''))));
+    const currentHTML = decodeURIComponent(escape(atob(fileData.content.split('\n').join(''))));
     const currentSha = fileData.sha;
     const insertMarker = '\n];\n// \u2500\u2500 ADD USER TO SOURCE CODE';
     const insertPos = currentHTML.indexOf(insertMarker);
@@ -772,7 +772,7 @@ async function amcRemoveUserFromCode(uid) {
       headers: {'Authorization':'token ' + pat,'Accept':'application/vnd.github.v3+json'}
     });
     const fileData = await fileResp.json();
-    const currentHTML = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g,''))));
+    const currentHTML = decodeURIComponent(escape(atob(fileData.content.split('\n').join(''))));
     const currentSha = fileData.sha;
     const entryRegex = new RegExp('\\n\\{id:' + uid + ',[^\\n]+needsSetup: true\\},', 'g');
     const newHTML3 = currentHTML.replace(entryRegex, '');
@@ -1012,8 +1012,7 @@ function syncSessionsToGitHub(){
   }).then(function(r){ return r.json(); }).then(function(data){
     var existing = [];
     if(data.content){
-      try { existing = JSON.parse(atob(data.content.replace(/
-/g,''))); } catch(e){}
+      try { existing = JSON.parse(atob(data.content.split('\n').join(''))); } catch(e){}
     }
     // Merge: replace sessions for current user, keep others
     var mySessions = sessions.filter(function(s){return s.uid===cu.id;}).map(function(s){
