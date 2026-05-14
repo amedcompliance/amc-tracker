@@ -1125,7 +1125,7 @@ function renderActivity(){
     html += '</tbody></table></div>';
     
     // Add refresh button
-    html = '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px"><div style="font-size:13px;color:var(--text2)">This week's performance</div><button onclick="fetchSessionsFromGitHub && fetchSessionsFromGitHub();setTimeout(renderActivity,1500)" class="btn btn-outline" style="font-size:12px;padding:5px 12px">↻ Refresh</button></div>' + html;
+    html = '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px"><div style="font-size:13px;color:var(--text2)">This week performance</div><button onclick="fetchSessionsFromGitHub && fetchSessionsFromGitHub();setTimeout(renderActivity,1500)" class="btn btn-outline" style="font-size:12px;padding:5px 12px">↻ Refresh</button></div>' + html;
     
     el.innerHTML = html;
     return;
