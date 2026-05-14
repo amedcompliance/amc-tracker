@@ -662,6 +662,7 @@ let users = [
   {id:2,name:'Dr. Alice Johnson',email:'alice.johnson@amedcompliance.com',role:'manager',pin:'1234',color:1,dept:1,shift:1,invited:true,status:'active',phone:'555-0101',jobTitle:'Director of Global Operations',startDate:'2021-03-01',leaveBalance:{vacation:6,sick:4,personal:2},manager:1, password: "", needsSetup: true},
   {id:3,name:'Bob Martinez',email:'bob.martinez@amedcompliance.com',role:'employee',pin:'1234',color:2,dept:3,shift:1,invited:false,status:'active',phone:'555-0102',jobTitle:'Senior e-Learning Developer',startDate:'2022-06-10',leaveBalance:{vacation:6,sick:4,personal:2},manager:1, password: "", needsSetup: true},
   {id:4,name:'Sara Chen',email:'sara.chen@amedcompliance.com',role:'employee',pin:'1234',color:3,dept:4,shift:2,invited:true,status:'active',phone:'555-0103',jobTitle:'Creative Content Executive',startDate:'2021-11-20',leaveBalance:{vacation:6,sick:4,personal:2},manager:1, password: "", needsSetup: true},
+{id:5,name:'Czarina Magana',email:'czarina.magana@amedcompliance.com',role:'employee',pin:'1234',color:4,dept:1,shift:1,invited:true,status:'active',phone:'',jobTitle:'',startDate:'2026-05-13',leaveBalance:{vacation:6,sick:4,personal:2},manager:1, password: "", needsSetup: true},
 ];
 
 // Load admin-added users from localStorage
@@ -676,7 +677,7 @@ let auditLog = [
   {id:1,uid:1,action:'System initialized',category:'System',detail:'AMC Time Tracker deployed',ts:new Date()},
 ];
 
-let nuid=5,nsid=1,nlid=1,nhid=14,napid=3,naudid=2;
+let nuid=6,nsid=1,nlid=1,nhid=14,napid=3,naudid=2;
 let cu=null, tInt=null, ssInt=null, secs=0, running=false, stream=null, screenOk=false, curSess=null;
 let pieO=null, barO=null, rptBarO=null;
 let mmode='', medit=null, webhookUrl='', activeAlerts=[];
