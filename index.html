@@ -665,8 +665,85 @@ let users = [
 {id:5,name:'Czarina Magana',email:'czarina.magana@amedcompliance.com',role:'employee',pin:'1234',color:4,dept:1,shift:1,invited:true,status:'active',phone:'',jobTitle:'',startDate:'2026-05-13',leaveBalance:{vacation:6,sick:4,personal:2},manager:1, password: "", needsSetup: true},
 ];
 
-// Load admin-added users from localStorage
+// ── CLOUD USER SYNC via GitHub ────────────────────────────────────────────────
+// Users are stored in users.json in the same GitHub repo.
+// Any device reads from raw.githubusercontent.com (no auth needed).
+// Admin writes via GitHub API using a fine-grained PAT.
+var AMC_GITHUB_OWNER = 'amedcompliance';
+var AMC_GITHUB_REPO = 'amc-tracker';
+var AMC_GITHUB_FILE = 'users.json';
+var AMC_GITHUB_BRANCH = 'main';
+// GitHub PAT is stored in admin's localStorage as "amc_github_pat"
+
+// Load admin-added users from localStorage (immediate, for same-browser sessions)
 (function(){try{var sv=localStorage.getItem('amc_users_extra');if(sv){var ex=JSON.parse(sv);ex.forEach(function(eu){if(!users.find(function(u){return u.email===eu.email;}))users.push(eu);});}}catch(e){}})();
+
+// Read users from GitHub raw (works on all devices, no auth)
+async function amcSyncUsersFromCloud() {
+  try {
+    const url = 'https://raw.githubusercontent.com/' + AMC_GITHUB_OWNER + '/' + AMC_GITHUB_REPO + '/' + AMC_GITHUB_BRANCH + '/' + AMC_GITHUB_FILE + '?t=' + Date.now();
+    const r = await fetch(url);
+    if (!r.ok) return;
+    const data = await r.json();
+    const cloudUsers = data.users || [];
+    const pwdOverrides = data.pwdOverrides || [];
+    // Apply password overrides for ALL users (including hardcoded ones like Czarina)
+    pwdOverrides.forEach(function(ov) {
+      const u = users.find(function(x) { return x.email === ov.email; });
+      if (u && ov.password) { u.password = ov.password; u.needsSetup = ov.needsSetup; }
+    });
+    // Add any cloud-only extra users
+    cloudUsers.forEach(function(eu) {
+      const existing = users.find(function(x) { return x.email === eu.email; });
+      if (!existing) {
+        users.push(eu);
+      } else {
+        if (eu.password && !existing.password) { existing.password = eu.password; existing.needsSetup = eu.needsSetup; }
+        if (eu.needsSetup === false) existing.needsSetup = false;
+      }
+    });
+    try { localStorage.setItem('amc_users_extra', JSON.stringify(users.filter(function(u){return u.id>5;}))); } catch(e){}
+  } catch(e) { console.log('Cloud read failed, using local cache:', e.message); }
+}
+
+// Save users to GitHub (admin only - requires GitHub PAT stored in localStorage)
+async function amcSaveUsersToCloud() {
+  const extraUsers = users.filter(function(u){ return u.id > 5; });
+  const pwdOverrides = users.map(function(u){ return { email: u.email, password: u.password||'', needsSetup: !!u.needsSetup }; });
+  const payload = { users: extraUsers, pwdOverrides: pwdOverrides, updated: new Date().toISOString() };
+  try { localStorage.setItem('amc_users_extra', JSON.stringify(extraUsers)); } catch(e){}
+  try {
+    const pat = localStorage.getItem('amc_github_pat') || '';
+    if (!pat) {
+      console.log('No GitHub PAT set - users saved locally only. Cloud sync disabled.');
+      return;
+    }
+    const getR = await fetch('https://api.github.com/repos/' + AMC_GITHUB_OWNER + '/' + AMC_GITHUB_REPO + '/contents/' + AMC_GITHUB_FILE, {
+      headers: { 'Authorization': 'Bearer ' + pat, 'Accept': 'application/vnd.github.v3+json' }
+    });
+    let sha = '';
+    if (getR.ok) { const gd = await getR.json(); sha = gd.sha || ''; }
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(payload, null, 2))));
+    const body = { message: 'AMC Tracker: sync users ' + new Date().toISOString().slice(0,10), content: content, branch: AMC_GITHUB_BRANCH };
+    if (sha) body.sha = sha;
+    const putR = await fetch('https://api.github.com/repos/' + AMC_GITHUB_OWNER + '/' + AMC_GITHUB_REPO + '/contents/' + AMC_GITHUB_FILE, {
+      method: 'PUT',
+      headers: { 'Authorization': 'Bearer ' + pat, 'Content-Type': 'application/json', 'Accept': 'application/vnd.github.v3+json' },
+      body: JSON.stringify(body)
+    });
+    if (putR.ok) {
+      console.log('Users synced to cloud successfully');
+      // Show brief success notice in admin panel
+      const notice = document.createElement('div');
+      notice.style.cssText = 'position:fixed;bottom:80px;right:20px;background:#16A34A;color:white;padding:10px 16px;border-radius:8px;font-size:13px;z-index:9999;';
+      notice.textContent = '✓ User list synced to cloud';
+      document.body.appendChild(notice);
+      setTimeout(function(){ notice.remove(); }, 3000);
+    } else {
+      console.log('Cloud sync failed:', putR.status);
+    }
+  } catch(e) { console.log('Cloud save failed:', e.message); }
+}
 let sessions = [];
 let leaves = [];
 let approvals = [
@@ -1056,7 +1133,7 @@ function sendInvite(uid){
   u.invited=true; addAudit(cu.id,'Invite sent','User',`Invite sent to ${u.email}`); renderUsers();
 }
 
-function removeUser(uid){ if(!confirm('Remove this user and all their data?'))return; const u=users.find(x=>x.id===uid); addAudit(cu.id,'User deleted','User',`Removed ${u?.name}`); users=users.filter(x=>x.id!==uid);localStorage.setItem('amc_users_extra',JSON.stringify(users.filter(function(u){return u.id>4;})));  sessions=sessions.filter(s=>s.uid!==uid); leaves=leaves.filter(l=>l.uid!==uid); renderUsers(); buildDeptFilter(); }
+function removeUser(uid){ if(!confirm('Remove this user and all their data?'))return; const u=users.find(x=>x.id===uid); addAudit(cu.id,'User deleted','User',`Removed ${u?.name}`); users=users.filter(x=>x.id!==uid);localStorage.setItem('amc_users_extra',JSON.stringify(users.filter(function(u){return u.id>5;})));amcSaveUsersToCloud();  sessions=sessions.filter(s=>s.uid!==uid); leaves=leaves.filter(l=>l.uid!==uid); renderUsers(); buildDeptFilter(); }
 
 // ── ADMIN — DEPTS ─────────────────────────────────────────────────────────────
 function renderDepts(){
@@ -1380,7 +1457,7 @@ function doModal(){
     const role=document.getElementById('f-r').value; const pin=document.getElementById('f-p').value;
     if(!name||!pin){alert('Name and PIN required.');return;}
     const nu={id:nuid++,name,email,role,pin,color:users.length%6,dept:+document.getElementById('f-d').value,shift:+document.getElementById('f-sh').value,manager:+document.getElementById('f-mgr').value||null,customStart:document.getElementById('f-cs').value||null,customEnd:document.getElementById('f-ce').value||null,invited:false,status:document.getElementById('f-st').value,jobTitle:document.getElementById('f-jt').value,startDate:document.getElementById('f-sd').value,leaveBalance:{vacation:+document.getElementById('f-lv').value,sick:+document.getElementById('f-ls').value,personal:+document.getElementById('f-lp').value},password:'',needsSetup:true};
-    users.push(nu);localStorage.setItem('amc_users_extra',JSON.stringify(users.filter(function(u){return u.id>4;})));  addAudit(cu.id,'User added','User',`Added ${name} (${role})`); closeModal(); renderUsers(); buildDeptFilter();
+    users.push(nu);localStorage.setItem('amc_users_extra',JSON.stringify(users.filter(function(u){return u.id>5;})));amcSaveUsersToCloud();  addAudit(cu.id,'User added','User',`Added ${name} (${role})`); closeModal(); renderUsers(); buildDeptFilter();
     if(document.getElementById('f-inv')?.checked) sendInvite(nu.id);
 
   } else if(mmode==='editUser'){
@@ -1699,7 +1776,7 @@ function completeSetup() {
   }
   
   if (_pendingLoginUser) {
-    _pendingLoginUser.password = np;localStorage.setItem('amc_users_extra',JSON.stringify(users.filter(function(u){return u.id>4;}))); 
+    _pendingLoginUser.password = np;amcSaveUsersToCloud();localStorage.setItem('amc_users_extra',JSON.stringify(users.filter(function(u){return u.id>5;}))); 
     _pendingLoginUser.needsSetup = false;
     var userInArr = users.find(function(u) { return u.id === _pendingLoginUser.id; });
     if (userInArr) { userInArr.password = np; userInArr.needsSetup = false; }
@@ -1928,6 +2005,8 @@ function doLogout() {
 window.addEventListener('DOMContentLoaded', function() {
   var ls = document.getElementById('loginScreen');
   if (ls) ls.style.display = 'flex';
+  // Sync users from cloud on startup so any device gets all users
+  setTimeout(function(){ amcSyncUsersFromCloud(); }, 500);
 });
 
 // ==================== END AMC NEW AUTH SYSTEM ====================
