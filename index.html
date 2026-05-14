@@ -248,7 +248,7 @@ tr:hover td{background:var(--surface2)}
         <label style="display:block;font-size:13px;font-weight:600;color:#555;margin-bottom:6px;">Password</label>
         <div style="position:relative;">
           <input type="password" id="loginPassword" placeholder="Enter password" style="width:100%;padding:12px;padding-right:44px;border:2px solid #e0e0e0;border-radius:8px;font-size:15px;box-sizing:border-box;outline:none;transition:border 0.2s;" onfocus="this.style.borderColor='#4a86a8'" onblur="this.style.borderColor='#e0e0e0'" onkeydown="if(event.key==='Enter')handleLoginContinue()"/>
-          <button onclick="togglePwdVis('loginPassword',this)" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#888;font-size:18px;">👁</button>
+          <button onclick="togglePwdVis('loginPassword',this)" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#888;font-size:18px;">ð</button>
         </div>
         <div id="pwdStrength" style="font-size:12px;margin-top:4px;height:16px;"></div>
       </div>
@@ -259,7 +259,7 @@ tr:hover td{background:var(--surface2)}
     <!-- Step 2: OTP Verification -->
     <div id="loginStep2" style="display:none;">
       <div style="background:#e8f1f7;border-radius:8px;padding:12px;margin-bottom:16px;font-size:13px;color:#2d6080;">
-        📧 A verification code has been sent to <strong id="otpEmailDisplay"></strong>
+        ð§ A verification code has been sent to <strong id="otpEmailDisplay"></strong>
       </div>
       <div id="otpInputGroup" style="display:block;margin-bottom:16px;text-align:left;">
         <label style="display:block;font-size:13px;font-weight:600;color:#555;margin-bottom:6px;">Verification Code</label>
@@ -273,7 +273,7 @@ tr:hover td{background:var(--surface2)}
     
     <!-- Step 3: First-time password setup -->
     <div id="loginStep3" style="display:none;">
-      <p style="color:#444;font-size:14px;margin-bottom:20px;text-align:center;font-weight:500;">👋 Welcome! Create a password to access your account.<br><small style="color:#888;">Must be at least 6 characters with 1 uppercase, 1 lowercase, and 1 symbol.</small></p>
+      <p style="color:#444;font-size:14px;margin-bottom:20px;text-align:center;font-weight:500;">ð Welcome! Create a password to access your account.<br><small style="color:#888;">Must be at least 6 characters with 1 uppercase, 1 lowercase, and 1 symbol.</small></p>
       <div style="margin-bottom:12px;text-align:left;">
         <label style="display:block;font-size:13px;font-weight:600;color:#555;margin-bottom:6px;">New Password</label>
         <input type="password" id="newPwd" placeholder="At least 6 chars, 1 upper, 1 lower, 1 symbol" style="width:100%;padding:12px;border:2px solid #e0e0e0;border-radius:8px;font-size:14px;box-sizing:border-box;outline:none;" onfocus="this.style.borderColor='#4a86a8'" onblur="this.style.borderColor='#e0e0e0'"/>
@@ -283,7 +283,7 @@ tr:hover td{background:var(--surface2)}
         <input type="password" id="confirmPwd" placeholder="Repeat your password" style="width:100%;padding:12px;border:2px solid #e0e0e0;border-radius:8px;font-size:14px;box-sizing:border-box;outline:none;" onfocus="this.style.borderColor='#4a86a8'" onblur="this.style.borderColor='#e0e0e0'"/>
       </div>
       <div style="text-align:left;font-size:12px;color:#888;margin-bottom:16px;">
-        ✓ Min 6 characters &nbsp; ✓ 1 uppercase &nbsp; ✓ 1 lowercase &nbsp; ✓ 1 symbol
+        â Min 6 characters &nbsp; â 1 uppercase &nbsp; â 1 lowercase &nbsp; â 1 symbol
       </div>
       <div id="setupError" style="color:#e74c3c;font-size:13px;margin-bottom:12px;display:none;"></div>
       <button onclick="completeSetup()" style="width:100%;background:#4a86a8;color:white;border:none;padding:14px;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer;">Set Password & Login</button>
@@ -363,7 +363,7 @@ tr:hover td{background:var(--surface2)}
     <div class="metric"><div class="metric-label">Today</div><div class="metric-value" id="m-today">0h 0m</div><div class="metric-sub">tracked</div></div>
     <div class="metric"><div class="metric-label">Sessions</div><div class="metric-value" id="m-sessions">0</div><div class="metric-sub">today</div></div>
     <div class="metric"><div class="metric-label">This week</div><div class="metric-value" id="m-week">0h 0m</div><div class="metric-sub">tracked</div></div>
-    <div class="metric"><div class="metric-label">Leave balance</div><div class="metric-value" id="m-leave">—</div><div class="metric-sub">days remaining</div></div>
+    <div class="metric"><div class="metric-label">Leave balance</div><div class="metric-value" id="m-leave">â</div><div class="metric-sub">days remaining</div></div>
   </div>
 </div>
 
@@ -380,7 +380,7 @@ tr:hover td{background:var(--surface2)}
     <div class="metric"><div class="metric-label">Today</div><div class="metric-value" id="i-today">0h 0m</div></div>
     <div class="metric"><div class="metric-label">This week</div><div class="metric-value" id="i-week">0h 0m</div></div>
     <div class="metric"><div class="metric-label">Daily avg</div><div class="metric-value" id="i-avg">0h 0m</div></div>
-    <div class="metric"><div class="metric-label">Top project</div><div class="metric-value" style="font-size:15px" id="i-top">—</div></div>
+    <div class="metric"><div class="metric-label">Top project</div><div class="metric-value" style="font-size:15px" id="i-top">â</div></div>
   </div>
   <div class="card">
     <div class="card-title">Time by project</div>
@@ -388,7 +388,7 @@ tr:hover td{background:var(--surface2)}
     <div style="position:relative;width:100%;height:200px;margin-top:16px"><canvas id="pieChart" role="img" aria-label="Time by project doughnut chart">No data.</canvas></div>
   </div>
   <div class="card">
-    <div class="card-title">Daily hours — last 7 days</div>
+    <div class="card-title">Daily hours â last 7 days</div>
     <div style="position:relative;width:100%;height:220px"><canvas id="barChart" role="img" aria-label="Daily hours bar chart">No data.</canvas></div>
   </div>
 </div>
@@ -612,7 +612,7 @@ tr:hover td{background:var(--surface2)}
 </div>
 </div>
 
-<script>// ── DATA ──────────────────────────────────────────────────────────────────────
+<script>// ââ DATA ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 const SHAREPOINT = 'https://americanmedical.sharepoint.com/:f:/s/AMCdata/IgAOUGFK5WryRJg0l0L7kH2wAVpFB3sH4n4ykFYRlaoa5ME?e=3mUcRe';
 const AV_COLORS = [['#E1F5EE','#0F6E56'],['#E6F1FB','#185FA5'],['#EEEDFE','#4C1D95'],['#FAEEDA','#92400E'],['#FAECE7','#9B2C13'],['#EAF3DE','#14532D']];
 const CHART_COLORS = ['#4a86a8','#2563EB','#D97706','#7C3AED','#E14B2A','#16A34A','#DC2626'];
@@ -664,105 +664,76 @@ let users = [
   {id:4,name:'Sara Chen',email:'sara.chen@amedcompliance.com',role:'employee',pin:'1234',color:3,dept:4,shift:2,invited:true,status:'active',phone:'555-0103',jobTitle:'Creative Content Executive',startDate:'2021-11-20',leaveBalance:{vacation:6,sick:4,personal:2},manager:1, password: "", needsSetup: true},
 {id:5,name:'Czarina Magana',email:'czarina.magana@amedcompliance.com',role:'employee',pin:'1234',color:4,dept:1,shift:1,invited:true,status:'active',phone:'',jobTitle:'',startDate:'2026-05-13',leaveBalance:{vacation:6,sick:4,personal:2},manager:1, password: "", needsSetup: true},
 ];
-
-// ── CLOUD USER SYNC via GitHub ────────────────────────────────────────────────
-// Users are stored in users.json in the same GitHub repo.
-// Any device reads from raw.githubusercontent.com (no auth needed).
-// Admin writes via GitHub API using a fine-grained PAT.
-var AMC_GITHUB_OWNER = 'amedcompliance';
-var AMC_GITHUB_REPO = 'amc-tracker';
-var AMC_GITHUB_FILE = 'users.json';
-var AMC_GITHUB_BRANCH = 'main';
-// GitHub PAT is stored in admin's localStorage as "amc_github_pat"
-
-// Load admin-added users from localStorage (immediate, for same-browser sessions)
-(function(){try{var sv=localStorage.getItem('amc_users_extra');if(sv){var ex=JSON.parse(sv);ex.forEach(function(eu){if(!users.find(function(u){return u.email===eu.email;}))users.push(eu);});}}catch(e){}})();
-
-// Read users from GitHub raw (works on all devices, no auth)
-async function amcSyncUsersFromCloud() {
+// ── ADD USER TO SOURCE CODE via GitHub API ──────────────────
+// When admin adds a user, this patches index.html directly in GitHub
+// so the user is hardcoded and works on ALL devices after ~30s deploy
+async function amcAddUserToCode(newUser) {
+  const pat = localStorage.getItem('amc_github_pat');
+  if (!pat) return;
   try {
-    const url = 'https://raw.githubusercontent.com/' + AMC_GITHUB_OWNER + '/' + AMC_GITHUB_REPO + '/' + AMC_GITHUB_BRANCH + '/' + AMC_GITHUB_FILE + '?t=' + Date.now();
-    const r = await fetch(url);
-    if (!r.ok) return;
-    const data = await r.json();
-    const cloudUsers = data.users || [];
-    const pwdOverrides = data.pwdOverrides || [];
-    // Apply password overrides for ALL users (including hardcoded ones like Czarina)
-    pwdOverrides.forEach(function(ov) {
-      const u = users.find(function(x) { return x.email === ov.email; });
-      if (u && ov.password) { u.password = ov.password; u.needsSetup = ov.needsSetup; }
+    const owner = 'amedcompliance', repo = 'amc-tracker', file = 'index.html';
+    const fileResp = await fetch('https://api.github.com/repos/' + owner + '/' + repo + '/contents/' + file, {
+      headers: {'Authorization':'token ' + pat,'Accept':'application/vnd.github.v3+json'}
     });
-    // Add any cloud-only extra users
-    cloudUsers.forEach(function(eu) {
-      const existing = users.find(function(x) { return x.email === eu.email; });
-      if (!existing) {
-        users.push(eu);
-      } else {
-        if (eu.password && !existing.password) { existing.password = eu.password; existing.needsSetup = eu.needsSetup; }
-        if (eu.needsSetup === false) existing.needsSetup = false;
-      }
+    const fileData = await fileResp.json();
+    const currentHTML = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g,''))));
+    const currentSha = fileData.sha;
+    const insertMarker = '\n];\n// \u2500\u2500 ADD USER TO SOURCE CODE';
+    const insertPos = currentHTML.indexOf(insertMarker);
+    if (insertPos === -1) { console.warn('AMC: Could not find insert marker'); return; }
+    const u = newUser;
+    const today = new Date().toISOString().slice(0,10);
+    const newEntry = '\n{id:' + u.id + ',name:\'' + u.name.replace(/'/g,"\\'") + '\',email:\'' + u.email + '\',role:\'' + u.role + '\',pin:\'' + (u.pin||'1234') + '\',color:' + ((u.id-1)%8) + ',dept:' + (u.dept||1) + ',shift:' + (u.shift||1) + ',invited:true,status:\'active\',phone:\'\',jobTitle:\'\',startDate:\'' + today + '\',leaveBalance:{vacation:6,sick:4,personal:2},manager:1, password: "", needsSetup: true},';
+    const newHTML2 = currentHTML.substring(0, insertPos) + newEntry + currentHTML.substring(insertPos);
+    const nuOld = 'let nuid=' + (u.id) + ',';
+    const nuNew = 'let nuid=' + (u.id + 1) + ',';
+    const finalHTML2 = newHTML2.replace(nuOld, nuNew);
+    const body = JSON.stringify({
+      message: 'Add user: ' + u.name,
+      content: btoa(unescape(encodeURIComponent(finalHTML2))),
+      sha: currentSha
     });
-    try { localStorage.setItem('amc_users_extra', JSON.stringify(users.filter(function(u){return u.id>5;}))); } catch(e){}
-  } catch(e) { console.log('Cloud read failed, using local cache:', e.message); }
-}
-
-// Save users to GitHub (admin only - requires GitHub PAT stored in localStorage)
-async function amcSaveUsersToCloud() {
-  const extraUsers = users.filter(function(u){ return u.id > 5; });
-  const pwdOverrides = users.map(function(u){ return { email: u.email, password: u.password||'', needsSetup: !!u.needsSetup }; });
-  const payload = { users: extraUsers, pwdOverrides: pwdOverrides, updated: new Date().toISOString() };
-  try { localStorage.setItem('amc_users_extra', JSON.stringify(extraUsers)); } catch(e){}
-  try {
-    const pat = localStorage.getItem('amc_github_pat') || '';
-    if (!pat) {
-      console.log('No GitHub PAT set - users saved locally only. Cloud sync disabled.');
-      return;
-    }
-    const getR = await fetch('https://api.github.com/repos/' + AMC_GITHUB_OWNER + '/' + AMC_GITHUB_REPO + '/contents/' + AMC_GITHUB_FILE, {
-      headers: { 'Authorization': 'Bearer ' + pat, 'Accept': 'application/vnd.github.v3+json' }
-    });
-    let sha = '';
-    if (getR.ok) { const gd = await getR.json(); sha = gd.sha || ''; }
-    const content = btoa(unescape(encodeURIComponent(JSON.stringify(payload, null, 2))));
-    const body = { message: 'AMC Tracker: sync users ' + new Date().toISOString().slice(0,10), content: content, branch: AMC_GITHUB_BRANCH };
-    if (sha) body.sha = sha;
-    const putR = await fetch('https://api.github.com/repos/' + AMC_GITHUB_OWNER + '/' + AMC_GITHUB_REPO + '/contents/' + AMC_GITHUB_FILE, {
+    const putResp = await fetch('https://api.github.com/repos/' + owner + '/' + repo + '/contents/' + file, {
       method: 'PUT',
-      headers: { 'Authorization': 'Bearer ' + pat, 'Content-Type': 'application/json', 'Accept': 'application/vnd.github.v3+json' },
-      body: JSON.stringify(body)
+      headers: {'Authorization':'token ' + pat,'Content-Type':'application/json','Accept':'application/vnd.github.v3+json'},
+      body: body
     });
-    if (putR.ok) {
-      console.log('Users synced to cloud successfully');
-      // Show brief success notice in admin panel
-      const notice = document.createElement('div');
-      notice.style.cssText = 'position:fixed;bottom:80px;right:20px;background:#16A34A;color:white;padding:10px 16px;border-radius:8px;font-size:13px;z-index:9999;';
-      notice.textContent = '✓ User list synced to cloud';
-      document.body.appendChild(notice);
-      setTimeout(function(){ notice.remove(); }, 3000);
+    if (putResp.ok) {
+      showToast('\u2713 User added - will be available on all devices in ~30 seconds', 'success');
     } else {
-      console.log('Cloud sync failed:', putR.status);
+      const err = await putResp.json();
+      console.warn('AMC GitHub patch failed:', err.message);
     }
-  } catch(e) { console.log('Cloud save failed:', e.message); }
+  } catch(e) { console.warn('AMC add user to code error:', e); }
 }
-let sessions = [];
-let leaves = [];
-let approvals = [
-  {id:1,uid:3,type:'Leave request',detail:'Vacation 2025-06-02 to 2025-06-06 (5 days)',status:'pending',submitted:todayStr()},
-  {id:2,uid:4,type:'Overtime',detail:'3h overtime on 2025-05-20 — billing deadline',status:'pending',submitted:todayStr()},
-];
-let auditLog = [
-  {id:1,uid:1,action:'System initialized',category:'System',detail:'AMC Time Tracker deployed',ts:new Date()},
-];
 
-let nuid=6,nsid=1,nlid=1,nhid=14,napid=3,naudid=2;
-let cu=null, tInt=null, ssInt=null, secs=0, running=false, stream=null, screenOk=false, curSess=null;
-let pieO=null, barO=null, rptBarO=null;
-let mmode='', medit=null, webhookUrl='', activeAlerts=[];
+async function amcRemoveUserFromCode(uid) {
+  const pat = localStorage.getItem('amc_github_pat');
+  if (!pat) return;
+  try {
+    const owner = 'amedcompliance', repo = 'amc-tracker', file = 'index.html';
+    const fileResp = await fetch('https://api.github.com/repos/' + owner + '/' + repo + '/contents/' + file, {
+      headers: {'Authorization':'token ' + pat,'Accept':'application/vnd.github.v3+json'}
+    });
+    const fileData = await fileResp.json();
+    const currentHTML = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g,''))));
+    const currentSha = fileData.sha;
+    const entryRegex = new RegExp('\\n\\{id:' + uid + ',[^\\n]+needsSetup: true\\},', 'g');
+    const newHTML3 = currentHTML.replace(entryRegex, '');
+    const body = JSON.stringify({
+      message: 'Remove user id:' + uid,
+      content: btoa(unescape(encodeURIComponent(newHTML3))),
+      sha: currentSha
+    });
+    await fetch('https://api.github.com/repos/' + owner + '/' + repo + '/contents/' + file, {
+      method: 'PUT',
+      headers: {'Authorization':'token ' + pat,'Content-Type':'application/json','Accept':'application/vnd.github.v3+json'},
+      body: body
+    });
+  } catch(e) { console.warn('AMC remove user from code error:', e); }
+}
 
-// ── HELPERS ───────────────────────────────────────────────────────────────────
-const pad = n => String(n).padStart(2,'0');
-const fmtS = s => { const h=Math.floor(s/3600),m=Math.floor((s%3600)/60),sc=s%60; return `${pad(h)}:${pad(m)}:${pad(sc)}`; };
-const fmtHM = s => `${Math.floor(s/3600)}h ${Math.floor((s%3600)/60)}m`;
+
 function todayStr(){ return new Date().toISOString().slice(0,10); }
 const ini = n => n.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
 const avStyle = i => { const c=AV_COLORS[i%AV_COLORS.length]; return `background:${c[0]};color:${c[1]}`; };
@@ -775,7 +746,7 @@ function dateRange(from,to){
 function mondayOf(d){ const dt=new Date(d); const day=dt.getDay()||7; dt.setDate(dt.getDate()-day+1); return dt.toISOString().slice(0,10); }
 function addDays(d,n){ const dt=new Date(d); dt.setDate(dt.getDate()+n); return dt.toISOString().slice(0,10); }
 
-// ── LOGIN ─────────────────────────────────────────────────────────────────────
+// ââ LOGIN âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function buildLoginSelect(){
   document.getElementById('loginSelect').innerHTML = users.map(u=>`<option value="${u.id}">${u.name}</option>`).join('');
 }
@@ -810,7 +781,7 @@ function doLogout(){
   buildLoginSelect();
 }
 
-// ── NAVIGATION ────────────────────────────────────────────────────────────────
+// ââ NAVIGATION ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function goTo(name){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
@@ -832,7 +803,7 @@ function showInner(page, sec){
   const el = document.getElementById(`${page}-${sec}`); if(el) el.classList.add('active');
 }
 
-// ── TIMER ─────────────────────────────────────────────────────────────────────
+// ââ TIMER âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 async function startTimer(){
   const proj = document.getElementById('projInput').value.trim()||'Untitled';
   const cat = document.getElementById('catSelect').value;
@@ -894,7 +865,7 @@ function updateMetrics(){
   const lb=cu.leaveBalance||{}; document.getElementById('m-leave').textContent=(lb.vacation||0)+(lb.sick||0)+(lb.personal||0);
 }
 
-// ── ACTIVITY ──────────────────────────────────────────────────────────────────
+// ââ ACTIVITY ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 const CAT_BADGE = {Work:'badge-teal',Design:'badge-blue',Dev:'badge-blue',Meeting:'badge-amber',Admin:'badge-teal',Break:'badge-gray'};
 
 function renderActivity(){
@@ -909,7 +880,7 @@ function renderActivity(){
     return `<div style="display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)">
       <div style="flex:1;min-width:0">
         <div style="font-size:13px;font-weight:500;margin-bottom:3px">${s.project} <span class="badge ${CAT_BADGE[s.category]||'badge-gray'}">${s.category}</span>${mb}</div>
-        <div style="font-size:12px;color:var(--text2)">${ds} · ${ts}</div>
+        <div style="font-size:12px;color:var(--text2)">${ds} Â· ${ts}</div>
         ${thumbs?'<div class="ss-strip">'+thumbs+'</div>':''}
       </div>
       <div style="font-family:var(--mono);font-size:13px;font-weight:500;white-space:nowrap">${fmtS(s.duration||0)}</div>
@@ -917,10 +888,10 @@ function renderActivity(){
   }).join('');
 }
 
-function openSS(sid,ji){ const s=sessions.find(x=>x.id===sid); if(!s)return; const sc=s.screenshots[ji]; document.getElementById('ssImg').src=sc.url; document.getElementById('ssMeta').textContent=s.project+' · '+new Date(sc.time).toLocaleString(); document.getElementById('ssTitle').textContent='Screenshot — '+s.project; document.getElementById('ssOverlay').classList.add('open'); }
+function openSS(sid,ji){ const s=sessions.find(x=>x.id===sid); if(!s)return; const sc=s.screenshots[ji]; document.getElementById('ssImg').src=sc.url; document.getElementById('ssMeta').textContent=s.project+' Â· '+new Date(sc.time).toLocaleString(); document.getElementById('ssTitle').textContent='Screenshot â '+s.project; document.getElementById('ssOverlay').classList.add('open'); }
 function closeSS(){ document.getElementById('ssOverlay').classList.remove('open'); }
 
-// ── INSIGHTS ──────────────────────────────────────────────────────────────────
+// ââ INSIGHTS ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function renderInsights(){
   if(!cu) return;
   const td=todayStr(); const now=new Date(); const wa=new Date(now-7*24*3600*1000);
@@ -931,7 +902,7 @@ function renderInsights(){
   document.getElementById('i-week').textContent=fmtHM(wk);
   document.getElementById('i-avg').textContent=fmtHM(Math.round(wk/Math.min(ad,7)));
   const ps=Object.entries(pm).sort((a,b)=>b[1]-a[1]);
-  document.getElementById('i-top').textContent=ps[0]?ps[0][0]:'—';
+  document.getElementById('i-top').textContent=ps[0]?ps[0][0]:'â';
   const tot=ps.reduce((a,b)=>a+b[1],0)||1;
   document.getElementById('projBars').innerHTML=ps.length?ps.map(([n,s],i)=>`<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px"><div style="font-size:12px;width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text)">${n}</div><div style="flex:1"><div class="prog-wrap"><div class="prog-fill" style="width:${Math.round(s/tot*100)}%;background:${CHART_COLORS[i%CHART_COLORS.length]}"></div></div></div><div style="font-size:11px;color:var(--text2);width:50px;text-align:right;font-family:var(--mono)">${fmtHM(s)}</div></div>`).join(''):'<div style="color:var(--text3);font-size:13px;text-align:center;padding:12px">No data yet.</div>';
   if(pieO){pieO.destroy();pieO=null;}
@@ -941,7 +912,7 @@ function renderInsights(){
   barO=new Chart(document.getElementById('barChart'),{type:'bar',data:{labels:last7.map(d=>d.label),datasets:[{label:'Hours',data:last7.map(d=>parseFloat((d.sec/3600).toFixed(2))),backgroundColor:last7.map(d=>d.isT?'#4a86a8':'#9FE1CB'),borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{callback:v=>v+'h'},grid:{color:'rgba(128,128,128,0.08)'}},x:{grid:{display:false}}}}});
 }
 
-// ── REPORTS ───────────────────────────────────────────────────────────────────
+// ââ REPORTS âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function populateRptUsers(){
   const el=document.getElementById('rptUser'); const cv=el.value;
   const emps=cu.role==='admin'?users.filter(u=>u.role!=='admin'):cu.role==='manager'?users.filter(u=>u.role==='employee'):[cu];
@@ -1010,7 +981,7 @@ function renderHeatmap(rows,days){
     const ul=leaves.filter(l=>l.uid===u.id&&l.status==='approved');
     html+=`<div style="display:flex;align-items:center;gap:3px;margin-bottom:3px">`;
     html+=`<div style="width:105px;font-size:11px;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-right:6px">${u.name.split(' ')[0]}</div>`;
-    show.forEach(d=>{ const ds=us.filter(s=>s.date===d).reduce((a,s)=>a+s.duration,0); const onL=ul.some(l=>d>=l.from&&d<=l.to); let bg; if(onL) bg='#EF9F27'; else if(ds>=28800) bg='#4a86a8'; else if(ds>=3600) bg='#9FE1CB'; else bg='#FCA5A5'; html+=`<div class="heatmap-cell" style="background:${bg}" title="${u.name.split(' ')[0]} · ${d}"></div>`; });
+    show.forEach(d=>{ const ds=us.filter(s=>s.date===d).reduce((a,s)=>a+s.duration,0); const onL=ul.some(l=>d>=l.from&&d<=l.to); let bg; if(onL) bg='#EF9F27'; else if(ds>=28800) bg='#4a86a8'; else if(ds>=3600) bg='#9FE1CB'; else bg='#FCA5A5'; html+=`<div class="heatmap-cell" style="background:${bg}" title="${u.name.split(' ')[0]} Â· ${d}"></div>`; });
     html+=`</div>`;
   });
   html+=`</div><div style="display:flex;gap:12px;margin-top:10px;font-size:11px;color:var(--text2)">`;
@@ -1034,7 +1005,7 @@ function exportCSV(){
   const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'})); a.download=`amc-report-${from}-to-${to}.csv`; a.click();
 }
 
-// ── LEAVES ────────────────────────────────────────────────────────────────────
+// ââ LEAVES ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function populateLvFilter(){
   const el=document.getElementById('lvUFilt'); const cv=el.value;
   const emps=cu.role==='admin'?users:users.filter(u=>u.id===cu.id);
@@ -1080,11 +1051,11 @@ function renderLeaveLog(){
 function notifyTeams(lid){
   const l=leaves.find(x=>x.id===lid); if(!l)return;
   const u=users.find(x=>x.id===l.uid);
-  alert(`Teams notification queued:\n"${u?u.name:'User'} — ${l.type} leave from ${l.from} to ${l.to} (${l.days} days)."\n\nThis will fire via your n8n labor stream once connected.`);
+  alert(`Teams notification queued:\n"${u?u.name:'User'} â ${l.type} leave from ${l.from} to ${l.to} (${l.days} days)."\n\nThis will fire via your n8n labor stream once connected.`);
   l.teamsNotified=true; renderLeaveLog(); addAudit(cu.id,'Teams notified','Leave',`Leave notification queued for ${u?u.name:'?'}`);
 }
 
-// ── ADMIN — USERS ─────────────────────────────────────────────────────────────
+// ââ ADMIN â USERS âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function buildDeptFilter(){
   const el=document.getElementById('uDeptF'); const cv=el.value;
   el.innerHTML='<option value="">All depts</option>'+departments.map(d=>`<option value="${d.id}"${cv==d.id?' selected':''}>${d.name}</option>`).join('');
@@ -1109,9 +1080,9 @@ function renderUsers(){
       <td><div class="av av-sm" style="${avStyle(u.color)}">${ini(u.name)}</div></td>
       <td><div style="font-size:13px;font-weight:500">${u.name}</div><div style="font-size:11px;color:var(--text2)">${u.jobTitle||''}</div></td>
       <td style="font-size:11px;color:var(--text2)">${u.email}</td>
-      <td>${dept?`<span class="badge" style="background:${dept.color};color:${dept.tc}">${dept.name}</span>`:'—'}</td>
+      <td>${dept?`<span class="badge" style="background:${dept.color};color:${dept.tc}">${dept.name}</span>`:'â'}</td>
       <td><span class="badge ${roleBadge[u.role]||'badge-gray'}">${(rolePerms[u.role]&&rolePerms[u.role].label)||u.role}</span></td>
-      <td style="font-size:11px;color:var(--text2)">${shift?shift.name:'—'}${(u.customStart&&u.customEnd)?'<br><span style="font-size:10px;color:var(--text2);font-family:var(--mono)">'+u.customStart+' – '+u.customEnd+'</span>':shift&&(shift.start||shift.end)?'<br><span style="font-size:10px;color:var(--text3);font-family:var(--mono)">'+shift.start+(shift.end?' – '+shift.end:'')+'</span>':''}</td>
+      <td style="font-size:11px;color:var(--text2)">${shift?shift.name:'â'}${(u.customStart&&u.customEnd)?'<br><span style="font-size:10px;color:var(--text2);font-family:var(--mono)">'+u.customStart+' â '+u.customEnd+'</span>':shift&&(shift.start||shift.end)?'<br><span style="font-size:10px;color:var(--text3);font-family:var(--mono)">'+shift.start+(shift.end?' â '+shift.end:'')+'</span>':''}</td>
       <td style="font-family:var(--mono);font-size:12px">${Math.round(ts/3600)}h</td>
       <td style="font-family:var(--mono);font-size:12px">${Math.round(wk/3600)}h</td>
       <td style="font-size:13px;font-weight:500">${bal}d</td>
@@ -1128,20 +1099,20 @@ function renderUsers(){
 function sendInvite(uid){
   const u=users.find(x=>x.id===uid); if(!u)return;
   const sub=encodeURIComponent('You are invited to install AMC Time Tracker');
-  const body=encodeURIComponent(`Hi ${u.name},\n\nYou have been added to the AMC Time Tracker as a remote team member.\n\nAccess the tracker here:\n${window.location.href}\n\nYour login credentials:\n  Email: ${u.email}\n  A verification code will be sent to your email on first sign-in.\n\nAmerican Medical Compliance — HR`);
+  const body=encodeURIComponent(`Hi ${u.name},\n\nYou have been added to the AMC Time Tracker as a remote team member.\n\nAccess the tracker here:\n${window.location.href}\n\nYour login credentials:\n  Email: ${u.email}\n  A verification code will be sent to your email on first sign-in.\n\nAmerican Medical Compliance â HR`);
   window.open(`mailto:${u.email}?subject=${sub}&body=${body}`);
   u.invited=true; addAudit(cu.id,'Invite sent','User',`Invite sent to ${u.email}`); renderUsers();
 }
 
-function removeUser(uid){ if(!confirm('Remove this user and all their data?'))return; const u=users.find(x=>x.id===uid); addAudit(cu.id,'User deleted','User',`Removed ${u?.name}`); users=users.filter(x=>x.id!==uid);localStorage.setItem('amc_users_extra',JSON.stringify(users.filter(function(u){return u.id>5;})));amcSaveUsersToCloud();  sessions=sessions.filter(s=>s.uid!==uid); leaves=leaves.filter(l=>l.uid!==uid); renderUsers(); buildDeptFilter(); }
+function removeUser(uid){ if(!confirm('Remove this user and all their data?'))return; const u=users.find(x=>x.id===uid); addAudit(cu.id,'User deleted','User',`Removed ${u?.name}`); users=users.filter(x=>x.id!==uid);localStorage.setItem('amc_users_extra',JSON.stringify(users.filter(function(u){return u.id>5;})));amcRemoveUserFromCode(uid);  sessions=sessions.filter(s=>s.uid!==uid); leaves=leaves.filter(l=>l.uid!==uid); renderUsers(); buildDeptFilter(); }
 
-// ── ADMIN — DEPTS ─────────────────────────────────────────────────────────────
+// ââ ADMIN â DEPTS âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function renderDepts(){
   document.getElementById('deptList').innerHTML=departments.map(d=>{
     const count=users.filter(u=>u.dept===d.id).length; const head=users.find(u=>u.id===d.head);
     return `<div style="display:flex;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid var(--border)">
       <div style="width:8px;height:44px;border-radius:4px;background:${d.color};flex-shrink:0"></div>
-      <div style="flex:1"><div style="font-size:13px;font-weight:500">${d.name}</div><div style="font-size:11px;color:var(--text2);margin-top:2px">${d.desc} · Head: ${head?head.name:'—'} · ${count} staff</div></div>
+      <div style="flex:1"><div style="font-size:13px;font-weight:500">${d.name}</div><div style="font-size:11px;color:var(--text2);margin-top:2px">${d.desc} Â· Head: ${head?head.name:'â'} Â· ${count} staff</div></div>
       <div class="btn-group"><button class="btn btn-sm" onclick="openModal('editDept',${d.id})">Edit</button><button class="btn btn-sm btn-danger" onclick="removeDept(${d.id})">Del</button></div>
     </div>`;
   }).join('');
@@ -1149,13 +1120,13 @@ function renderDepts(){
 
 function removeDept(id){ if(!confirm('Remove this department?'))return; departments=departments.filter(d=>d.id!==id); addAudit(cu.id,'Department removed','System',`Dept ID ${id} deleted`); renderDepts(); buildDeptFilter(); }
 
-// ── ADMIN — SHIFTS ────────────────────────────────────────────────────────────
+// ââ ADMIN â SHIFTS ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function renderShifts(){
   document.getElementById('shiftListNote').innerHTML='<div style="font-size:12px;color:var(--text2);margin-bottom:12px;padding:8px 12px;background:var(--surface2);border-radius:var(--r-sm);border-left:3px solid var(--primary)">Editing a shift changes the <strong>default hours for everyone</strong> on that shift. To set individual hours for a specific person, use <strong>Edit</strong> on the user and set Custom Hours.</div>';
   document.getElementById('shiftList').innerHTML=shifts.map(s=>{
     const count=users.filter(u=>u.shift===s.id).length;
     return `<div style="display:flex;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid var(--border)">
-      <div style="flex:1"><div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><span style="font-size:13px;font-weight:500">${s.name}</span><span class="badge badge-blue">${s.start} – ${s.end}</span></div><div style="display:flex;gap:4px;flex-wrap:wrap">${s.days.map(d=>`<span class="badge badge-gray">${d}</span>`).join('')}</div><div style="font-size:11px;color:var(--text2);margin-top:3px">${count} users</div></div>
+      <div style="flex:1"><div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><span style="font-size:13px;font-weight:500">${s.name}</span><span class="badge badge-blue">${s.start} â ${s.end}</span></div><div style="display:flex;gap:4px;flex-wrap:wrap">${s.days.map(d=>`<span class="badge badge-gray">${d}</span>`).join('')}</div><div style="font-size:11px;color:var(--text2);margin-top:3px">${count} users</div></div>
       <div class="btn-group"><button class="btn btn-sm" onclick="openModal('editShift',${s.id})">Edit</button><button class="btn btn-sm btn-danger" onclick="removeShift(${s.id})">Del</button></div>
     </div>`;
   }).join('');
@@ -1163,7 +1134,7 @@ function renderShifts(){
 
 function removeShift(id){ if(!confirm('Remove this shift?'))return; shifts=shifts.filter(s=>s.id!==id); addAudit(cu.id,'Shift removed','System',`Shift ID ${id} deleted`); renderShifts(); }
 
-// ── ADMIN — APPROVALS ─────────────────────────────────────────────────────────
+// ââ ADMIN â APPROVALS âââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function renderApprovals(){
   const tf=document.getElementById('appr-type-f')?document.getElementById('appr-type-f').value:'';
   const filtered=approvals.filter(a=>!tf||a.type===tf);
@@ -1197,11 +1168,11 @@ function processApproval(aid,status){
   const a=approvals.find(x=>x.id===aid); if(!a)return;
   a.status=status; a.approver=cu.id;
   const u=users.find(x=>x.id===a.uid);
-  addAudit(cu.id,`Approval ${status}`,'Approval',`${a.type} for ${u?u.name:'?'} — ${status}`);
+  addAudit(cu.id,`Approval ${status}`,'Approval',`${a.type} for ${u?u.name:'?'} â ${status}`);
   renderApprovals();
 }
 
-// ── ADMIN — ADJUSTMENTS ───────────────────────────────────────────────────────
+// ââ ADMIN â ADJUSTMENTS âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function populateAdjFilters(){
   const df=document.getElementById('adjDF'); const cd=df.value;
   const dates=[...new Set(sessions.map(s=>s.date))].sort().reverse();
@@ -1221,10 +1192,10 @@ function renderAdj(){
   </tr>`; }).join('');
 }
 
-function saveDur(sid){ const inp=document.getElementById('d-'+sid); if(!inp)return; const p=inp.value.split(':').map(Number); if(p.length!==3||p.some(isNaN)){alert('Use hh:mm:ss');return;} const s=sessions.find(x=>x.id===sid); if(s){s.duration=p[0]*3600+p[1]*60+p[2]; addAudit(cu.id,'Duration adjusted','Session',`Session ${sid} → ${inp.value}`);} renderAdj(); updateMetrics(); }
+function saveDur(sid){ const inp=document.getElementById('d-'+sid); if(!inp)return; const p=inp.value.split(':').map(Number); if(p.length!==3||p.some(isNaN)){alert('Use hh:mm:ss');return;} const s=sessions.find(x=>x.id===sid); if(s){s.duration=p[0]*3600+p[1]*60+p[2]; addAudit(cu.id,'Duration adjusted','Session',`Session ${sid} â ${inp.value}`);} renderAdj(); updateMetrics(); }
 function remSess(sid){ if(!confirm('Remove session?'))return; const s=sessions.find(x=>x.id===sid); addAudit(cu.id,'Session removed','Session',`Removed session for ${users.find(u=>u.id===s?.uid)?.name||'?'}`); sessions=sessions.filter(x=>x.id!==sid); renderAdj(); updateMetrics(); renderActivity(); populateAdjFilters(); }
 
-// ── ADMIN — ROLES ─────────────────────────────────────────────────────────────
+// ââ ADMIN â ROLES âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function renderRoles(){
   document.getElementById('roleCards').innerHTML=Object.entries(rolePerms).map(([key,role])=>`
     <div class="card" style="margin-bottom:12px">
@@ -1242,7 +1213,7 @@ function renderRoles(){
 
 function togglePerm(role,perm,val){ if(rolePerms[role]) rolePerms[role].perms[perm]=val; addAudit(cu.id,'Permission changed','System',`${role}.${perm} = ${val}`); }
 
-// ── TITLES & HOLIDAYS ─────────────────────────────────────────────────────────
+// ââ TITLES & HOLIDAYS âââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function renderTitles(){
   const q=(document.getElementById('titleSearch').value||'').toLowerCase();
   const list=titles.filter(t=>t.toLowerCase().includes(q));
@@ -1280,7 +1251,7 @@ function renderLeavePolicy(){
   document.getElementById('unpaidHolList').innerHTML=unpaid.map(row).join('');
 }
 
-// ── HR ALERTS ─────────────────────────────────────────────────────────────────
+// ââ HR ALERTS âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function calcAlerts(){
   const now=new Date(); const td=todayStr(); const wa=new Date(now-7*24*3600*1000);
   const md=+(document.getElementById('th-d')||{value:6}).value*3600;
@@ -1292,10 +1263,10 @@ function calcAlerts(){
     let ts=0,wk=0,sc=0;
     us.forEach(s=>{ if(s.date===td)ts+=s.duration; if(new Date(s.start)>=wa)wk+=s.duration; if(s.duration<ms&&s.type==='tracked')sc++; });
     if(ts>0&&ts<md) alerts.push({uid:u.id,name:u.name,type:'low_daily',sev:'warn',msg:`Only ${fmtHM(ts)} today (min: ${fmtHM(md)})`});
-    if(wk>0&&wk<mw) alerts.push({uid:u.id,name:u.name,type:'low_weekly',sev:'warn',msg:`${fmtHM(wk)} this week — below ${fmtHM(mw)} target`});
+    if(wk>0&&wk<mw) alerts.push({uid:u.id,name:u.name,type:'low_weekly',sev:'warn',msg:`${fmtHM(wk)} this week â below ${fmtHM(mw)} target`});
     if(sc>=3) alerts.push({uid:u.id,name:u.name,type:'short_sessions',sev:'warn',msg:`${sc} very short sessions`});
-    if(!us.length) alerts.push({uid:u.id,name:u.name,type:'no_activity',sev:'alert',msg:'No sessions recorded — tracker may not be active'});
-    const lb=u.leaveBalance||{}; if((lb.vacation||0)+(lb.sick||0)+(lb.personal||0)<=3) alerts.push({uid:u.id,name:u.name,type:'low_leave',sev:'warn',msg:'Leave balance critically low (≤3 days)'});
+    if(!us.length) alerts.push({uid:u.id,name:u.name,type:'no_activity',sev:'alert',msg:'No sessions recorded â tracker may not be active'});
+    const lb=u.leaveBalance||{}; if((lb.vacation||0)+(lb.sick||0)+(lb.personal||0)<=3) alerts.push({uid:u.id,name:u.name,type:'low_leave',sev:'warn',msg:'Leave balance critically low (â¤3 days)'});
   });
   return alerts;
 }
@@ -1303,7 +1274,7 @@ function calcAlerts(){
 function runAlerts(){
   activeAlerts=calcAlerts();
   const el=document.getElementById('alertList');
-  if(!activeAlerts.length){ el.innerHTML='<div style="text-align:center;padding:20px;color:var(--text3);font-size:13px">No alerts — all users meeting thresholds.</div>'; return; }
+  if(!activeAlerts.length){ el.innerHTML='<div style="text-align:center;padding:20px;color:var(--text3);font-size:13px">No alerts â all users meeting thresholds.</div>'; return; }
   el.innerHTML=activeAlerts.map(a=>{
     const [bg,fg,sym]={warn:['#FFFBEB','#92400E','!'],alert:['#FEF2F2','#991B1B','!!']}[a.sev];
     return `<div class="alert-item">
@@ -1316,9 +1287,9 @@ function runAlerts(){
 
 async function saveWH(){ const v=document.getElementById('whUrl').value.trim(); if(!v){alert('Enter URL.');return;} webhookUrl=v; const sp=document.getElementById('whSt'); sp.className='badge badge-teal'; sp.textContent='Saved'; addAudit(cu.id,'Webhook saved','System','n8n webhook configured'); }
 async function testWH(){ if(!webhookUrl){alert('Save URL first.');return;} const sp=document.getElementById('whSt'); sp.className='badge badge-amber'; sp.textContent='Pinging...'; try{ await fetch(webhookUrl,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'ping',source:'AMC Time Tracker',ts:new Date().toISOString()})}); sp.className='badge badge-teal'; sp.textContent='Ping OK'; }catch(e){ sp.className='badge badge-red'; sp.textContent='Failed'; } }
-async function pushAlerts(){ if(!webhookUrl){alert('Save webhook URL first.');return;} if(!activeAlerts.length){document.getElementById('pushSt').textContent='No alerts to push.';return;} document.getElementById('pushSt').textContent='Sending...'; try{ await fetch(webhookUrl,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({source:'AMC Time Tracker',timestamp:new Date().toISOString(),alert_count:activeAlerts.length,alerts:activeAlerts.map(a=>({user:a.name,type:a.type,severity:a.sev,message:a.msg,ts:new Date().toISOString()}))})}); document.getElementById('pushSt').textContent=activeAlerts.length+' alerts pushed'; addAudit(cu.id,'Alerts pushed','System',activeAlerts.length+' HR alerts sent to n8n'); }catch(e){ document.getElementById('pushSt').textContent='Push failed — check URL'; } }
+async function pushAlerts(){ if(!webhookUrl){alert('Save webhook URL first.');return;} if(!activeAlerts.length){document.getElementById('pushSt').textContent='No alerts to push.';return;} document.getElementById('pushSt').textContent='Sending...'; try{ await fetch(webhookUrl,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({source:'AMC Time Tracker',timestamp:new Date().toISOString(),alert_count:activeAlerts.length,alerts:activeAlerts.map(a=>({user:a.name,type:a.type,severity:a.sev,message:a.msg,ts:new Date().toISOString()}))})}); document.getElementById('pushSt').textContent=activeAlerts.length+' alerts pushed'; addAudit(cu.id,'Alerts pushed','System',activeAlerts.length+' HR alerts sent to n8n'); }catch(e){ document.getElementById('pushSt').textContent='Push failed â check URL'; } }
 
-// ── AUDIT ─────────────────────────────────────────────────────────────────────
+// ââ AUDIT âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function buildAuditFilters(){ const el=document.getElementById('audUser'); const cv=el.value; el.innerHTML='<option value="">All users</option>'+users.map(u=>`<option value="${u.id}"${cv==u.id?' selected':''}>${u.name}</option>`).join(''); }
 function renderAudit(){
   const cf=document.getElementById('audCat').value; const uf=document.getElementById('audUser').value;
@@ -1334,13 +1305,13 @@ function renderAudit(){
           <span class="badge ${catBadge[a.category]||'badge-gray'}">${a.category}</span>
         </div>
         <div style="font-size:12px;color:var(--text2)">${a.detail}</div>
-        <div style="font-size:11px;color:var(--text3);margin-top:2px">${u?u.name:'?'} · ${ts.toLocaleDateString()} ${ts.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:2px">${u?u.name:'?'} Â· ${ts.toLocaleDateString()} ${ts.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}</div>
       </div>
     </div>`;
   }).join(''):'<div style="text-align:center;padding:32px;color:var(--text3)">No audit entries.</div>';
 }
 
-// ── MODAL ─────────────────────────────────────────────────────────────────────
+// ââ MODAL âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function openModal(mode,id){
   mmode=mode; medit=id||null;
   const titles_map={addUser:'Add user',editUser:'Edit user',viewUser:'User profile',addDept:'Add department',editDept:'Edit department',addShift:'Add shift',editShift:'Edit shift',addSess:'Add manual session',addLeave:'Log leave',addTitle:'Add job title',bulkTitles:'Bulk import titles',addHoliday:'Add holiday',editHoliday:'Edit holiday'};
@@ -1355,7 +1326,7 @@ function openModal(mode,id){
       <div class="form-grid">
         <div class="form-row"><label>Full name</label><input type="text" id="f-n" value="${u?u.name:''}"/></div>
         <div class="form-row"><label>Work email</label><input type="email" id="f-e" value="${u?u.email:''}"/></div>
-        <div class="form-row"><label>Job title</label><select id="f-jt"><option value="">— select —</option>${titles.map(t=>`<option value="${t}"${u?.jobTitle===t?' selected':''}>${t}</option>`).join('')}</select></div>
+        <div class="form-row"><label>Job title</label><select id="f-jt"><option value="">â select â</option>${titles.map(t=>`<option value="${t}"${u?.jobTitle===t?' selected':''}>${t}</option>`).join('')}</select></div>
         <div class="form-row"><label>Start date</label><input type="date" id="f-sd" value="${u?u.startDate||'':todayStr()}"/></div>
         <div class="form-row"><label>Status</label><select id="f-st"><option value="active"${u?.status==='active'?' selected':''}>Active</option><option value="on_leave"${u?.status==='on_leave'?' selected':''}>On leave</option><option value="inactive"${u?.status==='inactive'?' selected':''}>Inactive</option></select></div>
       </div>
@@ -1366,7 +1337,7 @@ function openModal(mode,id){
         <div class="form-row"><label>Shift</label><select id="f-sh">${shifts.map(s=>`<option value="${s.id}"${u?.shift===s.id?' selected':''}>${s.name}</option>`).join('')}</select></div>
         <div class="form-row" style="gap:8px"><div style="flex:1"><label style="font-size:11px;color:var(--text2)">Custom start <span style="font-weight:400">(overrides shift)</span></label><input type="time" id="f-cs" value="${u?.customStart||''}" style="font-size:13px"/></div><div style="flex:1"><label style="font-size:11px;color:var(--text2)">Custom end</label><input type="time" id="f-ce" value="${u?.customEnd||''}" style="font-size:13px"/></div></div>
         <div class="form-row"><label>Manager</label><select id="f-mgr"><option value="">None</option>${users.filter(x=>x.role!=='employee').map(x=>`<option value="${x.id}"${u?.manager===x.id?' selected':''}>${x.name}</option>`).join('')}</select></div>
-        <div class="form-row"><label>PIN ${mode==='editUser'?'(blank = keep)':''}</label><input type="password" id="f-p" maxlength="6" placeholder="${mode==='editUser'?'leave blank to keep':'4–6 digits'}"/></div>
+        <div class="form-row"><label>PIN ${mode==='editUser'?'(blank = keep)':''}</label><input type="password" id="f-p" maxlength="6" placeholder="${mode==='editUser'?'leave blank to keep':'4â6 digits'}"/></div>
       </div>
       <div class="section-divider">Leave balance (days)</div>
       <div class="form-grid">
@@ -1386,10 +1357,10 @@ function openModal(mode,id){
     <table style="width:100%;font-size:13px">
       <tr><td style="color:var(--text2);padding:5px 0;width:110px">Email</td><td style="color:var(--blue)">${u.email}</td></tr>
       
-      <tr><td style="color:var(--text2);padding:5px 0">Department</td><td>${dept?dept.name:'—'}</td></tr>
-      <tr><td style="color:var(--text2);padding:5px 0">Shift</td><td>${shift?shift.name:'—'}${(u.customStart&&u.customEnd)?'<br><span style="font-size:10px;color:var(--text2);font-family:var(--mono)">'+u.customStart+' – '+u.customEnd+'</span>':shift&&(shift.start||shift.end)?'<br><span style="font-size:10px;color:var(--text3);font-family:var(--mono)">'+shift.start+(shift.end?' – '+shift.end:'')+'</span>':''}</td></tr>
-      <tr><td style="color:var(--text2);padding:5px 0">Manager</td><td>${mgr?mgr.name:'—'}</td></tr>
-      <tr><td style="color:var(--text2);padding:5px 0">Start date</td><td>${u.startDate||'—'}</td></tr>
+      <tr><td style="color:var(--text2);padding:5px 0">Department</td><td>${dept?dept.name:'â'}</td></tr>
+      <tr><td style="color:var(--text2);padding:5px 0">Shift</td><td>${shift?shift.name:'â'}${(u.customStart&&u.customEnd)?'<br><span style="font-size:10px;color:var(--text2);font-family:var(--mono)">'+u.customStart+' â '+u.customEnd+'</span>':shift&&(shift.start||shift.end)?'<br><span style="font-size:10px;color:var(--text3);font-family:var(--mono)">'+shift.start+(shift.end?' â '+shift.end:'')+'</span>':''}</td></tr>
+      <tr><td style="color:var(--text2);padding:5px 0">Manager</td><td>${mgr?mgr.name:'â'}</td></tr>
+      <tr><td style="color:var(--text2);padding:5px 0">Start date</td><td>${u.startDate||'â'}</td></tr>
       <tr><td style="color:var(--text2);padding:5px 0">Today</td><td style="font-family:var(--mono)">${fmtHM(ts)}</td></tr>
       <tr><td style="color:var(--text2);padding:5px 0">This week</td><td style="font-family:var(--mono)">${fmtHM(wk)}</td></tr>
       <tr><td style="color:var(--text2);padding:5px 0">Leave balance</td><td>${total}d (V:${lb.vacation||0} S:${lb.sick||0} P:${lb.personal||0})</td></tr>
@@ -1434,7 +1405,7 @@ function openModal(mode,id){
   } else if(mode==='addTitle'){
     body=`<div class="form-row"><label>Job title</label><input type="text" id="f-t" placeholder="e.g. Senior Content Developer"/></div>`;
   } else if(mode==='bulkTitles'){
-    body=`<div class="form-row"><label>Paste titles — one per line</label><textarea id="f-bulk" rows="8" placeholder="Senior Developer&#10;Content Manager&#10;..." style="resize:vertical"></textarea></div><div style="font-size:12px;color:var(--text2)">Duplicates are ignored automatically.</div>`;
+    body=`<div class="form-row"><label>Paste titles â one per line</label><textarea id="f-bulk" rows="8" placeholder="Senior Developer&#10;Content Manager&#10;..." style="resize:vertical"></textarea></div><div style="font-size:12px;color:var(--text2)">Duplicates are ignored automatically.</div>`;
   } else if(mode==='addHoliday'||mode==='editHoliday'){
     const h=mode==='editHoliday'?holidays.find(x=>x.id===id):null;
     body=`<div class="form-row"><label>Holiday name</label><input type="text" id="f-hn" value="${h?h.name:''}"/></div>
@@ -1457,7 +1428,7 @@ function doModal(){
     const role=document.getElementById('f-r').value; const pin=document.getElementById('f-p').value;
     if(!name||!pin){alert('Name and PIN required.');return;}
     const nu={id:nuid++,name,email,role,pin,color:users.length%6,dept:+document.getElementById('f-d').value,shift:+document.getElementById('f-sh').value,manager:+document.getElementById('f-mgr').value||null,customStart:document.getElementById('f-cs').value||null,customEnd:document.getElementById('f-ce').value||null,invited:false,status:document.getElementById('f-st').value,jobTitle:document.getElementById('f-jt').value,startDate:document.getElementById('f-sd').value,leaveBalance:{vacation:+document.getElementById('f-lv').value,sick:+document.getElementById('f-ls').value,personal:+document.getElementById('f-lp').value},password:'',needsSetup:true};
-    users.push(nu);localStorage.setItem('amc_users_extra',JSON.stringify(users.filter(function(u){return u.id>5;})));amcSaveUsersToCloud();  addAudit(cu.id,'User added','User',`Added ${name} (${role})`); closeModal(); renderUsers(); buildDeptFilter();
+    users.push(nu);localStorage.setItem('amc_users_extra',JSON.stringify(users.filter(function(u){return u.id>5;})));amcAddUserToCode(cu);  addAudit(cu.id,'User added','User',`Added ${name} (${role})`); closeModal(); renderUsers(); buildDeptFilter();
     if(document.getElementById('f-inv')?.checked) sendInvite(nu.id);
 
   } else if(mmode==='editUser'){
@@ -1523,7 +1494,7 @@ function doModal(){
       else if(type==='Sick'&&(u.leaveBalance.sick||0)>=days) u.leaveBalance.sick-=days;
       else if(type==='Personal'&&(u.leaveBalance.personal||0)>=days) u.leaveBalance.personal-=days;
     }
-    addAudit(cu.id,'Leave logged','Leave',`${type} for ${u?.name} ${from} – ${to} (${days}d) — ${status}`);
+    addAudit(cu.id,'Leave logged','Leave',`${type} for ${u?.name} ${from} â ${to} (${days}d) â ${status}`);
     closeModal(); renderLeaveLog(); renderLeaveBalances();
 
   } else if(mmode==='addTitle'){
@@ -1559,7 +1530,7 @@ function doModal(){
   }
 }
 
-// ── INIT ──────────────────────────────────────────────────────────────────────
+// ââ INIT ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 let ndid=departments.length+1;
 /* buildLoginSelect() - replaced by email login UI */;
 
@@ -1584,13 +1555,13 @@ function validatePassword(pwd) {
   if (!/[A-Z]/.test(pwd)) return { valid: false, msg: 'Password must contain at least 1 uppercase letter' };
   if (!/[a-z]/.test(pwd)) return { valid: false, msg: 'Password must contain at least 1 lowercase letter' };
   if (!/[^A-Za-z0-9]/.test(pwd)) return { valid: false, msg: 'Password must contain at least 1 symbol (e.g. !@#$%)' };
-  return { valid: true, msg: 'Strong password ✓' };
+  return { valid: true, msg: 'Strong password â' };
 }
 
 function togglePwdVis(inputId, btn) {
   var inp = document.getElementById(inputId);
-  if (inp.type === 'password') { inp.type = 'text'; btn.textContent = '🙈'; }
-  else { inp.type = 'password'; btn.textContent = '👁'; }
+  if (inp.type === 'password') { inp.type = 'text'; btn.textContent = 'ð'; }
+  else { inp.type = 'password'; btn.textContent = 'ð'; }
 }
 
 // Device fingerprint
@@ -1776,7 +1747,7 @@ function completeSetup() {
   }
   
   if (_pendingLoginUser) {
-    _pendingLoginUser.password = np;amcSaveUsersToCloud();localStorage.setItem('amc_users_extra',JSON.stringify(users.filter(function(u){return u.id>5;}))); 
+    _pendingLoginUser.password = np;localStorage.setItem('amc_users_extra',JSON.stringify(users.filter(function(u){return u.id>5;}))); 
     _pendingLoginUser.needsSetup = false;
     var userInArr = users.find(function(u) { return u.id === _pendingLoginUser.id; });
     if (userInArr) { userInArr.password = np; userInArr.needsSetup = false; }
@@ -2005,8 +1976,6 @@ function doLogout() {
 window.addEventListener('DOMContentLoaded', function() {
   var ls = document.getElementById('loginScreen');
   if (ls) ls.style.display = 'flex';
-  // Sync users from cloud on startup so any device gets all users
-  setTimeout(function(){ amcSyncUsersFromCloud(); }, 500);
 });
 
 // ==================== END AMC NEW AUTH SYSTEM ====================
@@ -2027,7 +1996,7 @@ setTimeout(function(){ if(typeof checkMS365AuthReturn==='function') checkMS365Au
 
 <div id="idleWarningOverlay" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:9999;align-items:center;justify-content:center;">
   <div style="background:white;border-radius:16px;padding:40px;text-align:center;max-width:420px;box-shadow:0 8px 40px rgba(0,0,0,0.3);">
-    <div style="font-size:48px;margin-bottom:16px;">⏰</div>
+    <div style="font-size:48px;margin-bottom:16px;">â°</div>
     <h3 style="color:#4a86a8;margin:0 0 8px;font-size:20px;">Are you still there?</h3>
     <p style="color:#666;margin:0 0 20px;">You've been inactive for 20 minutes.</p>
     <p style="color:#333;font-size:14px;margin:0 0 24px;">You'll be logged out in <strong id="idleCountdown">60</strong> seconds.</p>
@@ -2038,7 +2007,7 @@ setTimeout(function(){ if(typeof checkMS365AuthReturn==='function') checkMS365Au
 <div id="ms365Widget" style="display:none;"><div id="ms365Panel" style="display:none;position:fixed;top:0;right:0;width:380px;height:100%;background:white;box-shadow:-4px 0 20px rgba(0,0,0,0.15);z-index:1000;overflow-y:auto;padding:24px;box-sizing:border-box;">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
     <h3 style="margin:0;color:#4a86a8;font-size:18px;">Microsoft 365 Activity</h3>
-    <button onclick="toggleMS365()" style="background:none;border:none;font-size:20px;cursor:pointer;color:#666;">✕</button>
+    <button onclick="toggleMS365()" style="background:none;border:none;font-size:20px;cursor:pointer;color:#666;">â</button>
   </div></div>
   <div id="ms365ConnectSection">
     <p style="color:#666;margin-bottom:16px;font-size:14px;">Connect your Microsoft 365 account to track Teams meetings, chats, and Outlook emails.</p>
@@ -2049,13 +2018,13 @@ setTimeout(function(){ if(typeof checkMS365AuthReturn==='function') checkMS365Au
   </div>
   <div id="ms365DataSection" style="display:none;">
     <div style="background:#f0f7ff;border-radius:8px;padding:12px;margin-bottom:16px;font-size:13px;color:#2d6080;">
-      ✓ Connected as <span id="ms365UserName">User</span>
+      â Connected as <span id="ms365UserName">User</span>
     </div>
-    <h4 style="color:#333;margin:0 0 12px;font-size:15px;">📅 Recent Teams Meetings</h4>
+    <h4 style="color:#333;margin:0 0 12px;font-size:15px;">ð Recent Teams Meetings</h4>
     <div id="ms365Meetings" style="margin-bottom:20px;"></div>
-    <h4 style="color:#333;margin:0 0 12px;font-size:15px;">💬 Teams Messages</h4>
+    <h4 style="color:#333;margin:0 0 12px;font-size:15px;">ð¬ Teams Messages</h4>
     <div id="ms365Messages" style="margin-bottom:20px;"></div>
-    <h4 style="color:#333;margin:0 0 12px;font-size:15px;">📧 Recent Emails</h4>
+    <h4 style="color:#333;margin:0 0 12px;font-size:15px;">ð§ Recent Emails</h4>
     <div id="ms365Emails"></div>
   </div>
 </div>
