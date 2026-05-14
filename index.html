@@ -247,13 +247,13 @@ tr:hover td{background:var(--surface2)}
       <div id="loginPwdGroup" style="display:none;margin-bottom:16px;text-align:left;">
         <label style="display:block;font-size:13px;font-weight:600;color:#555;margin-bottom:6px;">Password</label>
         <div style="position:relative;">
-          <input type="password" id="loginPassword" placeholder="Enter password" style="width:100%;padding:12px;padding-right:44px;border:2px solid #e0e0e0;border-radius:8px;font-size:15px;box-sizing:border-box;outline:none;transition:border 0.2s;" onfocus="this.style.borderColor='#4a86a8'" onblur="this.style.borderColor='#e0e0e0'" onkeydown="if(event.key==='Enter')handleLoginContinue()"/>
+          <input type="password" id="loginPassword" placeholder="Enter password" style="width:100%;padding:12px;padding-right:44px;border:2px solid #e0e0e0;border-radius:8px;font-size:15px;box-sizing:border-box;outline:none;transition:border 0.2s;" onfocus="this.style.borderColor='#4a86a8'" onblur="this.style.borderColor='#e0e0e0'" onkeydown="if(event.key==='Enter')doEmailLogin()"/>
           <button onclick="togglePwdVis('loginPassword',this)" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#888;font-size:18px;">ð</button>
         </div>
         <div id="pwdStrength" style="font-size:12px;margin-top:4px;height:16px;"></div>
       </div>
       <div id="loginError" style="color:#e74c3c;font-size:13px;margin-bottom:12px;display:none;"></div>
-      <button id="loginContinueBtn" onclick="handleLoginContinue()" style="width:100%;background:#4a86a8;color:white;border:none;padding:14px;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer;">Continue</button>
+      <button id="loginContinueBtn" onclick="doEmailLogin()" style="width:100%;background:#4a86a8;color:white;border:none;padding:14px;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer;">Continue</button>
     </div>
     
     <!-- Step 2: OTP Verification -->
@@ -1919,7 +1919,7 @@ function startOTPTimer() {
 }
 
 // Email login flow
-function handleLoginContinue(){
+function doEmailLogin(){
   var emailEl=document.getElementById('loginEmail');
   var email=emailEl?emailEl.value.trim().toLowerCase():'';
   if(email==='admin@americanmedical.com')email='amir@amedcompliance.com';
