@@ -369,7 +369,7 @@ tr:hover td{background:var(--surface2)}
 
 <!-- ACTIVITY PAGE -->
 <div class="page" id="page-activity">
-  <div class="page-header"><div class="page-title">Activity log</div><div class="page-sub">All your tracked sessions</div></div>
+  <div class="page-header"><div class="page-title" id="actPageTitle">Activity log</div><div class="page-sub" id="actPageSub">All your tracked sessions</div></div>
 
   <div style="display:flex;justify-content:flex-end;margin-bottom:8px">
     <button class="btn btn-outline" id="logTimeBtnAct" onclick="openManualTimeModal()" style="font-size:13px;padding:6px 14px">+ Log time manually</button>
@@ -863,7 +863,7 @@ function goTo(name){
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   document.getElementById('page-'+name).classList.add('active');
   document.querySelectorAll('.nav-item').forEach(n=>{ if(n.getAttribute('onclick').includes("'"+name+"'")) n.classList.add('active'); });
-  if(name==='activity') renderActivity();
+  if(name==='activity'){ if(cu && cu.role==='admin') fetchSessionsFromGitHub(); renderActivity(); }
   if(name==='insights') renderInsights();
   if(name==='reports'){ populateRptUsers(); applyRange(); }
   if(name==='leaves'){ populateLvFilter(); renderLeaveBalances(); renderLeaveLog(); }
@@ -933,34 +933,104 @@ function stopTimer(){
 }
 
 // ── SESSION PERSISTENCE ──────────────────────────────────────────────────────
+// ── SESSION SYNC via GitHub ──────────────────────────────────────────────────
+// Sessions are stored in GitHub (sessions.json) so ALL devices can see them.
+// Each user saves their own sessions on stop. Admin loads ALL sessions on login.
+
 function saveSessions(){
   try {
-    // Save sessions without screenshots (too large for localStorage)
-    var toSave = sessions.map(function(s){
-      return {id:s.id,uid:s.uid,project:s.project,category:s.category,start:s.start,duration:s.duration,date:s.date,type:s.type||'tracked',manual:s.manual||false,screenshots:[]};
+    // 1. Save to localStorage (fast, immediate, device-local backup)
+    var toSave = sessions.filter(function(s){return s.uid===cu.id;}).map(function(s){
+      return {id:s.id,uid:s.uid,project:s.project,category:s.category,start:s.start instanceof Date?s.start.toISOString():s.start,duration:s.duration,date:s.date,type:s.type||'tracked',manual:s.manual||false};
     });
-    localStorage.setItem('amc_sessions', JSON.stringify(toSave));
+    localStorage.setItem('amc_sessions_'+cu.id, JSON.stringify(toSave));
     if(nsid > 1) localStorage.setItem('amc_nsid', String(nsid));
+    // 2. Sync to GitHub (async, shared across all devices)
+    syncSessionsToGitHub();
   } catch(e){ console.warn('saveSessions error',e); }
 }
+
 function loadSessions(){
   try {
-    var saved = JSON.parse(localStorage.getItem('amc_sessions')||'[]');
-    if(saved.length){
+    // Load from localStorage (fast)
+    var uid = cu ? cu.id : 0;
+    var saved = JSON.parse(localStorage.getItem('amc_sessions_'+uid)||'[]');
+    var savedLegacy = JSON.parse(localStorage.getItem('amc_sessions')||'[]').filter(function(s){return s.uid===uid;});
+    var allSaved = saved.concat(savedLegacy);
+    if(allSaved.length){
       var existingIds = sessions.map(function(s){return s.id;});
-      saved.forEach(function(s){
+      allSaved.forEach(function(s){
         if(!existingIds.includes(s.id)){
-          s.screenshots = s.screenshots||[];
-          if(s.start) s.start = new Date(s.start);
+          s.screenshots = [];
+          if(s.start && typeof s.start === 'string') s.start = new Date(s.start);
           sessions.push(s);
         }
       });
-      var maxId = saved.reduce(function(m,s){return Math.max(m,s.id);},0);
+      var maxId = allSaved.reduce(function(m,s){return Math.max(m,s.id);},0);
       if(maxId >= nsid) nsid = maxId + 1;
     }
     var savedNsid = parseInt(localStorage.getItem('amc_nsid')||'0');
     if(savedNsid >= nsid) nsid = savedNsid + 1;
+    // Also fetch from GitHub (async - updates UI when done)
+    fetchSessionsFromGitHub();
   } catch(e){ console.warn('loadSessions error',e); }
+}
+
+// Fetch ALL sessions from GitHub (shared across devices)
+function fetchSessionsFromGitHub(){
+  var url = 'https://raw.githubusercontent.com/amedcompliance/amc-tracker/main/sessions.json?_='+Date.now();
+  fetch(url).then(function(r){ return r.ok ? r.json() : []; }).then(function(ghSessions){
+    if(!Array.isArray(ghSessions)) return;
+    var existingIds = sessions.map(function(s){return s.id;});
+    var added = 0;
+    ghSessions.forEach(function(s){
+      if(!existingIds.includes(s.id)){
+        s.screenshots = [];
+        if(s.start && typeof s.start === 'string') s.start = new Date(s.start);
+        sessions.push(s);
+        existingIds.push(s.id);
+        added++;
+      }
+    });
+    if(added > 0){
+      var maxId = ghSessions.reduce(function(m,s){return Math.max(m,s.id);},0);
+      if(maxId >= nsid) nsid = maxId + 1;
+      updateMetrics(); renderActivity();
+      console.log('Loaded',added,'sessions from GitHub');
+    }
+  }).catch(function(e){ console.warn('fetchSessionsFromGitHub error',e); });
+}
+
+// Sync this user's sessions to GitHub sessions.json
+function syncSessionsToGitHub(){
+  var pat = localStorage.getItem('amc_github_pat');
+  if(!pat) return; // Need PAT to write
+  var owner = 'amedcompliance', repo = 'amc-tracker', path = 'sessions.json';
+  // Fetch current sessions.json first
+  fetch('https://api.github.com/repos/'+owner+'/'+repo+'/contents/'+path,{
+    headers:{'Authorization':'token '+pat,'Accept':'application/vnd.github.v3+json'}
+  }).then(function(r){ return r.json(); }).then(function(data){
+    var existing = [];
+    if(data.content){
+      try { existing = JSON.parse(atob(data.content.replace(/
+/g,''))); } catch(e){}
+    }
+    // Merge: replace sessions for current user, keep others
+    var mySessions = sessions.filter(function(s){return s.uid===cu.id;}).map(function(s){
+      return {id:s.id,uid:s.uid,project:s.project,category:s.category,start:s.start instanceof Date?s.start.toISOString():s.start,duration:s.duration,date:s.date,type:s.type||'tracked',manual:s.manual||false};
+    });
+    var others = existing.filter(function(s){return s.uid!==cu.id;});
+    var merged = others.concat(mySessions);
+    var encoded = btoa(unescape(encodeURIComponent(JSON.stringify(merged,null,2))));
+    var body = {message:'Update sessions for uid '+cu.id,content:encoded};
+    if(data.sha) body.sha = data.sha;
+    return fetch('https://api.github.com/repos/'+owner+'/'+repo+'/contents/'+path,{
+      method:'PUT',
+      headers:{'Authorization':'token '+pat,'Content-Type':'application/json','Accept':'application/vnd.github.v3+json'},
+      body:JSON.stringify(body)
+    });
+  }).then(function(r){ if(r && r.ok) console.log('Sessions synced to GitHub'); })
+  .catch(function(e){ console.warn('syncSessionsToGitHub error',e); });
 }
 
 function updateMetrics(){
@@ -982,41 +1052,93 @@ function renderActivity(){
   const isAdmin = cu.role==='admin';
   const logBtn = document.getElementById('logTimeBtnAct');
   if(logBtn){ logBtn.style.display = isAdmin ? 'none' : ''; }
+  
+  // Update page title based on role
+  var actTitle = document.getElementById('actPageTitle');
+  var actSub = document.getElementById('actPageSub');
+  if(actTitle) actTitle.textContent = isAdmin ? 'Performance' : 'Activity log';
+  if(actSub) actSub.textContent = isAdmin ? 'Team performance this week' : 'All your tracked sessions';
+  
   if(isAdmin){
-    // Admin: show ALL users' sessions grouped by user (no dropdown needed)
+    // Admin: Performance dashboard - show all users with stats
     const allUsers = users.filter(function(u){return u.id;});
-    let html = '';
-    allUsers.forEach(function(u){
-      const uSessions = [...sessions.filter(function(s){return s.uid===u.id;})].reverse();
-      const totalSecs = uSessions.reduce(function(a,s){return a+(s.duration||0);},0);
-      html += '<div style="margin-bottom:20px"><div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface);border-radius:10px;margin-bottom:8px;border:1px solid var(--border)">';
-      html += '<div style="width:36px;height:36px;border-radius:50%;background:#4a86a8;color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;flex-shrink:0">'+((u.name||u.email||'U')[0]).toUpperCase()+'</div>';
-      html += '<div style="flex:1"><div style="font-size:14px;font-weight:600;color:var(--text)">'+(u.name||u.email)+'</div><div style="font-size:12px;color:var(--text2)">'+(u.dept||u.role||'')+'</div></div>';
-      html += '<div style="font-family:var(--mono);font-size:13px;color:var(--text2)">Total: '+fmtHM(totalSecs)+'</div></div>';
-      if(!uSessions.length){
-        html += '<div style="text-align:center;padding:16px;color:var(--text3);font-size:13px">No sessions yet.</div>';
-      } else {
-        html += '<div style="border:1px solid var(--border);border-radius:10px;overflow:hidden">';
-        html += uSessions.map(function(s){
-          const ds=s.start?new Date(s.start).toLocaleDateString([],{month:'short',day:'numeric'}):'';
-          const ts=s.start?new Date(s.start).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):'';
-          const mb=s.type==='manual'||s.manual?'<span class="badge badge-amber" style="margin-left:4px">manual</span>':'';
-          return '<div style="display:flex;align-items:center;gap:12px;padding:10px 12px;border-bottom:1px solid var(--border)"><div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:500;margin-bottom:2px">'+s.project+' <span class="badge '+(CAT_BADGE[s.category]||'badge-gray')+'">'+s.category+'</span>'+mb+'</div><div style="font-size:12px;color:var(--text2)">'+ds+' · '+ts+'</div></div><div style="font-family:var(--mono);font-size:13px;font-weight:500;white-space:nowrap">'+fmtS(s.duration||0)+'</div></div>';
-        }).join('');
-        html += '</div>';
-      }
-      html += '</div>';
+    const now = new Date();
+    const todayStr2 = todayStr();
+    
+    // Build table rows
+    let rows = allUsers.map(function(u){
+      const uSess = sessions.filter(function(s){return s.uid===u.id && s.duration;});
+      const totalSecs = uSess.reduce(function(a,s){return a+(s.duration||0);},0);
+      const todaySecs = uSess.filter(function(s){return s.date===todayStr2;}).reduce(function(a,s){return a+(s.duration||0);},0);
+      const weekSecs = uSess.filter(function(s){return new Date(s.start)>=(new Date(now-7*24*3600*1000));}).reduce(function(a,s){return a+(s.duration||0);},0);
+      const sessionCount = uSess.length;
+      // Activity % = active sessions / total (tracked vs manual)
+      const trackedCount = uSess.filter(function(s){return !s.manual;}).length;
+      const actPct = sessionCount>0 ? Math.round(trackedCount/sessionCount*100) : 0;
+      // Idle time: sessions shorter than 5 min are considered idle
+      const idleCount = uSess.filter(function(s){return (s.duration||0)<300;}).length;
+      const idlePct = sessionCount>0 ? Math.round(idleCount/sessionCount*100) : 0;
+      const actColor = actPct>=60?'#22c55e':actPct>=40?'#f59e0b':'#ef4444';
+      const idleColor = idlePct<=10?'#22c55e':idlePct<=30?'#f59e0b':'#ef4444';
+      const initial = ((u.name||u.email||'U')[0]).toUpperCase();
+      return {
+        uid: u.id, name: u.name||u.email, dept: u.dept||u.role||'',
+        totalSecs, weekSecs, todaySecs, sessionCount,
+        actPct, idlePct, actColor, idleColor, initial
+      };
+    }).sort(function(a,b){return b.weekSecs-a.weekSecs;});
+    
+    let html = '<div class="card" style="padding:0;overflow:hidden"><table style="width:100%;border-collapse:collapse;font-size:13px"><thead><tr style="border-bottom:2px solid var(--border)">';
+    html += '<th style="padding:12px 16px;text-align:left;color:var(--text2);font-weight:500;font-size:12px">MEMBER</th>';
+    html += '<th style="padding:12px 16px;text-align:right;color:var(--text2);font-weight:500;font-size:12px;cursor:pointer" onclick="renderActivity()">TIME <span style="opacity:0.5">▼</span></th>';
+    html += '<th style="padding:12px 16px;text-align:center;color:var(--text2);font-weight:500;font-size:12px">ACTIVITY</th>';
+    html += '<th style="padding:12px 16px;text-align:center;color:var(--text2);font-weight:500;font-size:12px">IDLE TIME</th>';
+    html += '<th style="padding:12px 16px;text-align:center;color:var(--text2);font-weight:500;font-size:12px">CORE WORK</th>';
+    html += '</tr></thead><tbody>';
+    
+    rows.forEach(function(r){
+      html += '<tr style="border-bottom:1px solid var(--border)">';
+      // Member
+      html += '<td style="padding:14px 16px"><div style="display:flex;align-items:center;gap:10px">';
+      html += '<div style="width:34px;height:34px;border-radius:50%;background:#4a86a8;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0">'+r.initial+'</div>';
+      html += '<div><div style="font-weight:500;color:var(--text)">'+r.name+'</div><div style="font-size:11px;color:var(--text2)">'+r.dept+'</div></div></div></td>';
+      // Time
+      const hrs = Math.floor(r.weekSecs/3600);
+      const mins = Math.floor((r.weekSecs%3600)/60);
+      const timeStr = hrs+':'+(mins<10?'0':'')+mins;
+      const todayHrs = Math.floor(r.todaySecs/3600);
+      const todayMins = Math.floor((r.todaySecs%3600)/60);
+      const todayStr3 = todayHrs+'h '+(todayMins<10?'0':'')+todayMins+'m';
+      html += '<td style="padding:14px 16px;text-align:right"><div style="font-family:var(--mono);font-size:15px;font-weight:600;color:var(--text)">'+timeStr+'</div><div style="font-size:11px;color:var(--text2)">today: '+todayStr3+'</div></td>';
+      // Activity %
+      html += '<td style="padding:14px 16px;text-align:center"><span style="display:inline-block;padding:4px 12px;border-radius:20px;background:'+r.actColor+';color:#fff;font-size:13px;font-weight:600;min-width:52px">'+r.actPct+'%</span></td>';
+      // Idle %
+      html += '<td style="padding:14px 16px;text-align:center"><span style="display:inline-block;padding:4px 12px;border-radius:20px;background:'+r.idleColor+';color:#fff;font-size:13px;font-weight:600;min-width:52px">'+r.idlePct+'%</span></td>';
+      // Core Work (session count in circle)
+      html += '<td style="padding:14px 16px;text-align:center"><span style="display:inline-block;width:36px;height:36px;border-radius:50%;border:2px solid #4a86a8;color:#4a86a8;font-size:13px;font-weight:700;line-height:32px;text-align:center">'+r.sessionCount+'</span></td>';
+      html += '</tr>';
     });
-    el.innerHTML = html || '<div style="text-align:center;padding:32px;color:var(--text3)">No sessions yet.</div>';
+    
+    if(rows.length===0){
+      html += '<tr><td colspan="5" style="padding:40px;text-align:center;color:var(--text3)">No team members found.</td></tr>';
+    }
+    
+    html += '</tbody></table></div>';
+    
+    // Add refresh button
+    html = '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px"><div style="font-size:13px;color:var(--text2)">This week's performance</div><button onclick="fetchSessionsFromGitHub && fetchSessionsFromGitHub();setTimeout(renderActivity,1500)" class="btn btn-outline" style="font-size:12px;padding:5px 12px">↻ Refresh</button></div>' + html;
+    
+    el.innerHTML = html;
     return;
   }
-  // Regular user: show only own sessions
+  
+  // Regular user: show own sessions list
   const all=[...sessions.filter(function(s){return s.uid===cu.id;})].reverse();
   if(!all.length){ el.innerHTML='<div style="text-align:center;padding:32px;color:var(--text3)">No sessions yet. Start tracking to see your activity here.</div>'; return; }
   el.innerHTML = all.map(function(s){
     const ds=s.start?new Date(s.start).toLocaleDateString([],{month:'short',day:'numeric'}):'';
     const ts=s.start?new Date(s.start).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):'';
-    const thumbs=s.screenshots.map(function(sc,j){return '<div class="ss-thumb" onclick="openSS('+s.id+','+j+')"><img src="'+sc.url+'" alt="ss"/></div>';}).join('');
+    const thumbs=s.screenshots?s.screenshots.map(function(sc,j){return '<div class="ss-thumb" onclick="openSS('+s.id+','+j+')"><img src="'+sc.url+'" alt="ss"/></div>';}).join(''):'';
     const mb=s.type==='manual'||s.manual?'<span class="badge badge-amber" style="margin-left:4px">manual</span>':'';
     return '<div style="display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)"><div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:500;margin-bottom:3px">'+s.project+' <span class="badge '+(CAT_BADGE[s.category]||'badge-gray')+'">'+s.category+'</span>'+mb+'</div><div style="font-size:12px;color:var(--text2)">'+ds+' · '+ts+'</div>'+(thumbs?'<div class="ss-strip">'+thumbs+'</div>':'')+'</div><div style="font-family:var(--mono);font-size:13px;font-weight:500;white-space:nowrap">'+fmtS(s.duration||0)+'</div></div>';
   }).join('');
@@ -1972,6 +2094,8 @@ function completeLogin(user) {
   
   // Load persisted sessions for current user
   try { loadSessions(); } catch(e) {}
+  // For admin: also fetch all sessions from GitHub immediately
+  try { if(u && u.role==='admin') setTimeout(function(){ fetchSessionsFromGitHub(); }, 800); } catch(e) {}
   // Start idle tracking
   try { startIdleTracking(); } catch(e) {}
 }
