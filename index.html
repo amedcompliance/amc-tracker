@@ -734,6 +734,17 @@ async function amcRemoveUserFromCode(uid) {
 }
 
 
+
+let sessions = [];
+let leaves = [];
+let approvals = [
+  {id:1,uid:3,type:'Leave request',detail:'Vacation 2025-06-02 to 2025-06-06 (5 days)',status:'pending',submitted:todayStr()},
+  {id:2,uid:4,type:'Overtime',detail:'3h overtime on 2025-05-20 — billing deadline',status:'pending',submitted:todayStr()},
+];
+let auditLog = [
+  {id:1,uid:1,action:'System initialized',category:'System',detail:'AMC Time Tracker deployed',ts:new Date()},
+];
+
 let nuid=6,nsid=1,nlid=1,nhid=14,napid=3,naudid=2;
 let cu=null, tInt=null, ssInt=null, secs=0, running=false, stream=null, screenOk=false, curSess=null;
 let pieO=null, barO=null, rptBarO=null;
