@@ -2448,8 +2448,10 @@ function completeLogin(user) {
   try { startIdleTracking(); } catch(e) {}
 }
 
-// Idle tracking - 20 minutes (fires only after true inactivity)
+// Idle tracking - pauses only after 20 min of TRUE system-wide inactivity
+// Uses BroadcastChannel so activity in ANY tab resets the timer
 var _idleStarted = false;
+var _idleChannel = null;
 function startIdleTracking() {
   // Prevent duplicate event listeners
   if (_idleStarted) {
@@ -2458,24 +2460,34 @@ function startIdleTracking() {
     return;
   }
   _idleStarted = true;
-  function resetTimer() {
+
+  // BroadcastChannel lets any tab signal activity to all other tabs
+  try {
+    _idleChannel = new BroadcastChannel('amc_activity');
+    _idleChannel.onmessage = function() { resetTimer(true); };
+  } catch(e) {}
+
+  function resetTimer(fromOtherTab) {
     // Don't reset if warning is already showing
     var overlay = document.getElementById('idleWarningOverlay');
     if (overlay && overlay.style.display === 'flex') return;
     clearTimeout(_idleTimeout);
     _idleTimeout = setTimeout(showIdleWarning, _idleMinutes * 60 * 1000);
+    // Broadcast to other tabs (only if event came from this tab)
+    if (!fromOtherTab && _idleChannel) {
+      try { _idleChannel.postMessage('active'); } catch(e) {}
+    }
   }
   var events = ['mousemove','mousedown','keydown','touchstart','scroll','click','pointermove'];
-  events.forEach(function(evt) { document.addEventListener(evt, resetTimer, {passive:true,capture:true}); });
+  events.forEach(function(evt) { document.addEventListener(evt, function() { resetTimer(false); }, {passive:true,capture:true}); });
   // Reset when tab becomes visible again (user switches back)
   document.addEventListener('visibilitychange', function() {
-    if (document.visibilityState === 'visible') resetTimer();
+    if (document.visibilityState === 'visible') resetTimer(false);
   });
-  window.addEventListener('focus', resetTimer);
-  resetTimer();
-  window._resetIdleTimer = resetTimer;
+  window.addEventListener('focus', function() { resetTimer(false); });
+  resetTimer(false);
+  window._resetIdleTimer = function() { resetTimer(false); };
 }
-
 function showIdleWarning() {
   // Only show if user is logged in
   if (!cu) return;
