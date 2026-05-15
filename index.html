@@ -62,6 +62,54 @@ select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='ht
 .logo-sub{font-size:10px;color:var(--text3);margin-top:1px}
 .sidebar-nav{flex:1;padding:10px 10px;overflow-y:auto}
 .nav-section{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;padding:12px 10px 6px}
+/* Dashboard styles */
+.dash-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:16px;margin-bottom:20px}
+.dash-stat-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;display:flex;flex-direction:column;gap:8px}
+.dash-stat-label{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em}
+.dash-stat-value{font-size:28px;font-weight:700;color:var(--text)}
+.dash-stat-sub{font-size:12px;color:var(--text3)}
+.dash-stat-trend{font-size:12px}
+.dash-stat-trend.up{color:#22c55e}
+.dash-stat-trend.down{color:#ef4444}
+.dash-two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+.dash-full{margin-bottom:20px}
+.dash-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px}
+.dash-card-title{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between}
+.dash-member-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.dash-member-row:last-child{border-bottom:none}
+.dash-member-info{flex:1;min-width:0}
+.dash-member-name{font-size:13px;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dash-member-project{font-size:11px;color:var(--text3)}
+.dash-member-time{font-size:13px;font-weight:600;color:var(--text);min-width:45px;text-align:right}
+.dash-member-status{display:flex;align-items:center;gap:5px;font-size:12px;min-width:85px}
+.dash-status-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.dash-status-dot.working{background:#22c55e}
+.dash-status-dot.idle{background:#f59e0b}
+.dash-status-dot.offline{background:#94a3b8}
+.dash-activity-badge{padding:3px 8px;border-radius:20px;font-size:11px;font-weight:700;color:#fff;min-width:38px;text-align:center}
+.dash-activity-badge.high{background:#22c55e}
+.dash-activity-badge.med{background:#f59e0b}
+.dash-activity-badge.low{background:#ef4444}
+.dash-screenshot-grid{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.dash-screenshot-thumb{width:120px;height:75px;border-radius:6px;object-fit:cover;cursor:pointer;border:2px solid var(--border);transition:border-color .15s}
+.dash-screenshot-thumb:hover{border-color:var(--teal)}
+.dash-no-data{text-align:center;padding:40px;color:var(--text3);font-size:13px}
+.dash-attention-cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:20px}
+.dash-attention-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px}
+.dash-attention-title{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.dash-attention-value{font-size:32px;font-weight:700;color:var(--text)}
+.dash-attention-link{font-size:12px;color:var(--teal);cursor:pointer;text-decoration:underline;margin-top:4px;display:inline-block}
+.dash-weekly-bar{height:4px;background:var(--border);border-radius:2px;margin-top:8px;overflow:hidden}
+.dash-weekly-bar-fill{height:100%;border-radius:2px;background:var(--teal);transition:width .3s}
+.dash-project-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
+.dash-project-row:last-child{border-bottom:none}
+.dash-project-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.dash-project-name{flex:1;font-size:13px;color:var(--text)}
+.dash-project-time{font-size:12px;color:var(--text3);min-width:70px;text-align:right}
+.dash-project-pct{font-size:11px;color:var(--text3);min-width:35px;text-align:right}
+.dash-minitrend{width:80px;height:28px}
+.dash-refresh-btn{font-size:11px;color:var(--teal);cursor:pointer;background:none;border:none;padding:0;font-weight:600}
+.dash-refresh-btn:hover{text-decoration:underline}
 .nav-item{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:var(--r-sm);cursor:pointer;color:var(--text2);font-size:13px;font-weight:400;transition:all .12s;border:none;background:none;width:100%;text-align:left}
 .nav-item:hover{background:var(--surface2);color:var(--text)}
 .nav-item.active{background:var(--teal-light);color:var(--teal-dark);font-weight:500}
@@ -303,6 +351,9 @@ tr:hover td{background:var(--surface2)}
     <div class="nav-section">Workspace</div>
     <button class="nav-item active" onclick="goTo('tracker')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><polyline points="12 6 12 12 16 14"/></svg>Tracker
+    </button>
+    <button class="nav-item admin-only" style="display:none" onclick="goTo('dashboard')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Dashboard
     </button>
     <button class="nav-item" onclick="goTo('activity')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Activity
@@ -606,6 +657,74 @@ tr:hover td{background:var(--surface2)}
   <div class="card" id="auditLog"></div>
 </div>
 
+<div class="page" id="page-dashboard">
+  <div class="page-header">
+    <div class="page-title">Dashboard</div>
+    <button class="dash-refresh-btn" onclick="renderDashboard()">&#8635; Refresh</button>
+  </div>
+
+  <!-- Needs Attention -->
+  <div class="dash-attention-cards">
+    <div class="dash-attention-card">
+      <div class="dash-attention-title">Timesheet Approvals</div>
+      <div class="dash-attention-value" id="dash-approvals-count">0</div>
+      <span class="dash-attention-link" onclick="goTo('admin')">Review</span>
+    </div>
+    <div class="dash-attention-card">
+      <div class="dash-attention-title">Leave Requests</div>
+      <div class="dash-attention-value" id="dash-leaves-count">0</div>
+      <span class="dash-attention-link" onclick="goTo('leaves')">Review</span>
+    </div>
+    <div class="dash-attention-card">
+      <div class="dash-attention-title">Active Now</div>
+      <div class="dash-attention-value" id="dash-active-count">0</div>
+      <div style="font-size:12px;color:var(--text3);margin-top:4px">members working</div>
+    </div>
+  </div>
+
+  <!-- Summary Stats -->
+  <div class="dash-grid">
+    <div class="dash-stat-card">
+      <div class="dash-stat-label">Weekly Activity</div>
+      <div class="dash-stat-value" id="dash-weekly-activity">0%</div>
+      <div class="dash-weekly-bar"><div class="dash-weekly-bar-fill" id="dash-weekly-activity-bar" style="width:0%"></div></div>
+    </div>
+    <div class="dash-stat-card">
+      <div class="dash-stat-label">Worked This Week</div>
+      <div class="dash-stat-value" id="dash-weekly-time">0h 0m</div>
+      <div class="dash-stat-sub" id="dash-weekly-sessions">0 sessions</div>
+    </div>
+    <div class="dash-stat-card">
+      <div class="dash-stat-label">Total Members</div>
+      <div class="dash-stat-value" id="dash-total-members">0</div>
+      <div class="dash-stat-sub" id="dash-tracking-members">0 tracking today</div>
+    </div>
+    <div class="dash-stat-card">
+      <div class="dash-stat-label">Projects Active</div>
+      <div class="dash-stat-value" id="dash-projects-count">0</div>
+      <div class="dash-stat-sub">this week</div>
+    </div>
+  </div>
+
+  <!-- Team Activity + Project Activity -->
+  <div class="dash-two-col">
+    <div class="dash-card">
+      <div class="dash-card-title">Team Activity <span style="font-weight:400;text-transform:none;font-size:12px;color:var(--text3)">Today</span></div>
+      <div id="dash-team-list"></div>
+    </div>
+    <div class="dash-card">
+      <div class="dash-card-title">Current Project Activity</div>
+      <div id="dash-project-list"></div>
+    </div>
+  </div>
+
+  <!-- Recent Screenshots -->
+  <div class="dash-full dash-card">
+    <div class="dash-card-title">Recent Screenshots <span style="font-weight:400;text-transform:none;font-size:12px;color:var(--text3)">Last captured per member</span></div>
+    <div id="dash-screenshots-area"></div>
+  </div>
+</div>
+
 </main>
 </div>
 
@@ -877,6 +996,7 @@ function goTo(name){
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   document.getElementById('page-'+name).classList.add('active');
   document.querySelectorAll('.nav-item').forEach(n=>{ if(n.getAttribute('onclick').includes("'"+name+"'")) n.classList.add('active'); });
+  if(name==='dashboard') renderDashboard();
   if(name==='activity'){ if(cu && cu.role==='admin') fetchSessionsFromGitHub(); renderActivity(); }
   if(name==='insights') renderInsights();
   if(name==='reports'){ populateRptUsers(); applyRange(); }
@@ -1059,6 +1179,145 @@ function updateMetrics(){
 
 // ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ ACTIVITY ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 const CAT_BADGE = {Work:'badge-teal',Design:'badge-blue',Dev:'badge-blue',Meeting:'badge-amber',Admin:'badge-teal',Break:'badge-gray'};
+
+function renderDashboard(){
+  const allU = getUsers().filter(u=>u.role!=='admin');
+  const allSess = JSON.parse(localStorage.getItem('amc_sessions')||'[]');
+  
+  // Pending approvals
+  const adjs = JSON.parse(localStorage.getItem('amc_adjustments')||'[]');
+  const pendingAdj = adjs.filter(a=>a.status==='pending').length;
+  document.getElementById('dash-approvals-count').textContent = pendingAdj;
+  
+  // Pending leaves
+  const leaveReqs = JSON.parse(localStorage.getItem('amc_leave_requests')||'[]');
+  const pendingLeaves = leaveReqs.filter(l=>l.status==='pending').length;
+  document.getElementById('dash-leaves-count').textContent = pendingLeaves;
+  
+  // Active members (tracking today)
+  const today = new Date().toDateString();
+  const todaySess = allSess.filter(s=>new Date(s.start).toDateString()===today);
+  const activeUids = [...new Set(todaySess.map(s=>s.uid))];
+  document.getElementById('dash-active-count').textContent = activeUids.length;
+  
+  // Weekly stats
+  const now = new Date();
+  const weekStart = new Date(now); weekStart.setDate(now.getDate() - now.getDay());
+  weekStart.setHours(0,0,0,0);
+  const weekSess = allSess.filter(s=>new Date(s.start)>=weekStart);
+  
+  let totalWeekMs = 0;
+  let totalActivity = 0;
+  let actCount = 0;
+  const projectMap = {};
+  
+  weekSess.forEach(s=>{
+    const dur = s.duration||0;
+    totalWeekMs += dur;
+    if(s.activity!==undefined){totalActivity+=s.activity;actCount++;}
+    const proj = s.project||'No project';
+    projectMap[proj] = (projectMap[proj]||0) + dur;
+  });
+  
+  const avgActivity = actCount>0 ? Math.round(totalActivity/actCount) : 0;
+  const totalH = Math.floor(totalWeekMs/3600000);
+  const totalM = Math.floor((totalWeekMs%3600000)/60000);
+  
+  document.getElementById('dash-weekly-activity').textContent = avgActivity+'%';
+  document.getElementById('dash-weekly-activity-bar').style.width = avgActivity+'%';
+  document.getElementById('dash-weekly-time').textContent = totalH+'h '+totalM+'m';
+  document.getElementById('dash-weekly-sessions').textContent = weekSess.length+' sessions this week';
+  document.getElementById('dash-total-members').textContent = allU.length;
+  document.getElementById('dash-tracking-members').textContent = activeUids.length+' tracking today';
+  document.getElementById('dash-projects-count').textContent = Object.keys(projectMap).length;
+  
+  // Team Activity List (today)
+  const teamListEl = document.getElementById('dash-team-list');
+  if(!teamListEl) return;
+  
+  const todayUserData = allU.map(u=>{
+    const uSess = todaySess.filter(s=>s.uid===u.id);
+    const totalMs = uSess.reduce((a,s)=>a+(s.duration||0),0);
+    const acts = uSess.filter(s=>s.activity!==undefined);
+    const avgAct = acts.length>0 ? Math.round(acts.reduce((a,s)=>a+s.activity,0)/acts.length) : 0;
+    const lastSess = uSess.sort((a,b)=>new Date(b.start)-new Date(a.start))[0];
+    const isWorking = lastSess && !lastSess.end;
+    return {u, totalMs, avgAct, isWorking, lastProject: lastSess?.project||'No project'};
+  }).sort((a,b)=>b.totalMs-a.totalMs);
+  
+  if(todayUserData.length===0){
+    teamListEl.innerHTML='<div class="dash-no-data">No activity today yet</div>';
+  } else {
+    teamListEl.innerHTML = todayUserData.map(d=>{
+      const h2=Math.floor(d.totalMs/3600000), m2=Math.floor((d.totalMs%3600000)/60000);
+      const timeStr = h2>0?h2+'h '+m2+'m':m2+'m';
+      const actClass = d.avgAct>=60?'high':d.avgAct>=30?'med':'low';
+      const statusDot = d.isWorking?'working':'offline';
+      const statusLabel = d.isWorking?'Working':'Offline';
+      const initials = (d.u.name||'?').split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
+      return `<div class="dash-member-row">
+        <div class="avatar-circle" style="width:34px;height:34px;font-size:12px;flex-shrink:0">${initials}</div>
+        <div class="dash-member-info">
+          <div class="dash-member-name">${d.u.name||d.u.email}</div>
+          <div class="dash-member-project">${d.lastProject}</div>
+        </div>
+        <div class="dash-activity-badge ${actClass}">${d.avgAct}%</div>
+        <div class="dash-member-time">${timeStr}</div>
+        <div class="dash-member-status"><span class="dash-status-dot ${statusDot}"></span>${statusLabel}</div>
+      </div>`;
+    }).join('');
+  }
+  
+  // Project Activity
+  const projListEl = document.getElementById('dash-project-list');
+  const projColors = ['#4a86a8','#22c55e','#f59e0b','#ef4444','#8b5cf6','#06b6d4','#ec4899'];
+  const projEntries = Object.entries(projectMap).sort((a,b)=>b[1]-a[1]);
+  const maxProj = projEntries[0]?projEntries[0][1]:1;
+  
+  if(projEntries.length===0){
+    projListEl.innerHTML='<div class="dash-no-data">No project data this week</div>';
+  } else {
+    projListEl.innerHTML = projEntries.slice(0,8).map(([name,ms],i)=>{
+      const ph=Math.floor(ms/3600000), pm=Math.floor((ms%3600000)/60000);
+      const pct = Math.round(ms/maxProj*100);
+      return `<div class="dash-project-row">
+        <div class="dash-project-dot" style="background:${projColors[i%projColors.length]}"></div>
+        <div class="dash-project-name">${name}</div>
+        <div style="flex:1;height:4px;background:var(--border);border-radius:2px;margin:0 8px"><div style="height:100%;width:${pct}%;background:${projColors[i%projColors.length]};border-radius:2px"></div></div>
+        <div class="dash-project-time">${ph}h ${pm}m</div>
+      </div>`;
+    }).join('');
+  }
+  
+  // Recent Screenshots per member
+  const ssArea = document.getElementById('dash-screenshots-area');
+  const usersWithSS = allU.map(u=>{
+    const uSess = allSess.filter(s=>s.uid===u.id);
+    const screenshots = [];
+    uSess.forEach(s=>{(s.screenshots||[]).forEach(ss=>screenshots.push({...ss, sid:s.id}));});
+    return {u, screenshots: screenshots.slice(-3)};
+  }).filter(x=>x.screenshots.length>0);
+  
+  if(usersWithSS.length===0){
+    ssArea.innerHTML='<div class="dash-no-data">No screenshots captured yet. Screenshots are taken automatically every 15 minutes when tracking.</div>';
+  } else {
+    ssArea.innerHTML = usersWithSS.map(({u,screenshots})=>{
+      const initials = (u.name||'?').split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
+      const ssHTML = screenshots.map(ss=>`
+        <img class="dash-screenshot-thumb" src="${ss.dataUrl||ss.url}" alt="screenshot"
+          onclick="(function(){document.getElementById('ss-img').src=this.src;document.getElementById('ss-modal').style.display='flex'}).call(this)"
+          title="Click to expand"/>`).join('');
+      return `<div style="margin-bottom:16px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+          <div class="avatar-circle" style="width:28px;height:28px;font-size:10px;flex-shrink:0">${initials}</div>
+          <span style="font-size:13px;font-weight:500;color:var(--text)">${u.name||u.email}</span>
+          <span style="font-size:11px;color:var(--text3)">${screenshots.length} screenshot(s)</span>
+        </div>
+        <div class="dash-screenshot-grid">${ssHTML}</div>
+      </div>`;
+    }).join('');
+  }
+}
 
 function renderActivity(expandUid){
   const el=document.getElementById('activityList'); if(!cu) return;
