@@ -1181,7 +1181,7 @@ function updateMetrics(){
 const CAT_BADGE = {Work:'badge-teal',Design:'badge-blue',Dev:'badge-blue',Meeting:'badge-amber',Admin:'badge-teal',Break:'badge-gray'};
 
 function renderDashboard(){
-  const allU = getUsers().filter(u=>u.role!=='admin');
+  const allU = users.filter(u=>u.role!=='admin');
   const allSess = JSON.parse(localStorage.getItem('amc_sessions')||'[]');
   
   // Pending approvals
