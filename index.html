@@ -248,7 +248,7 @@ tr:hover td{background:var(--surface2)}
         <label style="display:block;font-size:13px;font-weight:600;color:#555;margin-bottom:6px;">Password</label>
         <div style="position:relative;">
           <input type="password" id="loginPassword" placeholder="Enter password" style="width:100%;padding:12px;padding-right:44px;border:2px solid #e0e0e0;border-radius:8px;font-size:15px;box-sizing:border-box;outline:none;transition:border 0.2s;" onfocus="this.style.borderColor='#4a86a8'" onblur="this.style.borderColor='#e0e0e0'" onkeydown="if(event.key==='Enter')doEmailLogin()"/>
-          <button onclick="togglePwdVis('loginPassword',this)" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#888;font-size:18px;">Ã°ÂÂÂ</button>
+          <button onclick="togglePwdVis('loginPassword',this)" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#888;font-size:18px;">ÃÂ°ÃÂÃÂÃÂ</button>
         </div>
         <div id="pwdStrength" style="font-size:12px;margin-top:4px;height:16px;"></div>
       </div>
@@ -259,7 +259,7 @@ tr:hover td{background:var(--surface2)}
     <!-- Step 2: OTP Verification -->
     <div id="loginStep2" style="display:none;">
       <div style="background:#e8f1f7;border-radius:8px;padding:12px;margin-bottom:16px;font-size:13px;color:#2d6080;">
-        Ã°ÂÂÂ§ A verification code has been sent to <strong id="otpEmailDisplay"></strong>
+        ÃÂ°ÃÂÃÂÃÂ§ A verification code has been sent to <strong id="otpEmailDisplay"></strong>
       </div>
       <div id="otpInputGroup" style="display:block;margin-bottom:16px;text-align:left;">
         <label style="display:block;font-size:13px;font-weight:600;color:#555;margin-bottom:6px;">Verification Code</label>
@@ -273,7 +273,7 @@ tr:hover td{background:var(--surface2)}
     
     <!-- Step 3: First-time password setup -->
     <div id="loginStep3" style="display:none;">
-      <p style="color:#444;font-size:14px;margin-bottom:20px;text-align:center;font-weight:500;">Ã°ÂÂÂ Welcome! Create a password to access your account.<br><small style="color:#888;">Must be at least 6 characters with 1 uppercase, 1 lowercase, and 1 symbol.</small></p>
+      <p style="color:#444;font-size:14px;margin-bottom:20px;text-align:center;font-weight:500;">ÃÂ°ÃÂÃÂÃÂ Welcome! Create a password to access your account.<br><small style="color:#888;">Must be at least 6 characters with 1 uppercase, 1 lowercase, and 1 symbol.</small></p>
       <div style="margin-bottom:12px;text-align:left;">
         <label style="display:block;font-size:13px;font-weight:600;color:#555;margin-bottom:6px;">New Password</label>
         <input type="password" id="newPwd" placeholder="At least 6 chars, 1 upper, 1 lower, 1 symbol" style="width:100%;padding:12px;border:2px solid #e0e0e0;border-radius:8px;font-size:14px;box-sizing:border-box;outline:none;" onfocus="this.style.borderColor='#4a86a8'" onblur="this.style.borderColor='#e0e0e0'"/>
@@ -283,7 +283,7 @@ tr:hover td{background:var(--surface2)}
         <input type="password" id="confirmPwd" placeholder="Repeat your password" style="width:100%;padding:12px;border:2px solid #e0e0e0;border-radius:8px;font-size:14px;box-sizing:border-box;outline:none;" onfocus="this.style.borderColor='#4a86a8'" onblur="this.style.borderColor='#e0e0e0'"/>
       </div>
       <div style="text-align:left;font-size:12px;color:#888;margin-bottom:16px;">
-        Ã¢ÂÂ Min 6 characters &nbsp; Ã¢ÂÂ 1 uppercase &nbsp; Ã¢ÂÂ 1 lowercase &nbsp; Ã¢ÂÂ 1 symbol
+        ÃÂ¢ÃÂÃÂ Min 6 characters &nbsp; ÃÂ¢ÃÂÃÂ 1 uppercase &nbsp; ÃÂ¢ÃÂÃÂ 1 lowercase &nbsp; ÃÂ¢ÃÂÃÂ 1 symbol
       </div>
       <div id="setupError" style="color:#e74c3c;font-size:13px;margin-bottom:12px;display:none;"></div>
       <button onclick="completeSetup()" style="width:100%;background:#4a86a8;color:white;border:none;padding:14px;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer;">Set Password & Login</button>
@@ -363,7 +363,7 @@ tr:hover td{background:var(--surface2)}
     <div class="metric"><div class="metric-label">Today</div><div class="metric-value" id="m-today">0h 0m</div><div class="metric-sub">tracked</div></div>
     <div class="metric"><div class="metric-label">Sessions</div><div class="metric-value" id="m-sessions">0</div><div class="metric-sub">today</div></div>
     <div class="metric"><div class="metric-label">This week</div><div class="metric-value" id="m-week">0h 0m</div><div class="metric-sub">tracked</div></div>
-    <div class="metric"><div class="metric-label">Leave balance</div><div class="metric-value" id="m-leave">Ã¢ÂÂ</div><div class="metric-sub">days remaining</div></div>
+    <div class="metric"><div class="metric-label">Leave balance</div><div class="metric-value" id="m-leave">ÃÂ¢ÃÂÃÂ</div><div class="metric-sub">days remaining</div></div>
   </div>
 </div>
 
@@ -387,7 +387,7 @@ tr:hover td{background:var(--surface2)}
     <div class="metric"><div class="metric-label">Today</div><div class="metric-value" id="i-today">0h 0m</div></div>
     <div class="metric"><div class="metric-label">This week</div><div class="metric-value" id="i-week">0h 0m</div></div>
     <div class="metric"><div class="metric-label">Daily avg</div><div class="metric-value" id="i-avg">0h 0m</div></div>
-    <div class="metric"><div class="metric-label">Top project</div><div class="metric-value" style="font-size:15px" id="i-top">Ã¢ÂÂ</div></div>
+    <div class="metric"><div class="metric-label">Top project</div><div class="metric-value" style="font-size:15px" id="i-top">ÃÂ¢ÃÂÃÂ</div></div>
   </div>
   <div class="card">
     <div class="card-title">Time by project</div>
@@ -395,7 +395,7 @@ tr:hover td{background:var(--surface2)}
     <div style="position:relative;width:100%;height:200px;margin-top:16px"><canvas id="pieChart" role="img" aria-label="Time by project doughnut chart">No data.</canvas></div>
   </div>
   <div class="card">
-    <div class="card-title">Daily hours Ã¢ÂÂ last 7 days</div>
+    <div class="card-title">Daily hours ÃÂ¢ÃÂÃÂ last 7 days</div>
     <div style="position:relative;width:100%;height:220px"><canvas id="barChart" role="img" aria-label="Daily hours bar chart">No data.</canvas></div>
   </div>
 </div>
@@ -663,7 +663,7 @@ tr:hover td{background:var(--surface2)}
 </div>
 </div>
 
-<script>// Ã¢ÂÂÃ¢ÂÂ DATA Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+<script>// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ DATA ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 const SHAREPOINT = 'https://americanmedical.sharepoint.com/:f:/s/AMCdata/IgAOUGFK5WryRJg0l0L7kH2wAVpFB3sH4n4ykFYRlaoa5ME?e=3mUcRe';
 const AV_COLORS = [['#E1F5EE','#0F6E56'],['#E6F1FB','#185FA5'],['#EEEDFE','#4C1D95'],['#FAEEDA','#92400E'],['#FAECE7','#9B2C13'],['#EAF3DE','#14532D']];
 const CHART_COLORS = ['#4a86a8','#2563EB','#D97706','#7C3AED','#E14B2A','#16A34A','#DC2626'];
@@ -713,7 +713,7 @@ let users = [
 {id:5,name:'Czarina Magana',email:'czarina.magana@amedcompliance.com',role:'employee',pin:'1234',color:4,dept:1,shift:1,invited:true,status:'active',phone:'',jobTitle:'',startDate:'2026-05-13',leaveBalance:{vacation:6,sick:4,personal:2},manager:1, password: "", needsSetup: true},
 ];
 
-// ââ STARTUP: Apply deleted user blacklist + load extra users ââ
+// Ã¢ÂÂÃ¢ÂÂ STARTUP: Apply deleted user blacklist + load extra users Ã¢ÂÂÃ¢ÂÂ
 (function(){
   const _deleted = JSON.parse(localStorage.getItem('amc_deleted_users')||'[]');
   if(_deleted.length) users = users.filter(function(u){return !_deleted.includes(u.id);});
@@ -730,7 +730,7 @@ let users = [
     });
   } catch(e) {}
 })();
-// ââ ADD USER TO SOURCE CODE via GitHub API ââââââââââââââââââ
+// Ã¢ÂÂÃ¢ÂÂ ADD USER TO SOURCE CODE via GitHub API Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
 // When admin adds a user, this patches index.html directly in GitHub
 // so the user is hardcoded and works on ALL devices after ~30s deploy
 async function amcAddUserToCode(newUser) {
@@ -805,7 +805,7 @@ let sessions = [];
 let leaves = [];
 let approvals = [
   {id:1,uid:3,type:'Leave request',detail:'Vacation 2025-06-02 to 2025-06-06 (5 days)',status:'pending',submitted:todayStr()},
-  {id:2,uid:4,type:'Overtime',detail:'3h overtime on 2025-05-20 â billing deadline',status:'pending',submitted:todayStr()},
+  {id:2,uid:4,type:'Overtime',detail:'3h overtime on 2025-05-20 Ã¢ÂÂ billing deadline',status:'pending',submitted:todayStr()},
 ];
 let auditLog = [
   {id:1,uid:1,action:'System initialized',category:'System',detail:'AMC Time Tracker deployed',ts:new Date()},
@@ -816,7 +816,7 @@ let cu=null, tInt=null, ssInt=null, secs=0, running=false, stream=null, screenOk
 let pieO=null, barO=null, rptBarO=null;
 let mmode='', medit=null, webhookUrl='', activeAlerts=[];
 
-// ââ HELPERS âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// Ã¢ÂÂÃ¢ÂÂ HELPERS Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
 const pad = n => String(n).padStart(2,'0');
 const fmtS = s => { const h=Math.floor(s/3600),m=Math.floor((s%3600)/60),sc=s%60; return `${pad(h)}:${pad(m)}:${pad(sc)}`; };
 const fmtHM = s => `${Math.floor(s/3600)}h ${Math.floor((s%3600)/60)}m`;
@@ -832,7 +832,7 @@ function dateRange(from,to){
 function mondayOf(d){ const dt=new Date(d); const day=dt.getDay()||7; dt.setDate(dt.getDate()-day+1); return dt.toISOString().slice(0,10); }
 function addDays(d,n){ const dt=new Date(d); dt.setDate(dt.getDate()+n); return dt.toISOString().slice(0,10); }
 
-// Ã¢ÂÂÃ¢ÂÂ LOGIN Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ LOGIN ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 function buildLoginSelect(){
   document.getElementById('loginSelect').innerHTML = users.map(u=>`<option value="${u.id}">${u.name}</option>`).join('');
 }
@@ -871,7 +871,7 @@ function doLogout(){
   try { buildLoginSelect(); } catch(e) {}
 }
 
-// Ã¢ÂÂÃ¢ÂÂ NAVIGATION Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ NAVIGATION ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 function goTo(name){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
@@ -894,7 +894,7 @@ function showInner(page, sec){
   const el = document.getElementById(`${page}-${sec}`); if(el) el.classList.add('active');
 }
 
-// Ã¢ÂÂÃ¢ÂÂ TIMER Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ TIMER ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 async function startTimer(){
   const proj = document.getElementById('projInput').value.trim()||'Untitled';
   const cat = document.getElementById('catSelect').value;
@@ -946,8 +946,8 @@ function stopTimer(){
   updateMetrics(); renderActivity();
 }
 
-// ââ SESSION PERSISTENCE ââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-// ââ SESSION SYNC via GitHub ââââââââââââââââââââââââââââââââââââââââââââââââââ
+// Ã¢ÂÂÃ¢ÂÂ SESSION PERSISTENCE Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// Ã¢ÂÂÃ¢ÂÂ SESSION SYNC via GitHub Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
 // Sessions are stored in GitHub (sessions.json) so ALL devices can see them.
 // Each user saves their own sessions on stop. Admin loads ALL sessions on login.
 
@@ -1057,95 +1057,91 @@ function updateMetrics(){
   const lb=cu.leaveBalance||{}; document.getElementById('m-leave').textContent=(lb.vacation||0)+(lb.sick||0)+(lb.personal||0);
 }
 
-// Ã¢ÂÂÃ¢ÂÂ ACTIVITY Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ ACTIVITY ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 const CAT_BADGE = {Work:'badge-teal',Design:'badge-blue',Dev:'badge-blue',Meeting:'badge-amber',Admin:'badge-teal',Break:'badge-gray'};
 
-function renderActivity(){
+function renderActivity(expandUid){
   const el=document.getElementById('activityList'); if(!cu) return;
   const isAdmin = cu.role==='admin';
   const logBtn = document.getElementById('logTimeBtnAct');
   if(logBtn){ logBtn.style.display = isAdmin ? 'none' : ''; }
-  
-  // Update page title based on role
   var actTitle = document.getElementById('actPageTitle');
   var actSub = document.getElementById('actPageSub');
   if(actTitle) actTitle.textContent = isAdmin ? 'Performance' : 'Activity log';
   if(actSub) actSub.textContent = isAdmin ? 'Team performance this week' : 'All your tracked sessions';
-  
   if(isAdmin){
-    // Admin: Performance dashboard - show all users with stats
     const allUsers = users.filter(function(u){return u.id;});
     const now = new Date();
     const todayStr2 = todayStr();
-    
-    // Build table rows
     let rows = allUsers.map(function(u){
       const uSess = sessions.filter(function(s){return s.uid===u.id && s.duration;});
       const totalSecs = uSess.reduce(function(a,s){return a+(s.duration||0);},0);
       const todaySecs = uSess.filter(function(s){return s.date===todayStr2;}).reduce(function(a,s){return a+(s.duration||0);},0);
       const weekSecs = uSess.filter(function(s){return new Date(s.start)>=(new Date(now-7*24*3600*1000));}).reduce(function(a,s){return a+(s.duration||0);},0);
       const sessionCount = uSess.length;
-      // Activity % = active sessions / total (tracked vs manual)
       const trackedCount = uSess.filter(function(s){return !s.manual;}).length;
       const actPct = sessionCount>0 ? Math.round(trackedCount/sessionCount*100) : 0;
-      // Idle time: sessions shorter than 5 min are considered idle
       const idleCount = uSess.filter(function(s){return (s.duration||0)<300;}).length;
       const idlePct = sessionCount>0 ? Math.round(idleCount/sessionCount*100) : 0;
       const actColor = actPct>=60?'#22c55e':actPct>=40?'#f59e0b':'#ef4444';
       const idleColor = idlePct<=10?'#22c55e':idlePct<=30?'#f59e0b':'#ef4444';
       const initial = ((u.name||u.email||'U')[0]).toUpperCase();
-      return {
-        uid: u.id, name: u.name||u.email, dept: u.dept||u.role||'',
-        totalSecs, weekSecs, todaySecs, sessionCount,
-        actPct, idlePct, actColor, idleColor, initial
-      };
+      return { uid: u.id, name: u.name||u.email, dept: u.dept||u.role||'', totalSecs, weekSecs, todaySecs, sessionCount, actPct, idlePct, actColor, idleColor, initial, uSess };
     }).sort(function(a,b){return b.weekSecs-a.weekSecs;});
-    
     let html = '<div class="card" style="padding:0;overflow:hidden"><table style="width:100%;border-collapse:collapse;font-size:13px"><thead><tr style="border-bottom:2px solid var(--border)">';
     html += '<th style="padding:12px 16px;text-align:left;color:var(--text2);font-weight:500;font-size:12px">MEMBER</th>';
-    html += '<th style="padding:12px 16px;text-align:right;color:var(--text2);font-weight:500;font-size:12px;cursor:pointer" onclick="renderActivity()">TIME <span style="opacity:0.5">â¼</span></th>';
+    html += '<th style="padding:12px 16px;text-align:right;color:var(--text2);font-weight:500;font-size:12px">TIME</th>';
     html += '<th style="padding:12px 16px;text-align:center;color:var(--text2);font-weight:500;font-size:12px">ACTIVITY</th>';
     html += '<th style="padding:12px 16px;text-align:center;color:var(--text2);font-weight:500;font-size:12px">IDLE TIME</th>';
     html += '<th style="padding:12px 16px;text-align:center;color:var(--text2);font-weight:500;font-size:12px">CORE WORK</th>';
+    html += '<th style="padding:12px 16px;text-align:center;color:var(--text2);font-weight:500;font-size:12px">SESSIONS</th>';
     html += '</tr></thead><tbody>';
-    
     rows.forEach(function(r){
-      html += '<tr style="border-bottom:1px solid var(--border)">';
-      // Member
-      html += '<td style="padding:14px 16px"><div style="display:flex;align-items:center;gap:10px">';
-      html += '<div style="width:34px;height:34px;border-radius:50%;background:#4a86a8;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0">'+r.initial+'</div>';
-      html += '<div><div style="font-weight:500;color:var(--text)">'+r.name+'</div><div style="font-size:11px;color:var(--text2)">'+r.dept+'</div></div></div></td>';
-      // Time
-      const hrs = Math.floor(r.weekSecs/3600);
-      const mins = Math.floor((r.weekSecs%3600)/60);
-      const timeStr = hrs+':'+(mins<10?'0':'')+mins;
-      const todayHrs = Math.floor(r.todaySecs/3600);
-      const todayMins = Math.floor((r.todaySecs%3600)/60);
-      const todayStr3 = todayHrs+'h '+(todayMins<10?'0':'')+todayMins+'m';
+      const isExpanded = expandUid && expandUid === r.uid;
+      html += '<tr style="border-bottom:1px solid var(--border);cursor:pointer" onclick="renderActivity('+(isExpanded?'null':r.uid)+')">';
+      html += '<td style="padding:14px 16px"><div style="display:flex;align-items:center;gap:10px"><div style="width:34px;height:34px;border-radius:50%;background:#4a86a8;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0">'+r.initial+'</div><div><div style="font-weight:500;color:var(--text)">'+r.name+'</div><div style="font-size:11px;color:var(--text2)">'+r.dept+'</div></div></div></td>';
+      const hrs=Math.floor(r.weekSecs/3600); const mins=Math.floor((r.weekSecs%3600)/60);
+      const timeStr=hrs+':'+(mins<10?'0':'')+mins;
+      const todayHrs=Math.floor(r.todaySecs/3600); const todayMins=Math.floor((r.todaySecs%3600)/60);
+      const todayStr3=todayHrs+'h '+(todayMins<10?'0':'')+todayMins+'m';
       html += '<td style="padding:14px 16px;text-align:right"><div style="font-family:var(--mono);font-size:15px;font-weight:600;color:var(--text)">'+timeStr+'</div><div style="font-size:11px;color:var(--text2)">today: '+todayStr3+'</div></td>';
-      // Activity %
       html += '<td style="padding:14px 16px;text-align:center"><span style="display:inline-block;padding:4px 12px;border-radius:20px;background:'+r.actColor+';color:#fff;font-size:13px;font-weight:600;min-width:52px">'+r.actPct+'%</span></td>';
-      // Idle %
       html += '<td style="padding:14px 16px;text-align:center"><span style="display:inline-block;padding:4px 12px;border-radius:20px;background:'+r.idleColor+';color:#fff;font-size:13px;font-weight:600;min-width:52px">'+r.idlePct+'%</span></td>';
-      // Core Work (session count in circle)
-      html += '<td style="padding:14px 16px;text-align:center"><span style="display:inline-block;width:36px;height:36px;border-radius:50%;border:2px solid #4a86a8;color:#4a86a8;font-size:13px;font-weight:700;line-height:32px;text-align:center">'+r.sessionCount+'</span></td>';
+      html += '<td style="padding:14px 16px;text-align:center"><div style="display:flex;align-items:center;justify-content:center;gap:8px"><span style="display:inline-block;width:36px;height:36px;border-radius:50%;border:2px solid #4a86a8;color:#4a86a8;font-size:13px;font-weight:700;line-height:32px;text-align:center">'+r.sessionCount+'</span><span style="font-size:14px;color:#4a86a8">'+(isExpanded?'&#9650;':'&#9660;')+'</span></div></td>';
       html += '</tr>';
+      if(isExpanded){
+        const userSessions=[...r.uSess].sort(function(a,b){return new Date(b.start)-new Date(a.start);});
+        html += '<tr><td colspan="6" style="padding:0;background:var(--surface2)"><div style="padding:16px 20px">';
+        html += '<div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:12px">'+r.name+' — All Sessions ('+userSessions.length+')</div>';
+        if(!userSessions.length){
+          html += '<div style="color:var(--text3);font-size:13px;padding:12px 0">No sessions recorded yet.</div>';
+        } else {
+          userSessions.forEach(function(s){
+            const ds2=s.start?new Date(s.start).toLocaleDateString([],{weekday:'short',month:'short',day:'numeric'}):'';
+            const ts2=s.start?new Date(s.start).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):'';
+            const te2=s.end?new Date(s.end).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):'';
+            const mb2=(s.type==='manual'||s.manual)?'<span class="badge badge-amber" style="margin-left:4px;font-size:10px">manual</span>':'';
+            const catBadge2=(typeof CAT_BADGE!=='undefined'&&CAT_BADGE[s.category])?CAT_BADGE[s.category]:'badge-gray';
+            var thumbsHtml2='';
+            if(s.screenshots&&s.screenshots.length){
+              thumbsHtml2='<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">';
+              s.screenshots.forEach(function(sc,j){
+                thumbsHtml2+='<div style="width:64px;height:42px;border-radius:5px;border:2px solid var(--border);overflow:hidden;cursor:pointer;flex-shrink:0" onclick="adminViewSS('+s.id+','+j+',event)" title="View screenshot"><img src="'+sc.url+'" alt="screenshot" style="width:100%;height:100%;object-fit:cover"/></div>';
+              });
+              thumbsHtml2+='<span style="font-size:10px;color:var(--text3);align-self:center">'+s.screenshots.length+' screenshot'+(s.screenshots.length>1?'s':'')+'</span></div>';
+            }
+            html+='<div style="display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)"><div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:500;margin-bottom:2px">'+(s.project||'—')+' <span class="badge '+catBadge2+'" style="font-size:10px">'+(s.category||'')+'</span>'+mb2+'</div><div style="font-size:11px;color:var(--text2)">'+ds2+' · '+ts2+(te2?' – '+te2:'')+'</div>'+thumbsHtml2+'</div><div style="font-family:var(--mono);font-size:13px;font-weight:500;white-space:nowrap;padding-top:2px">'+fmtS(s.duration||0)+'</div></div>';
+          });
+        }
+        html += '</div></td></tr>';
+      }
     });
-    
-    if(rows.length===0){
-      html += '<tr><td colspan="5" style="padding:40px;text-align:center;color:var(--text3)">No team members found.</td></tr>';
-    }
-    
+    if(!rows.length) html += '<tr><td colspan="6" style="padding:40px;text-align:center;color:var(--text3)">No team members found.</td></tr>';
     html += '</tbody></table></div>';
-    
-    // Add refresh button
-    html = '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px"><div style="font-size:13px;color:var(--text2)">This week performance</div><button onclick="fetchSessionsFromGitHub && fetchSessionsFromGitHub();setTimeout(renderActivity,1500)" class="btn btn-outline" style="font-size:12px;padding:5px 12px">â» Refresh</button></div>' + html;
-    
+    html = '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px"><div style="font-size:13px;color:var(--text2)">This week — click any row to view sessions &amp; screenshots</div><button onclick="fetchSessionsFromGitHub&&fetchSessionsFromGitHub();setTimeout(function(){renderActivity();},1500)" class="btn btn-outline" style="font-size:12px;padding:5px 12px">&#8635; Refresh</button></div>' + html;
     el.innerHTML = html;
     return;
   }
-  
-  // Regular user: show own sessions list
   const all=[...sessions.filter(function(s){return s.uid===cu.id;})].reverse();
   if(!all.length){ el.innerHTML='<div style="text-align:center;padding:32px;color:var(--text3)">No sessions yet. Start tracking to see your activity here.</div>'; return; }
   el.innerHTML = all.map(function(s){
@@ -1153,26 +1149,36 @@ function renderActivity(){
     const ts=s.start?new Date(s.start).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):'';
     const thumbs=s.screenshots?s.screenshots.map(function(sc,j){return '<div class="ss-thumb" onclick="openSS('+s.id+','+j+')"><img src="'+sc.url+'" alt="ss"/></div>';}).join(''):'';
     const mb=s.type==='manual'||s.manual?'<span class="badge badge-amber" style="margin-left:4px">manual</span>':'';
-    return '<div style="display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)"><div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:500;margin-bottom:3px">'+s.project+' <span class="badge '+(CAT_BADGE[s.category]||'badge-gray')+'">'+s.category+'</span>'+mb+'</div><div style="font-size:12px;color:var(--text2)">'+ds+' Â· '+ts+'</div>'+(thumbs?'<div class="ss-strip">'+thumbs+'</div>':'')+'</div><div style="font-family:var(--mono);font-size:13px;font-weight:500;white-space:nowrap">'+fmtS(s.duration||0)+'</div></div>';
+    return '<div style="display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)"><div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:500;margin-bottom:3px">'+s.project+' <span class="badge '+(CAT_BADGE[s.category]||'badge-gray')+'">'+s.category+'</span>'+mb+'</div><div style="font-size:12px;color:var(--text2)">'+ds+' · '+ts+'</div>'+(thumbs?'<div class="ss-strip">'+thumbs+'</div>':'')+'</div><div style="font-family:var(--mono);font-size:13px;font-weight:500;white-space:nowrap">'+fmtS(s.duration||0)+'</div></div>';
   }).join('');
 }
-function openSS(sid,ji){ const s=sessions.find(x=>x.id===sid); if(!s)return; const sc=s.screenshots[ji]; document.getElementById('ssImg').src=sc.url; document.getElementById('ssMeta').textContent=s.project+' ÃÂ· '+new Date(sc.time).toLocaleString(); document.getElementById('ssTitle').textContent='Screenshot Ã¢ÂÂ '+s.project; document.getElementById('ssOverlay').classList.add('open'); }
+
+function adminViewSS(sid, ji, evt){
+  if(evt) evt.stopPropagation();
+  const s=sessions.find(function(x){return x.id===sid;});
+  if(!s||!s.screenshots||!s.screenshots[ji]) return;
+  const sc=s.screenshots[ji];
+  document.getElementById('ssImg').src=sc.url;
+  document.getElementById('ssMeta').textContent=(s.project||'Session')+' · '+new Date(sc.time).toLocaleString();
+  document.getElementById('ssTitle').textContent='Screenshot — '+(s.project||'Session');
+  document.getElementById('ssOverlay').classList.add('open');
+}
+function openSS(sid,ji){ const s=sessions.find(x=>x.id===sid); if(!s)return; const sc=s.screenshots[ji]; document.getElementById('ssImg').src=sc.url; document.getElementById('ssMeta').textContent=s.project+' ÃÂÃÂ· '+new Date(sc.time).toLocaleString(); document.getElementById('ssTitle').textContent='Screenshot ÃÂ¢ÃÂÃÂ '+s.project; document.getElementById('ssOverlay').classList.add('open'); }
 function closeSS(){ document.getElementById('ssOverlay').classList.remove('open'); }
 
-// Ã¢ÂÂÃ¢ÂÂ INSIGHTS Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
-function renderInsights(){
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ INSIGHTS ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
+function renderInsights(selectedUid){
   if(!cu) return;
   const isAdmin = cu.role==='admin';
   const insEl = document.getElementById('page-insights');
-  // Remove old admin insights panel if present
-  const oldPanel = document.getElementById('adminInsightsPanel');
+  var oldPanel = document.getElementById('adminInsightsPanel');
   if(oldPanel) oldPanel.remove();
   const td=todayStr(); const now=new Date(); const wa=new Date(now-7*24*3600*1000);
   if(isAdmin){
-    // Admin: show all users summary table
-    const allUsers = users.filter(function(u){return u.id;});
-    let html = '<div id="adminInsightsPanel" class="card" style="margin-bottom:16px"><div style="font-size:15px;font-weight:600;color:var(--text);margin-bottom:12px">ð All Team Overview</div><div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:13px"><thead><tr style="border-bottom:2px solid var(--border)"><th style="padding:8px 10px;text-align:left;color:var(--text2);font-weight:500">User</th><th style="padding:8px 10px;text-align:right;color:var(--text2);font-weight:500">Today</th><th style="padding:8px 10px;text-align:right;color:var(--text2);font-weight:500">This Week</th><th style="padding:8px 10px;text-align:right;color:var(--text2);font-weight:500">Sessions</th><th style="padding:8px 10px;text-align:right;color:var(--text2);font-weight:500">Top Project</th></tr></thead><tbody>';
-    allUsers.forEach(function(u){
+    var selectorHtml = '<div id="adminInsightsPanel" style="margin-bottom:16px">';
+    selectorHtml += '<div class="card" style="margin-bottom:12px"><div style="font-size:15px;font-weight:600;color:var(--text);margin-bottom:12px">&#128202; All Team Overview — click a row for full insights</div><div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:13px"><thead><tr style="border-bottom:2px solid var(--border)"><th style="padding:8px 10px;text-align:left;color:var(--text2);font-weight:500">User</th><th style="padding:8px 10px;text-align:right;color:var(--text2);font-weight:500">Today</th><th style="padding:8px 10px;text-align:right;color:var(--text2);font-weight:500">This Week</th><th style="padding:8px 10px;text-align:right;color:var(--text2);font-weight:500">Sessions</th><th style="padding:8px 10px;text-align:right;color:var(--text2);font-weight:500">Top Project</th><th style="padding:8px 10px;text-align:center;color:var(--text2);font-weight:500">Detail</th></tr></thead><tbody>';
+    var allUsersIns = users.filter(function(u){return u.id;});
+    allUsersIns.forEach(function(u){
       var ts=0,wk=0,cnt=0; var pm={};
       sessions.filter(function(s){return s.uid===u.id&&s.duration;}).forEach(function(s){
         if(s.date===td){ts+=s.duration;cnt++;}
@@ -1180,26 +1186,73 @@ function renderInsights(){
         pm[s.project]=(pm[s.project]||0)+s.duration;
       });
       var ps=Object.entries(pm).sort(function(a,b){return b[1]-a[1];});
-      var initial = ((u.name||u.email||'U')[0]).toUpperCase();
-      html += '<tr style="border-bottom:1px solid var(--border)"><td style="padding:8px 10px"><div style="display:flex;align-items:center;gap:8px"><div style="width:30px;height:30px;border-radius:50%;background:#4a86a8;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0">'+initial+'</div><div><div style="font-weight:500;color:var(--text)">'+(u.name||u.email)+'</div><div style="font-size:11px;color:var(--text2)">'+(u.dept||u.role||'')+'</div></div></div></td>';
-      html += '<td style="padding:8px 10px;text-align:right;font-family:var(--mono);font-size:12px;color:var(--text)">'+fmtHM(ts)+'</td>';
-      html += '<td style="padding:8px 10px;text-align:right;font-family:var(--mono);font-size:12px;color:var(--text)">'+fmtHM(wk)+'</td>';
-      html += '<td style="padding:8px 10px;text-align:right;color:var(--text)">'+cnt+'</td>';
-      html += '<td style="padding:8px 10px;text-align:right;color:var(--text2);font-size:12px">'+(ps[0]?ps[0][0]:'â')+'</td></tr>';
+      var initial=((u.name||u.email||'U')[0]).toUpperCase();
+      var isSelected=selectedUid&&selectedUid===u.id;
+      selectorHtml += '<tr style="border-bottom:1px solid var(--border);cursor:pointer'+(isSelected?';background:var(--surface2)':'')+'" onclick="renderInsights('+(isSelected?'null':u.id)+')">';
+      selectorHtml += '<td style="padding:8px 10px"><div style="display:flex;align-items:center;gap:8px"><div style="width:30px;height:30px;border-radius:50%;background:#4a86a8;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0">'+initial+'</div><div><div style="font-weight:500;color:var(--text)">'+(u.name||u.email)+'</div><div style="font-size:11px;color:var(--text2)">'+(u.dept||u.role||'')+'</div></div></div></td>';
+      selectorHtml += '<td style="padding:8px 10px;text-align:right;font-family:var(--mono);font-size:12px">'+fmtHM(ts)+'</td>';
+      selectorHtml += '<td style="padding:8px 10px;text-align:right;font-family:var(--mono);font-size:12px">'+fmtHM(wk)+'</td>';
+      selectorHtml += '<td style="padding:8px 10px;text-align:right">'+cnt+'</td>';
+      selectorHtml += '<td style="padding:8px 10px;text-align:right;color:var(--text2);font-size:12px">'+(ps[0]?ps[0][0]:'—')+'</td>';
+      selectorHtml += '<td style="padding:8px 10px;text-align:center"><span style="font-size:14px;color:#4a86a8">'+(isSelected?'&#9650;':'&#9660;')+'</span></td>';
+      selectorHtml += '</tr>';
     });
-    html += '</tbody></table></div></div>';
-    var pageHeader = insEl ? insEl.querySelector('.page-header') : null;
-    if(pageHeader) pageHeader.insertAdjacentHTML('afterend', html);
-    var metricGrid = insEl ? insEl.querySelector('.metric-grid') : null;
+    selectorHtml += '</tbody></table></div></div>';
+    if(selectedUid){
+      var selUser=users.find(function(u){return u.id===selectedUid;});
+      if(selUser){
+        var ts2=0,wk2=0; var pm2={},dm2={};
+        sessions.filter(function(s){return s.uid===selUser.id&&s.duration;}).forEach(function(s){
+          if(s.date===td) ts2+=s.duration;
+          if(new Date(s.start)>=wa) wk2+=s.duration;
+          pm2[s.project]=(pm2[s.project]||0)+s.duration;
+          dm2[s.date]=(dm2[s.date]||0)+s.duration;
+        });
+        var ad2=Object.keys(dm2).length||1;
+        var ps2=Object.entries(pm2).sort(function(a,b){return b[1]-a[1];});
+        var tot2=ps2.reduce(function(a,b){return a+b[1];},0)||1;
+        selectorHtml += '<div class="card"><div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:14px">&#128100; '+selUser.name+' — Insights</div>';
+        selectorHtml += '<div class="metric-grid" style="margin-bottom:16px">';
+        selectorHtml += '<div class="metric"><div class="metric-label">Today</div><div class="metric-value">'+fmtHM(ts2)+'</div></div>';
+        selectorHtml += '<div class="metric"><div class="metric-label">This week</div><div class="metric-value">'+fmtHM(wk2)+'</div></div>';
+        selectorHtml += '<div class="metric"><div class="metric-label">Daily avg</div><div class="metric-value">'+fmtHM(Math.round(wk2/Math.min(ad2,7)))+'</div></div>';
+        selectorHtml += '<div class="metric"><div class="metric-label">Top project</div><div class="metric-value" style="font-size:15px">'+(ps2[0]?ps2[0][0]:'—')+'</div></div>';
+        selectorHtml += '</div>';
+        selectorHtml += '<div style="font-size:13px;font-weight:500;color:var(--text);margin-bottom:10px">Time by project</div>';
+        selectorHtml += ps2.length ? ps2.map(function(entry,i){ var n=entry[0],sv=entry[1]; return '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px"><div style="font-size:12px;width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text)">'+n+'</div><div style="flex:1"><div class="prog-wrap"><div class="prog-fill" style="width:'+Math.round(sv/tot2*100)+'%;background:'+CHART_COLORS[i%CHART_COLORS.length]+'"></div></div></div><div style="font-size:11px;color:var(--text2);width:50px;text-align:right;font-family:var(--mono)">'+fmtHM(sv)+'</div></div>'; }).join('') : '<div style="color:var(--text3);font-size:13px;text-align:center;padding:12px">No data yet.</div>';
+        selectorHtml += '<div style="margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:16px"><div><div style="font-size:13px;font-weight:500;margin-bottom:8px">Projects</div><div style="position:relative;width:100%;height:180px"><canvas id="adminPieChart"></canvas></div></div><div><div style="font-size:13px;font-weight:500;margin-bottom:8px">Daily hours</div><div style="position:relative;width:100%;height:180px"><canvas id="adminBarChart"></canvas></div></div></div>';
+        selectorHtml += '</div>';
+      }
+    }
+    selectorHtml += '</div>';
+    var pageHeader=insEl?insEl.querySelector('.page-header'):null;
+    if(pageHeader) pageHeader.insertAdjacentHTML('afterend', selectorHtml);
+    var metricGrid=insEl?insEl.querySelector('.metric-grid'):null;
     if(metricGrid) metricGrid.style.display='none';
-    var allCards = insEl ? insEl.querySelectorAll('.card') : [];
-    allCards.forEach(function(c){if(!c.id||c.id!=='adminInsightsPanel') c.style.display='none';});
+    var allCards=insEl?insEl.querySelectorAll('.card'):[];
+    allCards.forEach(function(c){if(!c.closest('#adminInsightsPanel')) c.style.display='none';});
+    if(selectedUid){
+      var selUser2=users.find(function(u){return u.id===selectedUid;});
+      if(selUser2){
+        var pm3={},dm3={};
+        sessions.filter(function(s){return s.uid===selUser2.id&&s.duration;}).forEach(function(s){
+          pm3[s.project]=(pm3[s.project]||0)+s.duration;
+          dm3[s.date]=(dm3[s.date]||0)+s.duration;
+        });
+        var ps3=Object.entries(pm3).sort(function(a,b){return b[1]-a[1];});
+        var last7=[]; for(var i2=6;i2>=0;i2--){ var d2=new Date(now-i2*24*3600*1000); var k2=d2.toISOString().slice(0,10); last7.push({label:d2.toLocaleDateString([],{weekday:'short'}),sec:dm3[k2]||0,isT:k2===td}); }
+        setTimeout(function(){
+          var pc=document.getElementById('adminPieChart'); var bc=document.getElementById('adminBarChart');
+          if(pc&&ps3.length) new Chart(pc,{type:'doughnut',data:{labels:ps3.map(function(p){return p[0];}),datasets:[{data:ps3.map(function(p){return Math.round(p[1]/60);}),backgroundColor:ps3.map(function(_,i3){return CHART_COLORS[i3%CHART_COLORS.length];}),borderWidth:1,borderColor:'rgba(255,255,255,.3)'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}}}});
+          if(bc) new Chart(bc,{type:'bar',data:{labels:last7.map(function(d3){return d3.label;}),datasets:[{label:'Hours',data:last7.map(function(d3){return parseFloat((d3.sec/3600).toFixed(2));}),backgroundColor:last7.map(function(d3){return d3.isT?'#4a86a8':'#9FE1CB';}),borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{callback:function(v){return v+'h';}}},x:{grid:{display:false}}}}});
+        }, 80);
+      }
+    }
     return;
   }
-  // Regular user: show personal insights
-  var metricGrid2 = insEl ? insEl.querySelector('.metric-grid') : null;
+  var metricGrid2=insEl?insEl.querySelector('.metric-grid'):null;
   if(metricGrid2) metricGrid2.style.display='';
-  var allCards2 = insEl ? insEl.querySelectorAll('.card') : [];
+  var allCards2=insEl?insEl.querySelectorAll('.card'):[];
   allCards2.forEach(function(c){c.style.display='';});
   var ts=0,wk=0; var pm={},dm={};
   sessions.filter(function(s){return s.uid===cu.id&&s.duration;}).forEach(function(s){ if(s.date===td) ts+=s.duration; if(new Date(s.start)>=wa) wk+=s.duration; pm[s.project]=(pm[s.project]||0)+s.duration; dm[s.date]=(dm[s.date]||0)+s.duration; });
@@ -1208,16 +1261,15 @@ function renderInsights(){
   document.getElementById('i-week').textContent=fmtHM(wk);
   document.getElementById('i-avg').textContent=fmtHM(Math.round(wk/Math.min(ad,7)));
   var ps=Object.entries(pm).sort(function(a,b){return b[1]-a[1];});
-  document.getElementById('i-top').textContent=ps[0]?ps[0][0]:'â';
+  document.getElementById('i-top').textContent=ps[0]?ps[0][0]:'—';
   var tot=ps.reduce(function(a,b){return a+b[1];},0)||1;
-  document.getElementById('projBars').innerHTML=ps.length?ps.map(function(entry,i){ var n=entry[0],s=entry[1]; return '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px"><div style="font-size:12px;width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text)">'+n+'</div><div style="flex:1"><div class="prog-wrap"><div class="prog-fill" style="width:'+Math.round(s/tot*100)+'%;background:'+CHART_COLORS[i%CHART_COLORS.length]+'"></div></div></div><div style="font-size:11px;color:var(--text2);width:50px;text-align:right;font-family:var(--mono)">'+fmtHM(s)+'</div></div>'; }).join(''):'<div style="color:var(--text3);font-size:13px;text-align:center;padding:12px">No data yet.</div>';
+  document.getElementById('projBars').innerHTML=ps.length?ps.map(function(entry,i){ var n=entry[0],sv=entry[1]; return '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px"><div style="font-size:12px;width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text)">'+n+'</div><div style="flex:1"><div class="prog-wrap"><div class="prog-fill" style="width:'+Math.round(sv/tot*100)+'%;background:'+CHART_COLORS[i%CHART_COLORS.length]+'"></div></div></div><div style="font-size:11px;color:var(--text2);width:50px;text-align:right;font-family:var(--mono)">'+fmtHM(sv)+'</div></div>'; }).join(''):'<div style="color:var(--text3);font-size:13px;text-align:center;padding:12px">No data yet.</div>';
   if(pieO){pieO.destroy();pieO=null;}
   if(ps.length) pieO=new Chart(document.getElementById('pieChart'),{type:'doughnut',data:{labels:ps.map(function(p){return p[0];}),datasets:[{data:ps.map(function(p){return Math.round(p[1]/60);}),backgroundColor:ps.map(function(_,i){return CHART_COLORS[i%CHART_COLORS.length];}),borderWidth:1,borderColor:'rgba(255,255,255,.3)'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:function(ctx){return ctx.label+': '+fmtHM(ps[ctx.dataIndex][1]);}}}}}});
   var last7=[]; for(var i=6;i>=0;i--){ var d=new Date(now-i*24*3600*1000); var k=d.toISOString().slice(0,10); last7.push({label:d.toLocaleDateString([],{weekday:'short'}),sec:dm[k]||0,isT:k===td}); }
   if(barO){barO.destroy();barO=null;}
   barO=new Chart(document.getElementById('barChart'),{type:'bar',data:{labels:last7.map(function(d){return d.label;}),datasets:[{label:'Hours',data:last7.map(function(d){return parseFloat((d.sec/3600).toFixed(2));}),backgroundColor:last7.map(function(d){return d.isT?'#4a86a8':'#9FE1CB';}),borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,grid:{color:'rgba(0,0,0,.05)'},ticks:{callback:function(v){return v+'h';}}},x:{grid:{display:false}}}}});
 }
-
 function populateRptUsers(){
   const el=document.getElementById('rptUser'); const cv=el.value;
   const emps=cu.role==='admin'?users.filter(u=>u.role!=='admin'):cu.role==='manager'?users.filter(u=>u.role==='employee'):[cu];
@@ -1286,7 +1338,7 @@ function renderHeatmap(rows,days){
     const ul=leaves.filter(l=>l.uid===u.id&&l.status==='approved');
     html+=`<div style="display:flex;align-items:center;gap:3px;margin-bottom:3px">`;
     html+=`<div style="width:105px;font-size:11px;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-right:6px">${u.name.split(' ')[0]}</div>`;
-    show.forEach(d=>{ const ds=us.filter(s=>s.date===d).reduce((a,s)=>a+s.duration,0); const onL=ul.some(l=>d>=l.from&&d<=l.to); let bg; if(onL) bg='#EF9F27'; else if(ds>=28800) bg='#4a86a8'; else if(ds>=3600) bg='#9FE1CB'; else bg='#FCA5A5'; html+=`<div class="heatmap-cell" style="background:${bg}" title="${u.name.split(' ')[0]} ÃÂ· ${d}"></div>`; });
+    show.forEach(d=>{ const ds=us.filter(s=>s.date===d).reduce((a,s)=>a+s.duration,0); const onL=ul.some(l=>d>=l.from&&d<=l.to); let bg; if(onL) bg='#EF9F27'; else if(ds>=28800) bg='#4a86a8'; else if(ds>=3600) bg='#9FE1CB'; else bg='#FCA5A5'; html+=`<div class="heatmap-cell" style="background:${bg}" title="${u.name.split(' ')[0]} ÃÂÃÂ· ${d}"></div>`; });
     html+=`</div>`;
   });
   html+=`</div><div style="display:flex;gap:12px;margin-top:10px;font-size:11px;color:var(--text2)">`;
@@ -1310,7 +1362,7 @@ function exportCSV(){
   const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'})); a.download=`amc-report-${from}-to-${to}.csv`; a.click();
 }
 
-// Ã¢ÂÂÃ¢ÂÂ LEAVES Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ LEAVES ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 function populateLvFilter(){
   const el=document.getElementById('lvUFilt'); const cv=el.value;
   const emps=cu.role==='admin'?users:users.filter(u=>u.id===cu.id);
@@ -1356,11 +1408,11 @@ function renderLeaveLog(){
 function notifyTeams(lid){
   const l=leaves.find(x=>x.id===lid); if(!l)return;
   const u=users.find(x=>x.id===l.uid);
-  alert(`Teams notification queued:\n"${u?u.name:'User'} Ã¢ÂÂ ${l.type} leave from ${l.from} to ${l.to} (${l.days} days)."\n\nThis will fire via your n8n labor stream once connected.`);
+  alert(`Teams notification queued:\n"${u?u.name:'User'} ÃÂ¢ÃÂÃÂ ${l.type} leave from ${l.from} to ${l.to} (${l.days} days)."\n\nThis will fire via your n8n labor stream once connected.`);
   l.teamsNotified=true; renderLeaveLog(); addAudit(cu.id,'Teams notified','Leave',`Leave notification queued for ${u?u.name:'?'}`);
 }
 
-// Ã¢ÂÂÃ¢ÂÂ ADMIN Ã¢ÂÂ USERS Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ ADMIN ÃÂ¢ÃÂÃÂ USERS ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 function buildDeptFilter(){
   const el=document.getElementById('uDeptF'); const cv=el.value;
   el.innerHTML='<option value="">All depts</option>'+departments.map(d=>`<option value="${d.id}"${cv==d.id?' selected':''}>${d.name}</option>`).join('');
@@ -1385,9 +1437,9 @@ function renderUsers(){
       <td><div class="av av-sm" style="${avStyle(u.color)}">${ini(u.name)}</div></td>
       <td><div style="font-size:13px;font-weight:500">${u.name}</div><div style="font-size:11px;color:var(--text2)">${u.jobTitle||''}</div></td>
       <td style="font-size:11px;color:var(--text2)">${u.email}</td>
-      <td>${dept?`<span class="badge" style="background:${dept.color};color:${dept.tc}">${dept.name}</span>`:'Ã¢ÂÂ'}</td>
+      <td>${dept?`<span class="badge" style="background:${dept.color};color:${dept.tc}">${dept.name}</span>`:'ÃÂ¢ÃÂÃÂ'}</td>
       <td><span class="badge ${roleBadge[u.role]||'badge-gray'}">${(rolePerms[u.role]&&rolePerms[u.role].label)||u.role}</span></td>
-      <td style="font-size:11px;color:var(--text2)">${shift?shift.name:'Ã¢ÂÂ'}${(u.customStart&&u.customEnd)?'<br><span style="font-size:10px;color:var(--text2);font-family:var(--mono)">'+u.customStart+' Ã¢ÂÂ '+u.customEnd+'</span>':shift&&(shift.start||shift.end)?'<br><span style="font-size:10px;color:var(--text3);font-family:var(--mono)">'+shift.start+(shift.end?' Ã¢ÂÂ '+shift.end:'')+'</span>':''}</td>
+      <td style="font-size:11px;color:var(--text2)">${shift?shift.name:'ÃÂ¢ÃÂÃÂ'}${(u.customStart&&u.customEnd)?'<br><span style="font-size:10px;color:var(--text2);font-family:var(--mono)">'+u.customStart+' ÃÂ¢ÃÂÃÂ '+u.customEnd+'</span>':shift&&(shift.start||shift.end)?'<br><span style="font-size:10px;color:var(--text3);font-family:var(--mono)">'+shift.start+(shift.end?' ÃÂ¢ÃÂÃÂ '+shift.end:'')+'</span>':''}</td>
       <td style="font-family:var(--mono);font-size:12px">${Math.round(ts/3600)}h</td>
       <td style="font-family:var(--mono);font-size:12px">${Math.round(wk/3600)}h</td>
       <td style="font-size:13px;font-weight:500">${bal}d</td>
@@ -1404,20 +1456,20 @@ function renderUsers(){
 function sendInvite(uid){
   const u=users.find(x=>x.id===uid); if(!u)return;
   const sub=encodeURIComponent('You are invited to install AMC Time Tracker');
-  const body=encodeURIComponent(`Hi ${u.name},\n\nYou have been added to the AMC Time Tracker as a remote team member.\n\nAccess the tracker here:\n${window.location.href}\n\nYour login credentials:\n  Email: ${u.email}\n  A verification code will be sent to your email on first sign-in.\n\nAmerican Medical Compliance Ã¢ÂÂ HR`);
+  const body=encodeURIComponent(`Hi ${u.name},\n\nYou have been added to the AMC Time Tracker as a remote team member.\n\nAccess the tracker here:\n${window.location.href}\n\nYour login credentials:\n  Email: ${u.email}\n  A verification code will be sent to your email on first sign-in.\n\nAmerican Medical Compliance ÃÂ¢ÃÂÃÂ HR`);
   window.open(`mailto:${u.email}?subject=${sub}&body=${body}`);
   u.invited=true; addAudit(cu.id,'Invite sent','User',`Invite sent to ${u.email}`); renderUsers();
 }
 
 function removeUser(uid){ if(!confirm('Remove this user and all their data?'))return; const u=users.find(x=>x.id===uid); addAudit(cu.id,'User deleted','User',`Removed ${u?.name}`); users=users.filter(x=>x.id!==uid);localStorage.setItem('amc_users_extra',JSON.stringify(users.filter(function(u){return u.id>5;})));const _del2=JSON.parse(localStorage.getItem('amc_deleted_users')||'[]');if(!_del2.includes(uid)){_del2.push(uid);localStorage.setItem('amc_deleted_users',JSON.stringify(_del2));}amcRemoveUserFromCode(uid);  sessions=sessions.filter(s=>s.uid!==uid); leaves=leaves.filter(l=>l.uid!==uid); renderUsers(); buildDeptFilter(); }
 
-// Ã¢ÂÂÃ¢ÂÂ ADMIN Ã¢ÂÂ DEPTS Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ ADMIN ÃÂ¢ÃÂÃÂ DEPTS ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 function renderDepts(){
   document.getElementById('deptList').innerHTML=departments.map(d=>{
     const count=users.filter(u=>u.dept===d.id).length; const head=users.find(u=>u.id===d.head);
     return `<div style="display:flex;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid var(--border)">
       <div style="width:8px;height:44px;border-radius:4px;background:${d.color};flex-shrink:0"></div>
-      <div style="flex:1"><div style="font-size:13px;font-weight:500">${d.name}</div><div style="font-size:11px;color:var(--text2);margin-top:2px">${d.desc} ÃÂ· Head: ${head?head.name:'Ã¢ÂÂ'} ÃÂ· ${count} staff</div></div>
+      <div style="flex:1"><div style="font-size:13px;font-weight:500">${d.name}</div><div style="font-size:11px;color:var(--text2);margin-top:2px">${d.desc} ÃÂÃÂ· Head: ${head?head.name:'ÃÂ¢ÃÂÃÂ'} ÃÂÃÂ· ${count} staff</div></div>
       <div class="btn-group"><button class="btn btn-sm" onclick="openModal('editDept',${d.id})">Edit</button><button class="btn btn-sm btn-danger" onclick="removeDept(${d.id})">Del</button></div>
     </div>`;
   }).join('');
@@ -1425,13 +1477,13 @@ function renderDepts(){
 
 function removeDept(id){ if(!confirm('Remove this department?'))return; departments=departments.filter(d=>d.id!==id); addAudit(cu.id,'Department removed','System',`Dept ID ${id} deleted`); renderDepts(); buildDeptFilter(); }
 
-// Ã¢ÂÂÃ¢ÂÂ ADMIN Ã¢ÂÂ SHIFTS Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ ADMIN ÃÂ¢ÃÂÃÂ SHIFTS ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 function renderShifts(){
   document.getElementById('shiftListNote').innerHTML='<div style="font-size:12px;color:var(--text2);margin-bottom:12px;padding:8px 12px;background:var(--surface2);border-radius:var(--r-sm);border-left:3px solid var(--primary)">Editing a shift changes the <strong>default hours for everyone</strong> on that shift. To set individual hours for a specific person, use <strong>Edit</strong> on the user and set Custom Hours.</div>';
   document.getElementById('shiftList').innerHTML=shifts.map(s=>{
     const count=users.filter(u=>u.shift===s.id).length;
     return `<div style="display:flex;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid var(--border)">
-      <div style="flex:1"><div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><span style="font-size:13px;font-weight:500">${s.name}</span><span class="badge badge-blue">${s.start} Ã¢ÂÂ ${s.end}</span></div><div style="display:flex;gap:4px;flex-wrap:wrap">${s.days.map(d=>`<span class="badge badge-gray">${d}</span>`).join('')}</div><div style="font-size:11px;color:var(--text2);margin-top:3px">${count} users</div></div>
+      <div style="flex:1"><div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><span style="font-size:13px;font-weight:500">${s.name}</span><span class="badge badge-blue">${s.start} ÃÂ¢ÃÂÃÂ ${s.end}</span></div><div style="display:flex;gap:4px;flex-wrap:wrap">${s.days.map(d=>`<span class="badge badge-gray">${d}</span>`).join('')}</div><div style="font-size:11px;color:var(--text2);margin-top:3px">${count} users</div></div>
       <div class="btn-group"><button class="btn btn-sm" onclick="openModal('editShift',${s.id})">Edit</button><button class="btn btn-sm btn-danger" onclick="removeShift(${s.id})">Del</button></div>
     </div>`;
   }).join('');
@@ -1439,7 +1491,7 @@ function renderShifts(){
 
 function removeShift(id){ if(!confirm('Remove this shift?'))return; shifts=shifts.filter(s=>s.id!==id); addAudit(cu.id,'Shift removed','System',`Shift ID ${id} deleted`); renderShifts(); }
 
-// Ã¢ÂÂÃ¢ÂÂ ADMIN Ã¢ÂÂ APPROVALS Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ ADMIN ÃÂ¢ÃÂÃÂ APPROVALS ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 function renderApprovals(){
   const tf=document.getElementById('appr-type-f')?document.getElementById('appr-type-f').value:'';
   const filtered=approvals.filter(a=>!tf||a.type===tf);
@@ -1473,7 +1525,7 @@ function processApproval(aid,status){
   const a=approvals.find(x=>x.id===aid); if(!a)return;
   a.status=status; a.approver=cu.id;
   const u=users.find(x=>x.id===a.uid);
-  addAudit(cu.id,`Approval ${status}`,'Approval',`${a.type} for ${u?u.name:'?'} Ã¢ÂÂ ${status}`);
+  addAudit(cu.id,`Approval ${status}`,'Approval',`${a.type} for ${u?u.name:'?'} ÃÂ¢ÃÂÃÂ ${status}`);
   // If approved time adjustment -> add as session
   if(status==='approved' && a.type==='Time Adjustment' && a.startTs && a.endTs){
     const newSess={id:nsid++,uid:a.uid,start:a.startTs,end:a.endTs,duration:Math.round((a.endTs-a.startTs)/1000),date:new Date(a.startTs).toISOString().slice(0,10),project:a.note||'Manual entry',category:'Work',screenshots:[],manual:true};
@@ -1485,7 +1537,7 @@ function processApproval(aid,status){
   renderApprovals();
 }
 
-// Ã¢ÂÂÃ¢ÂÂ ADMIN Ã¢ÂÂ ADJUSTMENTS Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ ADMIN ÃÂ¢ÃÂÃÂ ADJUSTMENTS ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 function populateAdjFilters(){
   const df=document.getElementById('adjDF'); const cd=df.value;
   const dates=[...new Set(sessions.map(s=>s.date))].sort().reverse();
@@ -1505,10 +1557,10 @@ function renderAdj(){
   </tr>`; }).join('');
 }
 
-function saveDur(sid){ const inp=document.getElementById('d-'+sid); if(!inp)return; const p=inp.value.split(':').map(Number); if(p.length!==3||p.some(isNaN)){alert('Use hh:mm:ss');return;} const s=sessions.find(x=>x.id===sid); if(s){s.duration=p[0]*3600+p[1]*60+p[2]; addAudit(cu.id,'Duration adjusted','Session',`Session ${sid} Ã¢ÂÂ ${inp.value}`);} renderAdj(); updateMetrics(); }
+function saveDur(sid){ const inp=document.getElementById('d-'+sid); if(!inp)return; const p=inp.value.split(':').map(Number); if(p.length!==3||p.some(isNaN)){alert('Use hh:mm:ss');return;} const s=sessions.find(x=>x.id===sid); if(s){s.duration=p[0]*3600+p[1]*60+p[2]; addAudit(cu.id,'Duration adjusted','Session',`Session ${sid} ÃÂ¢ÃÂÃÂ ${inp.value}`);} renderAdj(); updateMetrics(); }
 function remSess(sid){ if(!confirm('Remove session?'))return; const s=sessions.find(x=>x.id===sid); addAudit(cu.id,'Session removed','Session',`Removed session for ${users.find(u=>u.id===s?.uid)?.name||'?'}`); sessions=sessions.filter(x=>x.id!==sid); renderAdj(); updateMetrics(); renderActivity(); populateAdjFilters(); }
 
-// Ã¢ÂÂÃ¢ÂÂ ADMIN Ã¢ÂÂ ROLES Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ ADMIN ÃÂ¢ÃÂÃÂ ROLES ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 function renderRoles(){
   document.getElementById('roleCards').innerHTML=Object.entries(rolePerms).map(([key,role])=>`
     <div class="card" style="margin-bottom:12px">
@@ -1526,7 +1578,7 @@ function renderRoles(){
 
 function togglePerm(role,perm,val){ if(rolePerms[role]) rolePerms[role].perms[perm]=val; addAudit(cu.id,'Permission changed','System',`${role}.${perm} = ${val}`); }
 
-// Ã¢ÂÂÃ¢ÂÂ TITLES & HOLIDAYS Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ TITLES & HOLIDAYS ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 function renderTitles(){
   const q=(document.getElementById('titleSearch').value||'').toLowerCase();
   const list=titles.filter(t=>t.toLowerCase().includes(q));
@@ -1564,7 +1616,7 @@ function renderLeavePolicy(){
   document.getElementById('unpaidHolList').innerHTML=unpaid.map(row).join('');
 }
 
-// Ã¢ÂÂÃ¢ÂÂ HR ALERTS Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ HR ALERTS ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 function calcAlerts(){
   const now=new Date(); const td=todayStr(); const wa=new Date(now-7*24*3600*1000);
   const md=+(document.getElementById('th-d')||{value:6}).value*3600;
@@ -1576,10 +1628,10 @@ function calcAlerts(){
     let ts=0,wk=0,sc=0;
     us.forEach(s=>{ if(s.date===td)ts+=s.duration; if(new Date(s.start)>=wa)wk+=s.duration; if(s.duration<ms&&s.type==='tracked')sc++; });
     if(ts>0&&ts<md) alerts.push({uid:u.id,name:u.name,type:'low_daily',sev:'warn',msg:`Only ${fmtHM(ts)} today (min: ${fmtHM(md)})`});
-    if(wk>0&&wk<mw) alerts.push({uid:u.id,name:u.name,type:'low_weekly',sev:'warn',msg:`${fmtHM(wk)} this week Ã¢ÂÂ below ${fmtHM(mw)} target`});
+    if(wk>0&&wk<mw) alerts.push({uid:u.id,name:u.name,type:'low_weekly',sev:'warn',msg:`${fmtHM(wk)} this week ÃÂ¢ÃÂÃÂ below ${fmtHM(mw)} target`});
     if(sc>=3) alerts.push({uid:u.id,name:u.name,type:'short_sessions',sev:'warn',msg:`${sc} very short sessions`});
-    if(!us.length) alerts.push({uid:u.id,name:u.name,type:'no_activity',sev:'alert',msg:'No sessions recorded Ã¢ÂÂ tracker may not be active'});
-    const lb=u.leaveBalance||{}; if((lb.vacation||0)+(lb.sick||0)+(lb.personal||0)<=3) alerts.push({uid:u.id,name:u.name,type:'low_leave',sev:'warn',msg:'Leave balance critically low (Ã¢ÂÂ¤3 days)'});
+    if(!us.length) alerts.push({uid:u.id,name:u.name,type:'no_activity',sev:'alert',msg:'No sessions recorded ÃÂ¢ÃÂÃÂ tracker may not be active'});
+    const lb=u.leaveBalance||{}; if((lb.vacation||0)+(lb.sick||0)+(lb.personal||0)<=3) alerts.push({uid:u.id,name:u.name,type:'low_leave',sev:'warn',msg:'Leave balance critically low (ÃÂ¢ÃÂÃÂ¤3 days)'});
   });
   return alerts;
 }
@@ -1587,7 +1639,7 @@ function calcAlerts(){
 function runAlerts(){
   activeAlerts=calcAlerts();
   const el=document.getElementById('alertList');
-  if(!activeAlerts.length){ el.innerHTML='<div style="text-align:center;padding:20px;color:var(--text3);font-size:13px">No alerts Ã¢ÂÂ all users meeting thresholds.</div>'; return; }
+  if(!activeAlerts.length){ el.innerHTML='<div style="text-align:center;padding:20px;color:var(--text3);font-size:13px">No alerts ÃÂ¢ÃÂÃÂ all users meeting thresholds.</div>'; return; }
   el.innerHTML=activeAlerts.map(a=>{
     const [bg,fg,sym]={warn:['#FFFBEB','#92400E','!'],alert:['#FEF2F2','#991B1B','!!']}[a.sev];
     return `<div class="alert-item">
@@ -1600,9 +1652,9 @@ function runAlerts(){
 
 async function saveWH(){ const v=document.getElementById('whUrl').value.trim(); if(!v){alert('Enter URL.');return;} webhookUrl=v; const sp=document.getElementById('whSt'); sp.className='badge badge-teal'; sp.textContent='Saved'; addAudit(cu.id,'Webhook saved','System','n8n webhook configured'); }
 async function testWH(){ if(!webhookUrl){alert('Save URL first.');return;} const sp=document.getElementById('whSt'); sp.className='badge badge-amber'; sp.textContent='Pinging...'; try{ await fetch(webhookUrl,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'ping',source:'AMC Time Tracker',ts:new Date().toISOString()})}); sp.className='badge badge-teal'; sp.textContent='Ping OK'; }catch(e){ sp.className='badge badge-red'; sp.textContent='Failed'; } }
-async function pushAlerts(){ if(!webhookUrl){alert('Save webhook URL first.');return;} if(!activeAlerts.length){document.getElementById('pushSt').textContent='No alerts to push.';return;} document.getElementById('pushSt').textContent='Sending...'; try{ await fetch(webhookUrl,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({source:'AMC Time Tracker',timestamp:new Date().toISOString(),alert_count:activeAlerts.length,alerts:activeAlerts.map(a=>({user:a.name,type:a.type,severity:a.sev,message:a.msg,ts:new Date().toISOString()}))})}); document.getElementById('pushSt').textContent=activeAlerts.length+' alerts pushed'; addAudit(cu.id,'Alerts pushed','System',activeAlerts.length+' HR alerts sent to n8n'); }catch(e){ document.getElementById('pushSt').textContent='Push failed Ã¢ÂÂ check URL'; } }
+async function pushAlerts(){ if(!webhookUrl){alert('Save webhook URL first.');return;} if(!activeAlerts.length){document.getElementById('pushSt').textContent='No alerts to push.';return;} document.getElementById('pushSt').textContent='Sending...'; try{ await fetch(webhookUrl,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({source:'AMC Time Tracker',timestamp:new Date().toISOString(),alert_count:activeAlerts.length,alerts:activeAlerts.map(a=>({user:a.name,type:a.type,severity:a.sev,message:a.msg,ts:new Date().toISOString()}))})}); document.getElementById('pushSt').textContent=activeAlerts.length+' alerts pushed'; addAudit(cu.id,'Alerts pushed','System',activeAlerts.length+' HR alerts sent to n8n'); }catch(e){ document.getElementById('pushSt').textContent='Push failed ÃÂ¢ÃÂÃÂ check URL'; } }
 
-// Ã¢ÂÂÃ¢ÂÂ AUDIT Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ AUDIT ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 function buildAuditFilters(){ const el=document.getElementById('audUser'); if(!cu) return; if(cu.role!=='admin'){el.value=cu.id;el.closest&&el.closest('div')&&(el.closest('div').style.display='none');return;} el.closest&&el.closest('div')&&(el.closest('div').style.display=''); const cv=el.value; el.innerHTML='<option value="">All users</option>'+users.map(u=>`<option value="${u.id}"${cv==u.id?' selected':''}>${u.name}</option>`).join(''); }
 function renderAudit(){
   const cf=document.getElementById('audCat').value; const uf=document.getElementById('audUser').value;
@@ -1618,13 +1670,13 @@ function renderAudit(){
           <span class="badge ${catBadge[a.category]||'badge-gray'}">${a.category}</span>
         </div>
         <div style="font-size:12px;color:var(--text2)">${a.detail}</div>
-        <div style="font-size:11px;color:var(--text3);margin-top:2px">${u?u.name:'?'} ÃÂ· ${ts.toLocaleDateString()} ${ts.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:2px">${u?u.name:'?'} ÃÂÃÂ· ${ts.toLocaleDateString()} ${ts.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}</div>
       </div>
     </div>`;
   }).join(''):'<div style="text-align:center;padding:32px;color:var(--text3)">No audit entries.</div>';
 }
 
-// Ã¢ÂÂÃ¢ÂÂ MODAL Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ MODAL ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 function openModal(mode,id){
   mmode=mode; medit=id||null;
   const titles_map={addUser:'Add user',editUser:'Edit user',viewUser:'User profile',addDept:'Add department',editDept:'Edit department',addShift:'Add shift',editShift:'Edit shift',addSess:'Add manual session',addLeave:'Log leave',addTitle:'Add job title',bulkTitles:'Bulk import titles',addHoliday:'Add holiday',editHoliday:'Edit holiday'};
@@ -1639,7 +1691,7 @@ function openModal(mode,id){
       <div class="form-grid">
         <div class="form-row"><label>Full name</label><input type="text" id="f-n" value="${u?u.name:''}"/></div>
         <div class="form-row"><label>Work email</label><input type="email" id="f-e" value="${u?u.email:''}"/></div>
-        <div class="form-row"><label>Job title</label><select id="f-jt"><option value="">Ã¢ÂÂ select Ã¢ÂÂ</option>${titles.map(t=>`<option value="${t}"${u?.jobTitle===t?' selected':''}>${t}</option>`).join('')}</select></div>
+        <div class="form-row"><label>Job title</label><select id="f-jt"><option value="">ÃÂ¢ÃÂÃÂ select ÃÂ¢ÃÂÃÂ</option>${titles.map(t=>`<option value="${t}"${u?.jobTitle===t?' selected':''}>${t}</option>`).join('')}</select></div>
         <div class="form-row"><label>Start date</label><input type="date" id="f-sd" value="${u?u.startDate||'':todayStr()}"/></div>
         <div class="form-row"><label>Status</label><select id="f-st"><option value="active"${u?.status==='active'?' selected':''}>Active</option><option value="on_leave"${u?.status==='on_leave'?' selected':''}>On leave</option><option value="inactive"${u?.status==='inactive'?' selected':''}>Inactive</option></select></div>
       </div>
@@ -1650,7 +1702,7 @@ function openModal(mode,id){
         <div class="form-row"><label>Shift</label><select id="f-sh">${shifts.map(s=>`<option value="${s.id}"${u?.shift===s.id?' selected':''}>${s.name}</option>`).join('')}</select></div>
         <div class="form-row" style="gap:8px"><div style="flex:1"><label style="font-size:11px;color:var(--text2)">Custom start <span style="font-weight:400">(overrides shift)</span></label><input type="time" id="f-cs" value="${u?.customStart||''}" style="font-size:13px"/></div><div style="flex:1"><label style="font-size:11px;color:var(--text2)">Custom end</label><input type="time" id="f-ce" value="${u?.customEnd||''}" style="font-size:13px"/></div></div>
         <div class="form-row"><label>Manager</label><select id="f-mgr"><option value="">None</option>${users.filter(x=>x.role!=='employee').map(x=>`<option value="${x.id}"${u?.manager===x.id?' selected':''}>${x.name}</option>`).join('')}</select></div>
-        <div class="form-row"><label>PIN ${mode==='editUser'?'(blank = keep)':''}</label><input type="password" id="f-p" maxlength="6" placeholder="${mode==='editUser'?'leave blank to keep':'4Ã¢ÂÂ6 digits'}"/></div>
+        <div class="form-row"><label>PIN ${mode==='editUser'?'(blank = keep)':''}</label><input type="password" id="f-p" maxlength="6" placeholder="${mode==='editUser'?'leave blank to keep':'4ÃÂ¢ÃÂÃÂ6 digits'}"/></div>
       </div>
       <div class="section-divider">Leave balance (days)</div>
       <div class="form-grid">
@@ -1670,10 +1722,10 @@ function openModal(mode,id){
     <table style="width:100%;font-size:13px">
       <tr><td style="color:var(--text2);padding:5px 0;width:110px">Email</td><td style="color:var(--blue)">${u.email}</td></tr>
       
-      <tr><td style="color:var(--text2);padding:5px 0">Department</td><td>${dept?dept.name:'Ã¢ÂÂ'}</td></tr>
-      <tr><td style="color:var(--text2);padding:5px 0">Shift</td><td>${shift?shift.name:'Ã¢ÂÂ'}${(u.customStart&&u.customEnd)?'<br><span style="font-size:10px;color:var(--text2);font-family:var(--mono)">'+u.customStart+' Ã¢ÂÂ '+u.customEnd+'</span>':shift&&(shift.start||shift.end)?'<br><span style="font-size:10px;color:var(--text3);font-family:var(--mono)">'+shift.start+(shift.end?' Ã¢ÂÂ '+shift.end:'')+'</span>':''}</td></tr>
-      <tr><td style="color:var(--text2);padding:5px 0">Manager</td><td>${mgr?mgr.name:'Ã¢ÂÂ'}</td></tr>
-      <tr><td style="color:var(--text2);padding:5px 0">Start date</td><td>${u.startDate||'Ã¢ÂÂ'}</td></tr>
+      <tr><td style="color:var(--text2);padding:5px 0">Department</td><td>${dept?dept.name:'ÃÂ¢ÃÂÃÂ'}</td></tr>
+      <tr><td style="color:var(--text2);padding:5px 0">Shift</td><td>${shift?shift.name:'ÃÂ¢ÃÂÃÂ'}${(u.customStart&&u.customEnd)?'<br><span style="font-size:10px;color:var(--text2);font-family:var(--mono)">'+u.customStart+' ÃÂ¢ÃÂÃÂ '+u.customEnd+'</span>':shift&&(shift.start||shift.end)?'<br><span style="font-size:10px;color:var(--text3);font-family:var(--mono)">'+shift.start+(shift.end?' ÃÂ¢ÃÂÃÂ '+shift.end:'')+'</span>':''}</td></tr>
+      <tr><td style="color:var(--text2);padding:5px 0">Manager</td><td>${mgr?mgr.name:'ÃÂ¢ÃÂÃÂ'}</td></tr>
+      <tr><td style="color:var(--text2);padding:5px 0">Start date</td><td>${u.startDate||'ÃÂ¢ÃÂÃÂ'}</td></tr>
       <tr><td style="color:var(--text2);padding:5px 0">Today</td><td style="font-family:var(--mono)">${fmtHM(ts)}</td></tr>
       <tr><td style="color:var(--text2);padding:5px 0">This week</td><td style="font-family:var(--mono)">${fmtHM(wk)}</td></tr>
       <tr><td style="color:var(--text2);padding:5px 0">Leave balance</td><td>${total}d (V:${lb.vacation||0} S:${lb.sick||0} P:${lb.personal||0})</td></tr>
@@ -1718,7 +1770,7 @@ function openModal(mode,id){
   } else if(mode==='addTitle'){
     body=`<div class="form-row"><label>Job title</label><input type="text" id="f-t" placeholder="e.g. Senior Content Developer"/></div>`;
   } else if(mode==='bulkTitles'){
-    body=`<div class="form-row"><label>Paste titles Ã¢ÂÂ one per line</label><textarea id="f-bulk" rows="8" placeholder="Senior Developer&#10;Content Manager&#10;..." style="resize:vertical"></textarea></div><div style="font-size:12px;color:var(--text2)">Duplicates are ignored automatically.</div>`;
+    body=`<div class="form-row"><label>Paste titles ÃÂ¢ÃÂÃÂ one per line</label><textarea id="f-bulk" rows="8" placeholder="Senior Developer&#10;Content Manager&#10;..." style="resize:vertical"></textarea></div><div style="font-size:12px;color:var(--text2)">Duplicates are ignored automatically.</div>`;
   } else if(mode==='addHoliday'||mode==='editHoliday'){
     const h=mode==='editHoliday'?holidays.find(x=>x.id===id):null;
     body=`<div class="form-row"><label>Holiday name</label><input type="text" id="f-hn" value="${h?h.name:''}"/></div>
@@ -1807,7 +1859,7 @@ function doModal(){
       else if(type==='Sick'&&(u.leaveBalance.sick||0)>=days) u.leaveBalance.sick-=days;
       else if(type==='Personal'&&(u.leaveBalance.personal||0)>=days) u.leaveBalance.personal-=days;
     }
-    addAudit(cu.id,'Leave logged','Leave',`${type} for ${u?.name} ${from} Ã¢ÂÂ ${to} (${days}d) Ã¢ÂÂ ${status}`);
+    addAudit(cu.id,'Leave logged','Leave',`${type} for ${u?.name} ${from} ÃÂ¢ÃÂÃÂ ${to} (${days}d) ÃÂ¢ÃÂÃÂ ${status}`);
     closeModal(); renderLeaveLog(); renderLeaveBalances();
 
   } else if(mmode==='addTitle'){
@@ -1843,7 +1895,7 @@ function doModal(){
   }
 }
 
-// Ã¢ÂÂÃ¢ÂÂ INIT Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ INIT ÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂÃÂ¢ÃÂÃÂ
 let ndid=departments.length+1;
 /* buildLoginSelect() - replaced by email login UI */;
 
@@ -1868,13 +1920,13 @@ function validatePassword(pwd) {
   if (!/[A-Z]/.test(pwd)) return { valid: false, msg: 'Password must contain at least 1 uppercase letter' };
   if (!/[a-z]/.test(pwd)) return { valid: false, msg: 'Password must contain at least 1 lowercase letter' };
   if (!/[^A-Za-z0-9]/.test(pwd)) return { valid: false, msg: 'Password must contain at least 1 symbol (e.g. !@#$%)' };
-  return { valid: true, msg: 'Strong password Ã¢ÂÂ' };
+  return { valid: true, msg: 'Strong password ÃÂ¢ÃÂÃÂ' };
 }
 
 function togglePwdVis(inputId, btn) {
   var inp = document.getElementById(inputId);
-  if (inp.type === 'password') { inp.type = 'text'; btn.textContent = 'Ã°ÂÂÂ'; }
-  else { inp.type = 'password'; btn.textContent = 'Ã°ÂÂÂ'; }
+  if (inp.type === 'password') { inp.type = 'text'; btn.textContent = 'ÃÂ°ÃÂÃÂÃÂ'; }
+  else { inp.type = 'password'; btn.textContent = 'ÃÂ°ÃÂÃÂÃÂ'; }
 }
 
 // Device fingerprint
@@ -2318,7 +2370,7 @@ window.connectMS365 = connectMS365;
 window.checkMS365AuthReturn = checkMS365AuthReturn;
 setTimeout(function(){ if(typeof checkMS365AuthReturn==='function') checkMS365AuthReturn(); }, 600);
 
-// ââ ADMIN VIEW HELPER: get uid being viewed ââ
+// Ã¢ÂÂÃ¢ÂÂ ADMIN VIEW HELPER: get uid being viewed Ã¢ÂÂÃ¢ÂÂ
 function getViewUid(pageKey){
   if(!cu) return 0;
   if(cu.role!=='admin') return cu.id;
@@ -2344,7 +2396,7 @@ function showAdminViewBar(pageKey, renderFn){
   }
 }
 
-// ââ MANUAL TIME ENTRY ââ
+// Ã¢ÂÂÃ¢ÂÂ MANUAL TIME ENTRY Ã¢ÂÂÃ¢ÂÂ
 function openManualTimeModal(){
   const ov = document.getElementById('manualTimeOverlay');
   if(!ov) return;
@@ -2375,7 +2427,7 @@ function submitManualTime(){
   const endTs = new Date(dateVal+'T'+endVal+':00').getTime();
   if(endTs<=startTs){alert('End time must be after start time.');return;}
   const dur = Math.round((endTs-startTs)/1000/60);
-  const appr={id:napid++,uid:cu.id,type:'Time Adjustment',detail:dateVal+' '+startVal+'â'+endVal+(noteVal?' â '+noteVal:''),startTs:startTs,endTs:endTs,note:noteVal,duration:dur,status:'pending',submitted:todayStr()};
+  const appr={id:napid++,uid:cu.id,type:'Time Adjustment',detail:dateVal+' '+startVal+'Ã¢ÂÂ'+endVal+(noteVal?' Ã¢ÂÂ '+noteVal:''),startTs:startTs,endTs:endTs,note:noteVal,duration:dur,status:'pending',submitted:todayStr()};
   approvals.push(appr);
   addAudit(cu.id,'Manual time submitted','Time',appr.detail);
   closeManualTimeModal();
@@ -2386,7 +2438,7 @@ function submitManualTime(){
 
 <div id="idleWarningOverlay" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:9999;align-items:center;justify-content:center;">
   <div style="background:white;border-radius:16px;padding:40px;text-align:center;max-width:420px;box-shadow:0 8px 40px rgba(0,0,0,0.3);">
-    <div style="font-size:48px;margin-bottom:16px;">Ã¢ÂÂ°</div>
+    <div style="font-size:48px;margin-bottom:16px;">ÃÂ¢ÃÂÃÂ°</div>
     <h3 style="color:#4a86a8;margin:0 0 8px;font-size:20px;">Are you still there?</h3>
     <p style="color:#666;margin:0 0 20px;">No activity detected for 20 minutes. Your timer will be paused.</p>
     <p style="color:#333;font-size:14px;margin:0 0 24px;">Tracking will be paused in <strong id="idleCountdown">60</strong> seconds.</p>
@@ -2397,7 +2449,7 @@ function submitManualTime(){
 <div id="ms365Widget" style="display:none;"><div id="ms365Panel" style="display:none;position:fixed;top:0;right:0;width:380px;height:100%;background:white;box-shadow:-4px 0 20px rgba(0,0,0,0.15);z-index:1000;overflow-y:auto;padding:24px;box-sizing:border-box;">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
     <h3 style="margin:0;color:#4a86a8;font-size:18px;">Microsoft 365 Activity</h3>
-    <button onclick="toggleMS365()" style="background:none;border:none;font-size:20px;cursor:pointer;color:#666;">Ã¢ÂÂ</button>
+    <button onclick="toggleMS365()" style="background:none;border:none;font-size:20px;cursor:pointer;color:#666;">ÃÂ¢ÃÂÃÂ</button>
   </div></div>
   <div id="ms365ConnectSection">
     <p style="color:#666;margin-bottom:16px;font-size:14px;">Connect your Microsoft 365 account to track Teams meetings, chats, and Outlook emails.</p>
@@ -2408,13 +2460,13 @@ function submitManualTime(){
   </div>
   <div id="ms365DataSection" style="display:none;">
     <div style="background:#f0f7ff;border-radius:8px;padding:12px;margin-bottom:16px;font-size:13px;color:#2d6080;">
-      Ã¢ÂÂ Connected as <span id="ms365UserName">User</span>
+      ÃÂ¢ÃÂÃÂ Connected as <span id="ms365UserName">User</span>
     </div>
-    <h4 style="color:#333;margin:0 0 12px;font-size:15px;">Ã°ÂÂÂ Recent Teams Meetings</h4>
+    <h4 style="color:#333;margin:0 0 12px;font-size:15px;">ÃÂ°ÃÂÃÂÃÂ Recent Teams Meetings</h4>
     <div id="ms365Meetings" style="margin-bottom:20px;"></div>
-    <h4 style="color:#333;margin:0 0 12px;font-size:15px;">Ã°ÂÂÂ¬ Teams Messages</h4>
+    <h4 style="color:#333;margin:0 0 12px;font-size:15px;">ÃÂ°ÃÂÃÂÃÂ¬ Teams Messages</h4>
     <div id="ms365Messages" style="margin-bottom:20px;"></div>
-    <h4 style="color:#333;margin:0 0 12px;font-size:15px;">Ã°ÂÂÂ§ Recent Emails</h4>
+    <h4 style="color:#333;margin:0 0 12px;font-size:15px;">ÃÂ°ÃÂÃÂÃÂ§ Recent Emails</h4>
     <div id="ms365Emails"></div>
   </div>
 </div>
