@@ -1,50 +1,72 @@
 {
-  "users": [
-    {
-      "id": 5,
-      "name": "Czarina Magana",
-      "email": "czarina.magana@amedcompliance.com",
-      "role": "employee",
-      "dept": 1,
-      "shift": 1,
-      "jobTitle": "",
-      "phone": "",
-      "status": "active",
-      "startDate": "2026-05-13",
-      "invited": true,
-      "manager": 1,
-      "leaveBalance": {
-        "vacation": 6,
-        "sick": 4,
-        "personal": 2
-      },
-      "needsSetup": true,
-      "color": 4,
-      "pin": "1234"
-    },
-    {
-      "id": 6,
-      "name": "Majida Amir",
-      "email": "majida.amir@amedcompliance.com",
-      "role": "employee",
-      "dept": 2,
-      "shift": 1,
-      "jobTitle": "Operational Support",
-      "phone": "",
-      "status": "active",
-      "startDate": "2026-05-15",
-      "invited": true,
-      "manager": null,
-      "leaveBalance": {
-        "vacation": 6,
-        "sick": 4,
-        "personal": 2
-      },
-      "needsSetup": true,
-      "color": 2,
-      "pin": "0000"
-    }
-  ],
-  "updated": "2026-05-15T15:20:08.682Z",
-  "note": "AMC Time Tracker user database. Managed automatically by the app."
+    "users": [
+          {
+                  "id": 5,
+                  "name": "Czarina Magana",
+                  "email": "czarina.magana@amedcompliance.com",
+                  "role": "employee",
+                  "dept": 1,
+                  "shift": 1,
+                  "jobTitle": "",
+                  "phone": "",
+                  "status": "active",
+                  "startDate": "2026-05-13",
+                  "invited": true,
+                  "manager": 1,
+                  "leaveBalance": {
+                            "vacation": 6,
+                            "sick": 4,
+                            "personal": 2
+                  },
+                  "needsSetup": true,
+                  "color": 4,
+                  "pin": "1234"
+          },
+          {
+                  "id": 6,
+                  "name": "Majida Amir",
+                  "email": "majida.amir@amedcompliance.com",
+                  "role": "employee",
+                  "dept": 2,
+                  "shift": 1,
+                  "jobTitle": "Operational Support",
+                  "phone": "",
+                  "status": "active",
+                  "startDate": "2026-05-15",
+                  "invited": true,
+                  "manager": null,
+                  "leaveBalance": {
+                            "vacation": 6,
+                            "sick": 4,
+                            "personal": 2
+                  },
+                  "needsSetup": true,
+                  "color": 2,
+                  "pin": "0000"
+          },
+          {
+                  "id": 8,
+                  "name": "China Trangia",
+                  "email": "china.trangia@amedcompliance.com",
+                  "role": "employee",
+                  "dept": 1,
+                  "shift": 1,
+                  "jobTitle": "Creative Design Manager",
+                  "phone": "",
+                  "status": "active",
+                  "startDate": "2026-05-15",
+                  "invited": false,
+                  "manager": null,
+                  "leaveBalance": {
+                            "vacation": 6,
+                            "sick": 4,
+                            "personal": 2
+                  },
+                  "needsSetup": true,
+                  "color": 3,
+                  "pin": "0000"
+          }
+    ],
+    "updated": "2026-05-15T18:00:00.000Z",
+    "note": "AMC Time Tracker user database. Managed automatically by the app."
 }
