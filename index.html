@@ -2276,7 +2276,7 @@ async function doEmailLogin() {
   }
   
   var user = users.find(function(u) { return u.email.toLowerCase() === email; });
-  if (!uif (!user) {
+  if (!user) {
     // Try fetching from GitHub before giving up
     if (errEl) { errEl.textContent = 'Looking up account...'; errEl.style.display='block'; errEl.style.color='var(--teal)'; }
     await fetchUsersFromGitHub();
