@@ -2281,57 +2281,85 @@ function startOTPTimer() {
 // Email login flow
 async function doEmailLogin() {
   var email = (document.getElementById('loginEmail') || {}).value || '';
-  var password = (document.getElementById('loginPassword') || {}).value || '';
   var errEl = document.getElementById('loginError');
-  
+  var pwdGroup = document.getElementById('loginPwdGroup');
+  var pwdInput = document.getElementById('loginPassword');
+
   email = email.trim().toLowerCase();
-  
-  if (!email || !password) {
-    if (errEl) { errEl.textContent = 'Please enter your email and password'; errEl.style.display='block'; }
+
+  if (!email) {
+    if (errEl) { errEl.textContent = 'Please enter your email address'; errEl.style.display = 'block'; }
     return;
   }
-  
-  var user = users.find(function(u) { return u.email.toLowerCase() === email; });
-  if (!user) {
-    // Try fetching from GitHub before giving up
-    if (errEl) { errEl.textContent = 'Looking up account...'; errEl.style.display='block'; errEl.style.color='var(--teal)'; }
-    await fetchUsersFromGitHub();
-    user = users.find(function(u) { return u.email.toLowerCase() === email; });
-    if (errEl) { errEl.style.color=''; }
+
+  // Step 1: If password field is hidden, validate email and show password field
+  if (pwdGroup && pwdGroup.style.display === 'none') {
+    if (errEl) errEl.style.display = 'none';
+    // Check if email exists (fetch from GitHub if needed)
+    var user = users.find(function(u) { return u.email.toLowerCase() === email; });
     if (!user) {
-      if (errEl) { errEl.textContent = 'No account found with this email address.'; errEl.style.display='block'; }
+      if (errEl) { errEl.textContent = 'Looking up account...'; errEl.style.display = 'block'; errEl.style.color = 'var(--teal)'; }
+      await fetchUsersFromGitHub();
+      user = users.find(function(u) { return u.email.toLowerCase() === email; });
+      if (errEl) errEl.style.color = '';
+    }
+    if (!user) {
+      if (errEl) { errEl.textContent = 'No account found with this email address.'; errEl.style.display = 'block'; }
       return;
     }
-  }// Check if first-time setup needed
+    // Show password field
+    pwdGroup.style.display = 'block';
+    if (pwdInput) pwdInput.focus();
+    return;
+  }
+
+  // Step 2: Password field is visible - proceed with login
+  var password = (pwdInput || {}).value || '';
+  if (!password) {
+    if (errEl) { errEl.textContent = 'Please enter your password'; errEl.style.display = 'block'; }
+    return;
+  }
+
+  var user = users.find(function(u) { return u.email.toLowerCase() === email; });
+  if (!user) {
+    await fetchUsersFromGitHub();
+    user = users.find(function(u) { return u.email.toLowerCase() === email; });
+    if (!user) {
+      if (errEl) { errEl.textContent = 'No account found with this email address.'; errEl.style.display = 'block'; }
+      return;
+    }
+  }
+
+  // Check if first-time setup needed
   if (user.needsSetup || !user.password) {
     _pendingLoginUser = user;
     document.getElementById('loginStep1').style.display = 'none';
     document.getElementById('loginStep3').style.display = 'block';
     return;
   }
-  
+
   // Validate password
   if (user.password !== password) {
-    if (errEl) { errEl.textContent = 'Incorrect password. Please try again.'; errEl.style.display='block'; }
+    if (errEl) { errEl.textContent = 'Incorrect password. Please try again.'; errEl.style.display = 'block'; }
     return;
   }
-  
+
   _pendingLoginUser = user;
-  
+
   // Check if known device
   if (isKnownDevice(email)) {
     completeLogin(user);
     return;
   }
-  
+
   // Send OTP
   _currentOTP = generateOTP();
   _otpExpiry = Date.now() + 300000;
   sendOTPEmail(email, _currentOTP);
-  
+
   var otpEmailEl = document.getElementById('otpEmailDisplay');
   if (otpEmailEl) otpEmailEl.textContent = email;
-  
+
   document.getElementById('loginStep1').style.display = 'none';
   document.getElementById('loginStep2').style.display = 'block';
   startOTPTimer();
