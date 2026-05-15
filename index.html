@@ -367,9 +367,6 @@ tr:hover td{background:var(--surface2)}
     <button class="nav-item" onclick="goTo('leaves')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Leaves
     </button>
-    <button class="nav-item" onclick="goTo('screenshots')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Screenshots
-    </button>
     <div class="nav-section admin-only" style="display:none">Admin</div>
     <button class="nav-item admin-only" style="display:none" onclick="goTo('admin')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Users & Admin
@@ -523,27 +520,6 @@ tr:hover td{background:var(--surface2)}
   </div>
 </div>
 
-
-<!-- SCREENSHOTS PAGE -->
-<div class="page" id="page-screenshots">
-  <div class="page-header"><div class="page-title">Screenshots</div></div>
-  <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px;">
-    <select id="ss-filter-user" onchange="renderScreenshots()" style="padding:8px 12px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text1);font-size:14px;">
-      <option value="">All Members</option>
-    </select>
-    <select id="ss-filter-date" onchange="renderScreenshots()" style="padding:8px 12px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text1);font-size:14px;">
-      <option value="">All Time</option>
-      <option value="today">Today</option>
-      <option value="week">This Week</option>
-      <option value="month">This Month</option>
-    </select>
-    <button onclick="fetchSessionsFromGitHub().then(function(){renderScreenshots();})" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:14px;">Refresh</button>
-    <span id="ss-count" style="color:var(--text3);font-size:13px;"></span>
-  </div>
-  <div id="screenshots-page-area" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;">
-    <div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text3);font-size:15px;">Click Refresh to load screenshots.</div>
-  </div>
-</div>
 <!-- ADMIN PAGE -->
 <div class="page" id="page-admin">
   <div class="page-header"><div class="page-title">Users & admin</div><div class="page-sub">Manage remote team, sessions, and approvals</div></div>
@@ -1037,8 +1013,7 @@ function goTo(name){
   if(name==='admin'){ buildDeptFilter(); renderUsers(); renderDepts(); renderShifts(); renderApprovals(); renderAdj(); populateAdjFilters(); renderRoles(); }
   if(name==='titles'){ renderTitles(); renderHolidays(); renderLeavePolicy(); }
   if(name==='alerts') runAlerts();
-  if(name==='audit'){ buildAuditFilters(); renderAudit(); }  if(name==='screenshots'){ fetchSessionsFromGitHub().then(function(){renderScreenshots();}); }
-
+  if(name==='audit'){ buildAuditFilters(); renderAudit(); }
 }
 
 function showInner(page, sec){
@@ -1471,80 +1446,6 @@ function renderActivity(expandUid){
     const mb=s.type==='manual'||s.manual?'<span class="badge badge-amber" style="margin-left:4px">manual</span>':'';
     return '<div style="display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)"><div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:500;margin-bottom:3px">'+s.project+' <span class="badge '+(CAT_BADGE[s.category]||'badge-gray')+'">'+s.category+'</span>'+mb+'</div><div style="font-size:12px;color:var(--text2)">'+ds+' � '+ts+'</div>'+(thumbs?'<div class="ss-strip">'+thumbs+'</div>':'')+'</div><div style="font-family:var(--mono);font-size:13px;font-weight:500;white-space:nowrap">'+fmtS(s.duration||0)+'</div></div>';
   }).join('');
-}
-
-function renderScreenshots() {
-  var area = document.getElementById('screenshots-page-area');
-  var ssCount = document.getElementById('ss-count');
-  if (!area) return;
-  var allSess = (typeof sessions !== 'undefined' && sessions.length > 0) ? sessions : JSON.parse(localStorage.getItem('amc_sessions') || '[]');
-  var allU = users.filter(function(u) { return u.role !== 'admin'; });
-  var userFilter = document.getElementById('ss-filter-user');
-  if (userFilter && userFilter.options.length === 1) {
-    allU.forEach(function(u) {
-      var opt = document.createElement('option');
-      opt.value = u.id;
-      opt.textContent = u.name || u.email;
-      userFilter.appendChild(opt);
-    });
-  }
-  var selUser = userFilter ? userFilter.value : '';
-  var selDate = document.getElementById('ss-filter-date') ? document.getElementById('ss-filter-date').value : '';
-  var now = new Date();
-  var todayStr = now.toDateString();
-  var weekAgo = new Date(now - 7*24*3600*1000);
-  var monthAgo = new Date(now - 30*24*3600*1000);
-  var allSS = [];
-  allSess.forEach(function(s) {
-    var user = users.find(function(u) { return u.id === s.uid; });
-    if (!user || user.role === 'admin') return;
-    if (selUser && selUser !== String(s.uid)) return;
-    (s.screenshots || []).forEach(function(ss) {
-      var d = new Date(ss.time || ss.timestamp);
-      if (selDate === 'today' && d.toDateString() !== todayStr) return;
-      if (selDate === 'week' && d < weekAgo) return;
-      if (selDate === 'month' && d < monthAgo) return;
-      if (ss.url || ss.dataUrl) allSS.push({src: ss.url || ss.dataUrl, date: d, user: user});
-    });
-  });
-  allSS.sort(function(a,b){return b.date-a.date;});
-  if (ssCount) ssCount.textContent = allSS.length + ' screenshot' + (allSS.length!==1?'s':'');
-  if (allSS.length === 0) {
-    area.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text3);">No screenshots yet.</div>';
-    return;
-  }
-  var byUser = {};
-  allSS.forEach(function(ss) {
-    var uid = ss.user.id;
-    if (!byUser[uid]) byUser[uid] = {user: ss.user, shots: []};
-    byUser[uid].shots.push(ss);
-  });
-  var html = '';
-  Object.values(byUser).forEach(function(g) {
-    var u = g.user;
-    var shots = g.shots;
-    var nm = (u.name || u.email || '-');
-    var initials = nm.split(' ').map(function(w){return w[0]||''}).join('').substring(0,2).toUpperCase();
-    var shtml = '';
-    shots.forEach(function(ss) {
-      var timeStr = ss.date ? ss.date.toLocaleString() : '';
-      shtml += '<div style="background:var(--surface2);border-radius:8px;overflow:hidden;cursor:pointer" onclick="showSSModal(\'' + ss.src + '\',\'' + timeStr + ' - ' + nm + '\')">';
-      shtml += '<img src="' + ss.src + '" style="width:100%;height:140px;object-fit:cover;display:block" onerror="this.parentElement.style.display=\'none\'" alt="ss"/>';
-      shtml += '<div style="padding:6px 8px;font-size:11px;color:var(--text3)">' + timeStr + '</div></div>';
-    });
-    html += '<div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;">';
-    html += '<div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">';
-    html += '<div style="width:36px;height:36px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600;font-size:13px">' + initials + '</div>';
-    html += '<div><div style="font-weight:600;font-size:14px">' + nm + '</div>';
-    html += '<div style="font-size:12px;color:var(--text3)">' + shots.length + ' screenshot' + (shots.length!==1?'s':'') + '</div></div></div>';
-    html += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px">' + shtml + '</div></div>';
-  });
-  area.innerHTML = html;
-}
-function showSSModal(src,label){
-  document.getElementById('ss-img').src=src;
-  document.getElementById('ss-modal-time').textContent=label;
-  document.getElementById('ss-modal').style.display='flex';
 }
 
 function adminViewSS(sid, ji, evt){
@@ -2843,11 +2744,5 @@ window.addEventListener('DOMContentLoaded', function() {
   } catch(e) {}
 });
 </script>
-
-<div id="ss-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999;align-items:center;justify-content:center;flex-direction:column;gap:12px" onclick="this.style.display='none'">
-  <div style="color:#fff;font-size:13px;opacity:0.8" id="ss-modal-time"></div>
-  <img id="ss-img" style="max-width:90vw;max-height:85vh;border-radius:8px" src="" alt="Screenshot"/>
-  <div style="color:#aaa;font-size:12px">Click anywhere to close</div>
-</div>
 </body>
 </html>
