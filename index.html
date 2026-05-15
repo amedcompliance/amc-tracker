@@ -855,34 +855,23 @@ fetchUsersFromGitHub();
 // When admin adds a user, this patches index.html directly in GitHub
 // so the user is hardcoded and works on ALL devices after ~30s deploy
 async function syncUsersToGitHub() {
-  const pat = localStorage.getItem('amc_github_pat');
-  if (!pat) return; // No PAT - skip GitHub sync (users saved locally)
   try {
-    const owner = 'amedcompliance', repo = 'amc-tracker', file = 'users.json';
-    // Get current file SHA
-    const fileResp = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${file}`, {
-      headers: { Authorization: 'token ' + pat, Accept: 'application/vnd.github.v3+json' }
+    // Use server-side Cloudflare Pages Function to sync users (no browser PAT needed)
+    const usersToSync = users.filter(u => u.role !== 'admin' && u.id !== 1);
+    const resp = await fetch('/sync-users', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ users: usersToSync })
     });
-    const fileData = await fileResp.json();
-    const currentSha = fileData.sha;
-    // Build users list - only non-admin users, no passwords
-    const usersToSave = users.filter(u => u.role !== 'admin' && u.id !== 1).map(u => ({
-      id: u.id, name: u.name, email: u.email, role: u.role, dept: u.dept,
-      shift: u.shift, jobTitle: u.jobTitle, phone: u.phone, status: u.status,
-      startDate: u.startDate, invited: u.invited, manager: u.manager,
-      leaveBalance: u.leaveBalance, needsSetup: u.needsSetup,
-      color: u.color, pin: u.pin
-    }));
-    const content = { users: usersToSave, updated: new Date().toISOString(),
-      note: 'AMC Time Tracker user database. Managed automatically by the app.' };
-    const newContent = JSON.stringify(content, null, 2);
-    await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${file}`, {
-      method: 'PUT',
-      headers: { Authorization: 'token ' + pat, Accept: 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: 'Sync users', content: btoa(unescape(encodeURIComponent(newContent))), sha: currentSha })
-    });
-    console.log('AMC: Users synced to GitHub');
-  } catch(e) { console.warn('AMC: Could not sync users to GitHub:', e.message); }
+    if (resp.ok) {
+      const result = await resp.json();
+      console.log('AMC: Synced ' + result.count + ' users to GitHub via server function');
+    } else {
+      console.warn('AMC: sync-users returned', resp.status);
+    }
+  } catch(e) {
+    console.warn('AMC: sync-users failed:', e.message);
+  }
 }
 
 async function fetchUsersFromGitHub() {
