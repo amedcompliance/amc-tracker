@@ -296,7 +296,7 @@ tr:hover td{background:var(--surface2)}
         <label style="display:block;font-size:13px;font-weight:600;color:#555;margin-bottom:6px;">Password</label>
         <div style="position:relative;">
           <input type="password" id="loginPassword" placeholder="Enter password" style="width:100%;padding:12px;padding-right:44px;border:2px solid #e0e0e0;border-radius:8px;font-size:15px;box-sizing:border-box;outline:none;transition:border 0.2s;" onfocus="this.style.borderColor='#4a86a8'" onblur="this.style.borderColor='#e0e0e0'" onkeydown="if(event.key==='Enter')doEmailLogin()"/>
-          <button onclick="togglePwdVis('loginPassword',this)" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#888;font-size:18px;">Ã°ÂÂÂ</button>
+          <button onclick="togglePwdVis('loginPassword',this)" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#888;font-size:18px;">ð</button>
         </div>
         <div id="pwdStrength" style="font-size:12px;margin-top:4px;height:16px;"></div>
       </div>
@@ -307,7 +307,7 @@ tr:hover td{background:var(--surface2)}
     <!-- Step 2: OTP Verification -->
     <div id="loginStep2" style="display:none;">
       <div style="background:#e8f1f7;border-radius:8px;padding:12px;margin-bottom:16px;font-size:13px;color:#2d6080;">
-        Ã°ÂÂÂ§ A verification code has been sent to <strong id="otpEmailDisplay"></strong>
+        ð§ A verification code has been sent to <strong id="otpEmailDisplay"></strong>
       </div>
       <div id="otpInputGroup" style="display:block;margin-bottom:16px;text-align:left;">
         <label style="display:block;font-size:13px;font-weight:600;color:#555;margin-bottom:6px;">Verification Code</label>
@@ -321,7 +321,7 @@ tr:hover td{background:var(--surface2)}
     
     <!-- Step 3: First-time password setup -->
     <div id="loginStep3" style="display:none;">
-      <p style="color:#444;font-size:14px;margin-bottom:20px;text-align:center;font-weight:500;">Ã°ÂÂÂ Welcome! Create a password to access your account.<br><small style="color:#888;">Must be at least 6 characters with 1 uppercase, 1 lowercase, and 1 symbol.</small></p>
+      <p style="color:#444;font-size:14px;margin-bottom:20px;text-align:center;font-weight:500;">ð Welcome! Create a password to access your account.<br><small style="color:#888;">Must be at least 6 characters with 1 uppercase, 1 lowercase, and 1 symbol.</small></p>
       <div style="margin-bottom:12px;text-align:left;">
         <label style="display:block;font-size:13px;font-weight:600;color:#555;margin-bottom:6px;">New Password</label>
         <input type="password" id="newPwd" placeholder="At least 6 chars, 1 upper, 1 lower, 1 symbol" style="width:100%;padding:12px;border:2px solid #e0e0e0;border-radius:8px;font-size:14px;box-sizing:border-box;outline:none;" onfocus="this.style.borderColor='#4a86a8'" onblur="this.style.borderColor='#e0e0e0'"/>
@@ -331,7 +331,7 @@ tr:hover td{background:var(--surface2)}
         <input type="password" id="confirmPwd" placeholder="Repeat your password" style="width:100%;padding:12px;border:2px solid #e0e0e0;border-radius:8px;font-size:14px;box-sizing:border-box;outline:none;" onfocus="this.style.borderColor='#4a86a8'" onblur="this.style.borderColor='#e0e0e0'"/>
       </div>
       <div style="text-align:left;font-size:12px;color:#888;margin-bottom:16px;">
-        Ã¢ÂÂ Min 6 characters &nbsp; Ã¢ÂÂ 1 uppercase &nbsp; Ã¢ÂÂ 1 lowercase &nbsp; Ã¢ÂÂ 1 symbol
+        â Min 6 characters &nbsp; â 1 uppercase &nbsp; â 1 lowercase &nbsp; â 1 symbol
       </div>
       <div id="setupError" style="color:#e74c3c;font-size:13px;margin-bottom:12px;display:none;"></div>
       <button onclick="completeSetup()" style="width:100%;background:#4a86a8;color:white;border:none;padding:14px;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer;">Set Password & Login</button>
@@ -366,9 +366,6 @@ tr:hover td{background:var(--surface2)}
     </button>
     <button class="nav-item" onclick="goTo('leaves')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Leaves
-    </button>
-    <button class="nav-item" onclick="goTo('screenshots')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><circle cx="12" cy="10" r="3"/></svg>Screenshots
     </button>
     <div class="nav-section admin-only" style="display:none">Admin</div>
     <button class="nav-item admin-only" style="display:none" onclick="goTo('admin')">
@@ -417,7 +414,7 @@ tr:hover td{background:var(--surface2)}
     <div class="metric"><div class="metric-label">Today</div><div class="metric-value" id="m-today">0h 0m</div><div class="metric-sub">tracked</div></div>
     <div class="metric"><div class="metric-label">Sessions</div><div class="metric-value" id="m-sessions">0</div><div class="metric-sub">today</div></div>
     <div class="metric"><div class="metric-label">This week</div><div class="metric-value" id="m-week">0h 0m</div><div class="metric-sub">tracked</div></div>
-    <div class="metric"><div class="metric-label">Leave balance</div><div class="metric-value" id="m-leave">Ã¢ÂÂ</div><div class="metric-sub">days remaining</div></div>
+    <div class="metric"><div class="metric-label">Leave balance</div><div class="metric-value" id="m-leave">â</div><div class="metric-sub">days remaining</div></div>
   </div>
 </div>
 
@@ -441,7 +438,7 @@ tr:hover td{background:var(--surface2)}
     <div class="metric"><div class="metric-label">Today</div><div class="metric-value" id="i-today">0h 0m</div></div>
     <div class="metric"><div class="metric-label">This week</div><div class="metric-value" id="i-week">0h 0m</div></div>
     <div class="metric"><div class="metric-label">Daily avg</div><div class="metric-value" id="i-avg">0h 0m</div></div>
-    <div class="metric"><div class="metric-label">Top project</div><div class="metric-value" style="font-size:15px" id="i-top">Ã¢ÂÂ</div></div>
+    <div class="metric"><div class="metric-label">Top project</div><div class="metric-value" style="font-size:15px" id="i-top">â</div></div>
   </div>
   <div class="card">
     <div class="card-title">Time by project</div>
@@ -449,7 +446,7 @@ tr:hover td{background:var(--surface2)}
     <div style="position:relative;width:100%;height:200px;margin-top:16px"><canvas id="pieChart" role="img" aria-label="Time by project doughnut chart">No data.</canvas></div>
   </div>
   <div class="card">
-    <div class="card-title">Daily hours Ã¢ÂÂ last 7 days</div>
+    <div class="card-title">Daily hours â last 7 days</div>
     <div style="position:relative;width:100%;height:220px"><canvas id="barChart" role="img" aria-label="Daily hours bar chart">No data.</canvas></div>
   </div>
 </div>
@@ -524,29 +521,6 @@ tr:hover td{background:var(--surface2)}
 </div>
 
 <!-- ADMIN PAGE -->
-<div class="page" id="page-screenshots">
-  <div class="page-header">
-    <div class="page-title">ð¸ Screenshots</div>
-    <div class="page-sub">Team activity screenshots</div>
-  </div>
-  <div style="padding:0 24px 24px">
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap;">
-      <select id="ss-filter-user" onchange="renderScreenshots()" style="padding:8px 12px;border:1px solid var(--border2);border-radius:8px;background:var(--surface);color:var(--text);font-size:14px;">
-        <option value="">All Members</option>
-      </select>
-      <select id="ss-filter-date" onchange="renderScreenshots()" style="padding:8px 12px;border:1px solid var(--border2);border-radius:8px;background:var(--surface);color:var(--text);font-size:14px;">
-        <option value="">All Dates</option>
-        <option value="today">Today</option>
-        <option value="week">This Week</option>
-        <option value="month">This Month</option>
-      </select>
-      <button onclick="fetchSessionsFromGitHub();setTimeout(renderScreenshots,1500)" style="padding:8px 16px;background:var(--primary);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:14px;">â» Refresh</button>
-      <span id="ss-count" style="color:var(--text2);font-size:13px;"></span>
-    </div>
-    <div id="screenshots-page-area" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px;"></div>
-  </div>
-</div>
-
 <div class="page" id="page-admin">
   <div class="page-header"><div class="page-title">Users & admin</div><div class="page-sub">Manage remote team, sessions, and approvals</div></div>
   <div class="inner-tabs">
@@ -808,7 +782,7 @@ tr:hover td{background:var(--surface2)}
 </div>
 </div>
 
-<script>// Ã¢ÂÂÃ¢ÂÂ DATA Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+<script>// ââ DATA ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 const SHAREPOINT = 'https://americanmedical.sharepoint.com/:f:/s/AMCdata/IgAOUGFK5WryRJg0l0L7kH2wAVpFB3sH4n4ykFYRlaoa5ME?e=3mUcRe';
 const AV_COLORS = [['#E1F5EE','#0F6E56'],['#E6F1FB','#185FA5'],['#EEEDFE','#4C1D95'],['#FAEEDA','#92400E'],['#FAECE7','#9B2C13'],['#EAF3DE','#14532D']];
 const CHART_COLORS = ['#4a86a8','#2563EB','#D97706','#7C3AED','#E14B2A','#16A34A','#DC2626'];
@@ -858,7 +832,7 @@ let users = [
 {id:5,name:'Czarina Magana',email:'czarina.magana@amedcompliance.com',role:'employee',pin:'1234',color:4,dept:1,shift:1,invited:true,status:'active',phone:'',jobTitle:'',startDate:'2026-05-13',leaveBalance:{vacation:6,sick:4,personal:2},manager:1, password: "", needsSetup: true},
 ];
 
-// ââ STARTUP: Apply deleted user blacklist + load extra users ââ
+// ── STARTUP: Apply deleted user blacklist + load extra users ──
 (function(){
   const _deleted = JSON.parse(localStorage.getItem('amc_deleted_users')||'[]');
   if(_deleted.length) users = users.filter(function(u){return !_deleted.includes(u.id);});
@@ -877,7 +851,7 @@ let users = [
 })();
 // Fetch users from GitHub on startup
 fetchUsersFromGitHub();
-// ââ ADD USER TO SOURCE CODE via GitHub API ââââââââââââââââââ
+// ── ADD USER TO SOURCE CODE via GitHub API ──────────────────
 // When admin adds a user, this patches index.html directly in GitHub
 // so the user is hardcoded and works on ALL devices after ~30s deploy
 async function syncUsersToGitHub() {
@@ -959,7 +933,7 @@ let sessions = [];
 let leaves = [];
 let approvals = [
   {id:1,uid:3,type:'Leave request',detail:'Vacation 2025-06-02 to 2025-06-06 (5 days)',status:'pending',submitted:todayStr()},
-  {id:2,uid:4,type:'Overtime',detail:'3h overtime on 2025-05-20 â billing deadline',status:'pending',submitted:todayStr()},
+  {id:2,uid:4,type:'Overtime',detail:'3h overtime on 2025-05-20 — billing deadline',status:'pending',submitted:todayStr()},
 ];
 let auditLog = [
   {id:1,uid:1,action:'System initialized',category:'System',detail:'AMC Time Tracker deployed',ts:new Date()},
@@ -970,7 +944,7 @@ let cu=null, tInt=null, ssInt=null, secs=0, running=false, stream=null, screenOk
 let pieO=null, barO=null, rptBarO=null;
 let mmode='', medit=null, webhookUrl='', activeAlerts=[];
 
-// ââ HELPERS âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ── HELPERS ───────────────────────────────────────────────────────────────────
 const pad = n => String(n).padStart(2,'0');
 const fmtS = s => { const h=Math.floor(s/3600),m=Math.floor((s%3600)/60),sc=s%60; return `${pad(h)}:${pad(m)}:${pad(sc)}`; };
 const fmtHM = s => `${Math.floor(s/3600)}h ${Math.floor((s%3600)/60)}m`;
@@ -986,7 +960,7 @@ function dateRange(from,to){
 function mondayOf(d){ const dt=new Date(d); const day=dt.getDay()||7; dt.setDate(dt.getDate()-day+1); return dt.toISOString().slice(0,10); }
 function addDays(d,n){ const dt=new Date(d); dt.setDate(dt.getDate()+n); return dt.toISOString().slice(0,10); }
 
-// Ã¢ÂÂÃ¢ÂÂ LOGIN Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ââ LOGIN âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function buildLoginSelect(){
   document.getElementById('loginSelect').innerHTML = users.map(u=>`<option value="${u.id}">${u.name}</option>`).join('');
 }
@@ -1025,14 +999,13 @@ function doLogout(){
   try { buildLoginSelect(); } catch(e) {}
 }
 
-// Ã¢ÂÂÃ¢ÂÂ NAVIGATION Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ââ NAVIGATION ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function goTo(name){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   document.getElementById('page-'+name).classList.add('active');
   document.querySelectorAll('.nav-item').forEach(n=>{ if(n.getAttribute('onclick').includes("'"+name+"'")) n.classList.add('active'); });
   if(name==='dashboard') renderDashboard();
-  if(name==='screenshots'){ if(cu && cu.role==='admin') fetchSessionsFromGitHub(); setTimeout(renderScreenshots, 800); }
   if(name==='activity'){ if(cu && cu.role==='admin') fetchSessionsFromGitHub(); renderActivity(); }
   if(name==='insights') renderInsights();
   if(name==='reports'){ populateRptUsers(); applyRange(); }
@@ -1050,7 +1023,7 @@ function showInner(page, sec){
   const el = document.getElementById(`${page}-${sec}`); if(el) el.classList.add('active');
 }
 
-// Ã¢ÂÂÃ¢ÂÂ TIMER Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ââ TIMER âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 async function startTimer(){
   const proj = document.getElementById('projInput').value.trim()||'Untitled';
   const cat = document.getElementById('catSelect').value;
@@ -1126,8 +1099,8 @@ function stopTimer(){
   updateMetrics(); renderActivity();
 }
 
-// ââ SESSION PERSISTENCE ââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-// ââ SESSION SYNC via GitHub ââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ── SESSION PERSISTENCE ──────────────────────────────────────────────────────
+// ── SESSION SYNC via GitHub ──────────────────────────────────────────────────
 // Sessions are stored in GitHub (sessions.json) so ALL devices can see them.
 // Each user saves their own sessions on stop. Admin loads ALL sessions on login.
 
@@ -1240,15 +1213,12 @@ function updateMetrics(){
   const lb=cu.leaveBalance||{}; document.getElementById('m-leave').textContent=(lb.vacation||0)+(lb.sick||0)+(lb.personal||0);
 }
 
-// Ã¢ÂÂÃ¢ÂÂ ACTIVITY Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ââ ACTIVITY ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 const CAT_BADGE = {Work:'badge-teal',Design:'badge-blue',Dev:'badge-blue',Meeting:'badge-amber',Admin:'badge-teal',Break:'badge-gray'};
 
 function renderDashboard(){
   const allU = users.filter(u=>u.role!=='admin');
-  // Use global sessions array (populated from GitHub + all users' localStorage)
-  const allSess = (typeof sessions !== 'undefined' && sessions.length > 0)
-    ? sessions
-    : JSON.parse(localStorage.getItem('amc_sessions') || '[]');
+  const allSess = JSON.parse(localStorage.getItem('amc_sessions')||'[]');
   
   // Pending approvals
   const adjs = JSON.parse(localStorage.getItem('amc_adjustments')||'[]');
@@ -1385,86 +1355,6 @@ function renderDashboard(){
   }
 }
 
-function renderScreenshots() {
-  var area = document.getElementById('screenshots-page-area');
-  var ssCount = document.getElementById('ss-count');
-  if (!area) return;
-
-  var allSess = (typeof sessions !== 'undefined' && sessions.length > 0) ? sessions : JSON.parse(localStorage.getItem('amc_sessions') || '[]');
-  var allU = users.filter(function(u) { return u.role !== 'admin'; });
-
-  var userFilter = document.getElementById('ss-filter-user');
-  if (userFilter && userFilter.options.length === 1) {
-    allU.forEach(function(u) {
-      var opt = document.createElement('option');
-      opt.value = u.id;
-      opt.textContent = u.name || u.email;
-      userFilter.appendChild(opt);
-    });
-  }
-
-  var selUser = userFilter ? userFilter.value : '';
-  var selDate = document.getElementById('ss-filter-date') ? document.getElementById('ss-filter-date').value : '';
-  var now = new Date();
-  var todayStr = now.toDateString();
-  var weekAgo = new Date(now - 7*24*3600*1000);
-  var monthAgo = new Date(now - 30*24*3600*1000);
-
-  var allSS = [];
-  allSess.forEach(function(s) {
-    var user = users.find(function(u) { return u.id === s.uid; });
-    if (!user || user.role === 'admin') return;
-    if (selUser && selUser !== String(s.uid)) return;
-    (s.screenshots || []).forEach(function(ss) {
-      var d = new Date(ss.time || ss.timestamp);
-      if (selDate === 'today' && d.toDateString() !== todayStr) return;
-      if (selDate === 'week' && d < weekAgo) return;
-      if (selDate === 'month' && d < monthAgo) return;
-      if (ss.url || ss.dataUrl) allSS.push({src: ss.url || ss.dataUrl, date: d, user: user});
-    });
-  });
-
-  allSS.sort(function(a,b){return b.date-a.date;});
-  if (ssCount) ssCount.textContent = allSS.length + ' screenshot' + (allSS.length!==1?'s':'');
-
-  if (allSS.length === 0) {
-    area.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text3);font-size:15px;">No screenshots yet. Click the Screenshot button while tracking to capture one.</div>';
-    return;
-  }
-
-  var byUser = {};
-  allSS.forEach(function(ss) {
-    var uid = ss.user.id;
-    if (!byUser[uid]) byUser[uid] = {user: ss.user, shots: []};
-    byUser[uid].shots.push(ss);
-  });
-
-  var html = '';
-  Object.values(byUser).forEach(function(g) {
-    var u = g.user;
-    var shots = g.shots;
-    var initials = (u.name || '-').split(' ').map(function(w){return w[0]||''}).join('').substring(0,2).toUpperCase();
-    var shtml = '';
-    shots.forEach(function(ss) {
-      var timeStr = ss.date ? ss.date.toLocaleString() : '';
-      shtml += '<div style="background:var(--surface2);border-radius:8px;overflow:hidden;cursor:pointer;transition:transform 0.15s" onmouseover="this.style.transform=\'scale(1.02)\'" onmouseout="this.style.transform=\'\'"' +
-        ' onclick="document.getElementById(\'ss-img\').src=\'' + ss.src + '\';document.getElementById(\'ss-modal-time\').textContent=\'' + timeStr + ' - ' + u.name + '\';document.getElementById(\'ss-modal\').style.display=\'flex\'">' +
-        '<img src="' + ss.src + '" style="width:100%;height:140px;object-fit:cover;display:block" onerror="this.parentElement.style.display=\'none\'" alt="screenshot"/>' +
-        '<div style="padding:6px 8px;font-size:11px;color:var(--text3)">' + timeStr + '</div>' +
-        '</div>';
-    });
-    html += '<div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;">' +
-      '<div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">' +
-      '<div style="width:36px;height:36px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600;font-size:13px">' + initials + '</div>' +
-      '<div><div style="font-weight:600;font-size:14px">' + (u.name||u.email) + '</div>' +
-      '<div style="font-size:12px;color:var(--text3)">' + shots.length + ' screenshot' + (shots.length!==1?'s':'') + '</div></div></div>' +
-      '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px">' + shtml + '</div>' +
-      '</div>';
-  });
-  area.innerHTML = html;
-}
-
-
 function renderActivity(expandUid){
   const el=document.getElementById('activityList'); if(!cu) return;
   const isAdmin = cu.role==='admin';
@@ -1535,7 +1425,7 @@ function renderActivity(expandUid){
               });
               thumbsHtml2+='<span style="font-size:10px;color:var(--text3);align-self:center">'+s.screenshots.length+' screenshot'+(s.screenshots.length>1?'s':'')+'</span></div>';
             }
-            html+='<div style="display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)"><div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:500;margin-bottom:2px">'+(s.project||'')+' <span class="badge '+catBadge2+'" style="font-size:10px">'+(s.category||'')+'</span>'+mb2+'</div><div style="font-size:11px;color:var(--text2)">'+ds2+' ï¿½ '+ts2+(te2?'  '+te2:'')+'</div>'+thumbsHtml2+'</div><div style="font-family:var(--mono);font-size:13px;font-weight:500;white-space:nowrap;padding-top:2px">'+fmtS(s.duration||0)+'</div></div>';
+            html+='<div style="display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)"><div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:500;margin-bottom:2px">'+(s.project||'')+' <span class="badge '+catBadge2+'" style="font-size:10px">'+(s.category||'')+'</span>'+mb2+'</div><div style="font-size:11px;color:var(--text2)">'+ds2+' � '+ts2+(te2?'  '+te2:'')+'</div>'+thumbsHtml2+'</div><div style="font-family:var(--mono);font-size:13px;font-weight:500;white-space:nowrap;padding-top:2px">'+fmtS(s.duration||0)+'</div></div>';
           });
         }
         html += '</div></td></tr>';
@@ -1554,7 +1444,7 @@ function renderActivity(expandUid){
     const ts=s.start?new Date(s.start).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):'';
     const thumbs=s.screenshots?s.screenshots.map(function(sc,j){return '<div class="ss-thumb" onclick="openSS('+s.id+','+j+')"><img src="'+sc.url+'" alt="ss"/></div>';}).join(''):'';
     const mb=s.type==='manual'||s.manual?'<span class="badge badge-amber" style="margin-left:4px">manual</span>':'';
-    return '<div style="display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)"><div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:500;margin-bottom:3px">'+s.project+' <span class="badge '+(CAT_BADGE[s.category]||'badge-gray')+'">'+s.category+'</span>'+mb+'</div><div style="font-size:12px;color:var(--text2)">'+ds+' ï¿½ '+ts+'</div>'+(thumbs?'<div class="ss-strip">'+thumbs+'</div>':'')+'</div><div style="font-family:var(--mono);font-size:13px;font-weight:500;white-space:nowrap">'+fmtS(s.duration||0)+'</div></div>';
+    return '<div style="display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)"><div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:500;margin-bottom:3px">'+s.project+' <span class="badge '+(CAT_BADGE[s.category]||'badge-gray')+'">'+s.category+'</span>'+mb+'</div><div style="font-size:12px;color:var(--text2)">'+ds+' � '+ts+'</div>'+(thumbs?'<div class="ss-strip">'+thumbs+'</div>':'')+'</div><div style="font-family:var(--mono);font-size:13px;font-weight:500;white-space:nowrap">'+fmtS(s.duration||0)+'</div></div>';
   }).join('');
 }
 
@@ -1564,14 +1454,14 @@ function adminViewSS(sid, ji, evt){
   if(!s||!s.screenshots||!s.screenshots[ji]) return;
   const sc=s.screenshots[ji];
   document.getElementById('ssImg').src=sc.url;
-  document.getElementById('ssMeta').textContent=(s.project||'Session')+' ï¿½ '+new Date(sc.time).toLocaleString();
+  document.getElementById('ssMeta').textContent=(s.project||'Session')+' � '+new Date(sc.time).toLocaleString();
   document.getElementById('ssTitle').textContent='Screenshot  '+(s.project||'Session');
   document.getElementById('ssOverlay').classList.add('open');
 }
-function openSS(sid,ji){ const s=sessions.find(x=>x.id===sid); if(!s)return; const sc=s.screenshots[ji]; document.getElementById('ssImg').src=sc.url; document.getElementById('ssMeta').textContent=s.project+' ÃÂ· '+new Date(sc.time).toLocaleString(); document.getElementById('ssTitle').textContent='Screenshot Ã¢ÂÂ '+s.project; document.getElementById('ssOverlay').classList.add('open'); }
+function openSS(sid,ji){ const s=sessions.find(x=>x.id===sid); if(!s)return; const sc=s.screenshots[ji]; document.getElementById('ssImg').src=sc.url; document.getElementById('ssMeta').textContent=s.project+' Â· '+new Date(sc.time).toLocaleString(); document.getElementById('ssTitle').textContent='Screenshot â '+s.project; document.getElementById('ssOverlay').classList.add('open'); }
 function closeSS(){ document.getElementById('ssOverlay').classList.remove('open'); }
 
-// Ã¢ÂÂÃ¢ÂÂ INSIGHTS Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ââ INSIGHTS ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function renderInsights(selectedUid){
   if(!cu) return;
   const isAdmin = cu.role==='admin';
@@ -1743,7 +1633,7 @@ function renderHeatmap(rows,days){
     const ul=leaves.filter(l=>l.uid===u.id&&l.status==='approved');
     html+=`<div style="display:flex;align-items:center;gap:3px;margin-bottom:3px">`;
     html+=`<div style="width:105px;font-size:11px;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-right:6px">${u.name.split(' ')[0]}</div>`;
-    show.forEach(d=>{ const ds=us.filter(s=>s.date===d).reduce((a,s)=>a+s.duration,0); const onL=ul.some(l=>d>=l.from&&d<=l.to); let bg; if(onL) bg='#EF9F27'; else if(ds>=28800) bg='#4a86a8'; else if(ds>=3600) bg='#9FE1CB'; else bg='#FCA5A5'; html+=`<div class="heatmap-cell" style="background:${bg}" title="${u.name.split(' ')[0]} ÃÂ· ${d}"></div>`; });
+    show.forEach(d=>{ const ds=us.filter(s=>s.date===d).reduce((a,s)=>a+s.duration,0); const onL=ul.some(l=>d>=l.from&&d<=l.to); let bg; if(onL) bg='#EF9F27'; else if(ds>=28800) bg='#4a86a8'; else if(ds>=3600) bg='#9FE1CB'; else bg='#FCA5A5'; html+=`<div class="heatmap-cell" style="background:${bg}" title="${u.name.split(' ')[0]} Â· ${d}"></div>`; });
     html+=`</div>`;
   });
   html+=`</div><div style="display:flex;gap:12px;margin-top:10px;font-size:11px;color:var(--text2)">`;
@@ -1767,7 +1657,7 @@ function exportCSV(){
   const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'})); a.download=`amc-report-${from}-to-${to}.csv`; a.click();
 }
 
-// Ã¢ÂÂÃ¢ÂÂ LEAVES Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ââ LEAVES ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function populateLvFilter(){
   const el=document.getElementById('lvUFilt'); const cv=el.value;
   const emps=cu.role==='admin'?users:users.filter(u=>u.id===cu.id);
@@ -1813,11 +1703,11 @@ function renderLeaveLog(){
 function notifyTeams(lid){
   const l=leaves.find(x=>x.id===lid); if(!l)return;
   const u=users.find(x=>x.id===l.uid);
-  alert(`Teams notification queued:\n"${u?u.name:'User'} Ã¢ÂÂ ${l.type} leave from ${l.from} to ${l.to} (${l.days} days)."\n\nThis will fire via your n8n labor stream once connected.`);
+  alert(`Teams notification queued:\n"${u?u.name:'User'} â ${l.type} leave from ${l.from} to ${l.to} (${l.days} days)."\n\nThis will fire via your n8n labor stream once connected.`);
   l.teamsNotified=true; renderLeaveLog(); addAudit(cu.id,'Teams notified','Leave',`Leave notification queued for ${u?u.name:'?'}`);
 }
 
-// Ã¢ÂÂÃ¢ÂÂ ADMIN Ã¢ÂÂ USERS Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ââ ADMIN â USERS âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function buildDeptFilter(){
   const el=document.getElementById('uDeptF'); const cv=el.value;
   el.innerHTML='<option value="">All depts</option>'+departments.map(d=>`<option value="${d.id}"${cv==d.id?' selected':''}>${d.name}</option>`).join('');
@@ -1842,9 +1732,9 @@ function renderUsers(){
       <td><div class="av av-sm" style="${avStyle(u.color)}">${ini(u.name)}</div></td>
       <td><div style="font-size:13px;font-weight:500">${u.name}</div><div style="font-size:11px;color:var(--text2)">${u.jobTitle||''}</div></td>
       <td style="font-size:11px;color:var(--text2)">${u.email}</td>
-      <td>${dept?`<span class="badge" style="background:${dept.color};color:${dept.tc}">${dept.name}</span>`:'Ã¢ÂÂ'}</td>
+      <td>${dept?`<span class="badge" style="background:${dept.color};color:${dept.tc}">${dept.name}</span>`:'â'}</td>
       <td><span class="badge ${roleBadge[u.role]||'badge-gray'}">${(rolePerms[u.role]&&rolePerms[u.role].label)||u.role}</span></td>
-      <td style="font-size:11px;color:var(--text2)">${shift?shift.name:'Ã¢ÂÂ'}${(u.customStart&&u.customEnd)?'<br><span style="font-size:10px;color:var(--text2);font-family:var(--mono)">'+u.customStart+' Ã¢ÂÂ '+u.customEnd+'</span>':shift&&(shift.start||shift.end)?'<br><span style="font-size:10px;color:var(--text3);font-family:var(--mono)">'+shift.start+(shift.end?' Ã¢ÂÂ '+shift.end:'')+'</span>':''}</td>
+      <td style="font-size:11px;color:var(--text2)">${shift?shift.name:'â'}${(u.customStart&&u.customEnd)?'<br><span style="font-size:10px;color:var(--text2);font-family:var(--mono)">'+u.customStart+' â '+u.customEnd+'</span>':shift&&(shift.start||shift.end)?'<br><span style="font-size:10px;color:var(--text3);font-family:var(--mono)">'+shift.start+(shift.end?' â '+shift.end:'')+'</span>':''}</td>
       <td style="font-family:var(--mono);font-size:12px">${Math.round(ts/3600)}h</td>
       <td style="font-family:var(--mono);font-size:12px">${Math.round(wk/3600)}h</td>
       <td style="font-size:13px;font-weight:500">${bal}d</td>
@@ -1861,20 +1751,20 @@ function renderUsers(){
 function sendInvite(uid){
   const u=users.find(x=>x.id===uid); if(!u)return;
   const sub=encodeURIComponent('You are invited to install AMC Time Tracker');
-  const body=encodeURIComponent(`Hi ${u.name},\n\nYou have been added to the AMC Time Tracker as a remote team member.\n\nAccess the tracker here:\n${window.location.href}\n\nYour login credentials:\n  Email: ${u.email}\n  A verification code will be sent to your email on first sign-in.\n\nAmerican Medical Compliance Ã¢ÂÂ HR`);
+  const body=encodeURIComponent(`Hi ${u.name},\n\nYou have been added to the AMC Time Tracker as a remote team member.\n\nAccess the tracker here:\n${window.location.href}\n\nYour login credentials:\n  Email: ${u.email}\n  A verification code will be sent to your email on first sign-in.\n\nAmerican Medical Compliance â HR`);
   window.open(`mailto:${u.email}?subject=${sub}&body=${body}`);
   u.invited=true; addAudit(cu.id,'Invite sent','User',`Invite sent to ${u.email}`); renderUsers();
 }
 
 function removeUser(uid){ if(!confirm('Remove this user and all their data?'))return; const u=users.find(x=>x.id===uid); addAudit(cu.id,'User deleted','User',`Removed ${u?.name}`); users=users.filter(x=>x.id!==uid);localStorage.setItem('amc_users_extra',JSON.stringify(users.filter(function(u){return u.id>5;})));const _del2=JSON.parse(localStorage.getItem('amc_deleted_users')||'[]');if(!_del2.includes(uid)){_del2.push(uid);localStorage.setItem('amc_deleted_users',JSON.stringify(_del2));}syncUsersToGitHub();  sessions=sessions.filter(s=>s.uid!==uid); leaves=leaves.filter(l=>l.uid!==uid); renderUsers(); buildDeptFilter(); }
 
-// Ã¢ÂÂÃ¢ÂÂ ADMIN Ã¢ÂÂ DEPTS Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ââ ADMIN â DEPTS âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function renderDepts(){
   document.getElementById('deptList').innerHTML=departments.map(d=>{
     const count=users.filter(u=>u.dept===d.id).length; const head=users.find(u=>u.id===d.head);
     return `<div style="display:flex;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid var(--border)">
       <div style="width:8px;height:44px;border-radius:4px;background:${d.color};flex-shrink:0"></div>
-      <div style="flex:1"><div style="font-size:13px;font-weight:500">${d.name}</div><div style="font-size:11px;color:var(--text2);margin-top:2px">${d.desc} ÃÂ· Head: ${head?head.name:'Ã¢ÂÂ'} ÃÂ· ${count} staff</div></div>
+      <div style="flex:1"><div style="font-size:13px;font-weight:500">${d.name}</div><div style="font-size:11px;color:var(--text2);margin-top:2px">${d.desc} Â· Head: ${head?head.name:'â'} Â· ${count} staff</div></div>
       <div class="btn-group"><button class="btn btn-sm" onclick="openModal('editDept',${d.id})">Edit</button><button class="btn btn-sm btn-danger" onclick="removeDept(${d.id})">Del</button></div>
     </div>`;
   }).join('');
@@ -1882,13 +1772,13 @@ function renderDepts(){
 
 function removeDept(id){ if(!confirm('Remove this department?'))return; departments=departments.filter(d=>d.id!==id); addAudit(cu.id,'Department removed','System',`Dept ID ${id} deleted`); renderDepts(); buildDeptFilter(); }
 
-// Ã¢ÂÂÃ¢ÂÂ ADMIN Ã¢ÂÂ SHIFTS Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ââ ADMIN â SHIFTS ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function renderShifts(){
   document.getElementById('shiftListNote').innerHTML='<div style="font-size:12px;color:var(--text2);margin-bottom:12px;padding:8px 12px;background:var(--surface2);border-radius:var(--r-sm);border-left:3px solid var(--primary)">Editing a shift changes the <strong>default hours for everyone</strong> on that shift. To set individual hours for a specific person, use <strong>Edit</strong> on the user and set Custom Hours.</div>';
   document.getElementById('shiftList').innerHTML=shifts.map(s=>{
     const count=users.filter(u=>u.shift===s.id).length;
     return `<div style="display:flex;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid var(--border)">
-      <div style="flex:1"><div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><span style="font-size:13px;font-weight:500">${s.name}</span><span class="badge badge-blue">${s.start} Ã¢ÂÂ ${s.end}</span></div><div style="display:flex;gap:4px;flex-wrap:wrap">${s.days.map(d=>`<span class="badge badge-gray">${d}</span>`).join('')}</div><div style="font-size:11px;color:var(--text2);margin-top:3px">${count} users</div></div>
+      <div style="flex:1"><div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><span style="font-size:13px;font-weight:500">${s.name}</span><span class="badge badge-blue">${s.start} â ${s.end}</span></div><div style="display:flex;gap:4px;flex-wrap:wrap">${s.days.map(d=>`<span class="badge badge-gray">${d}</span>`).join('')}</div><div style="font-size:11px;color:var(--text2);margin-top:3px">${count} users</div></div>
       <div class="btn-group"><button class="btn btn-sm" onclick="openModal('editShift',${s.id})">Edit</button><button class="btn btn-sm btn-danger" onclick="removeShift(${s.id})">Del</button></div>
     </div>`;
   }).join('');
@@ -1896,7 +1786,7 @@ function renderShifts(){
 
 function removeShift(id){ if(!confirm('Remove this shift?'))return; shifts=shifts.filter(s=>s.id!==id); addAudit(cu.id,'Shift removed','System',`Shift ID ${id} deleted`); renderShifts(); }
 
-// Ã¢ÂÂÃ¢ÂÂ ADMIN Ã¢ÂÂ APPROVALS Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ââ ADMIN â APPROVALS âââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function renderApprovals(){
   const tf=document.getElementById('appr-type-f')?document.getElementById('appr-type-f').value:'';
   const filtered=approvals.filter(a=>!tf||a.type===tf);
@@ -1930,7 +1820,7 @@ function processApproval(aid,status){
   const a=approvals.find(x=>x.id===aid); if(!a)return;
   a.status=status; a.approver=cu.id;
   const u=users.find(x=>x.id===a.uid);
-  addAudit(cu.id,`Approval ${status}`,'Approval',`${a.type} for ${u?u.name:'?'} Ã¢ÂÂ ${status}`);
+  addAudit(cu.id,`Approval ${status}`,'Approval',`${a.type} for ${u?u.name:'?'} â ${status}`);
   // If approved time adjustment -> add as session
   if(status==='approved' && a.type==='Time Adjustment' && a.startTs && a.endTs){
     const newSess={id:nsid++,uid:a.uid,start:a.startTs,end:a.endTs,duration:Math.round((a.endTs-a.startTs)/1000),date:new Date(a.startTs).toISOString().slice(0,10),project:a.note||'Manual entry',category:'Work',screenshots:[],manual:true};
@@ -1942,7 +1832,7 @@ function processApproval(aid,status){
   renderApprovals();
 }
 
-// Ã¢ÂÂÃ¢ÂÂ ADMIN Ã¢ÂÂ ADJUSTMENTS Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ââ ADMIN â ADJUSTMENTS âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function populateAdjFilters(){
   const df=document.getElementById('adjDF'); const cd=df.value;
   const dates=[...new Set(sessions.map(s=>s.date))].sort().reverse();
@@ -1962,10 +1852,10 @@ function renderAdj(){
   </tr>`; }).join('');
 }
 
-function saveDur(sid){ const inp=document.getElementById('d-'+sid); if(!inp)return; const p=inp.value.split(':').map(Number); if(p.length!==3||p.some(isNaN)){alert('Use hh:mm:ss');return;} const s=sessions.find(x=>x.id===sid); if(s){s.duration=p[0]*3600+p[1]*60+p[2]; addAudit(cu.id,'Duration adjusted','Session',`Session ${sid} Ã¢ÂÂ ${inp.value}`);} renderAdj(); updateMetrics(); }
+function saveDur(sid){ const inp=document.getElementById('d-'+sid); if(!inp)return; const p=inp.value.split(':').map(Number); if(p.length!==3||p.some(isNaN)){alert('Use hh:mm:ss');return;} const s=sessions.find(x=>x.id===sid); if(s){s.duration=p[0]*3600+p[1]*60+p[2]; addAudit(cu.id,'Duration adjusted','Session',`Session ${sid} â ${inp.value}`);} renderAdj(); updateMetrics(); }
 function remSess(sid){ if(!confirm('Remove session?'))return; const s=sessions.find(x=>x.id===sid); addAudit(cu.id,'Session removed','Session',`Removed session for ${users.find(u=>u.id===s?.uid)?.name||'?'}`); sessions=sessions.filter(x=>x.id!==sid); renderAdj(); updateMetrics(); renderActivity(); populateAdjFilters(); }
 
-// Ã¢ÂÂÃ¢ÂÂ ADMIN Ã¢ÂÂ ROLES Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ââ ADMIN â ROLES âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function renderRoles(){
   document.getElementById('roleCards').innerHTML=Object.entries(rolePerms).map(([key,role])=>`
     <div class="card" style="margin-bottom:12px">
@@ -1983,7 +1873,7 @@ function renderRoles(){
 
 function togglePerm(role,perm,val){ if(rolePerms[role]) rolePerms[role].perms[perm]=val; addAudit(cu.id,'Permission changed','System',`${role}.${perm} = ${val}`); }
 
-// Ã¢ÂÂÃ¢ÂÂ TITLES & HOLIDAYS Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ââ TITLES & HOLIDAYS âââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function renderTitles(){
   const q=(document.getElementById('titleSearch').value||'').toLowerCase();
   const list=titles.filter(t=>t.toLowerCase().includes(q));
@@ -2021,7 +1911,7 @@ function renderLeavePolicy(){
   document.getElementById('unpaidHolList').innerHTML=unpaid.map(row).join('');
 }
 
-// Ã¢ÂÂÃ¢ÂÂ HR ALERTS Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ââ HR ALERTS âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function calcAlerts(){
   const now=new Date(); const td=todayStr(); const wa=new Date(now-7*24*3600*1000);
   const md=+(document.getElementById('th-d')||{value:6}).value*3600;
@@ -2033,10 +1923,10 @@ function calcAlerts(){
     let ts=0,wk=0,sc=0;
     us.forEach(s=>{ if(s.date===td)ts+=s.duration; if(new Date(s.start)>=wa)wk+=s.duration; if(s.duration<ms&&s.type==='tracked')sc++; });
     if(ts>0&&ts<md) alerts.push({uid:u.id,name:u.name,type:'low_daily',sev:'warn',msg:`Only ${fmtHM(ts)} today (min: ${fmtHM(md)})`});
-    if(wk>0&&wk<mw) alerts.push({uid:u.id,name:u.name,type:'low_weekly',sev:'warn',msg:`${fmtHM(wk)} this week Ã¢ÂÂ below ${fmtHM(mw)} target`});
+    if(wk>0&&wk<mw) alerts.push({uid:u.id,name:u.name,type:'low_weekly',sev:'warn',msg:`${fmtHM(wk)} this week â below ${fmtHM(mw)} target`});
     if(sc>=3) alerts.push({uid:u.id,name:u.name,type:'short_sessions',sev:'warn',msg:`${sc} very short sessions`});
-    if(!us.length) alerts.push({uid:u.id,name:u.name,type:'no_activity',sev:'alert',msg:'No sessions recorded Ã¢ÂÂ tracker may not be active'});
-    const lb=u.leaveBalance||{}; if((lb.vacation||0)+(lb.sick||0)+(lb.personal||0)<=3) alerts.push({uid:u.id,name:u.name,type:'low_leave',sev:'warn',msg:'Leave balance critically low (Ã¢ÂÂ¤3 days)'});
+    if(!us.length) alerts.push({uid:u.id,name:u.name,type:'no_activity',sev:'alert',msg:'No sessions recorded â tracker may not be active'});
+    const lb=u.leaveBalance||{}; if((lb.vacation||0)+(lb.sick||0)+(lb.personal||0)<=3) alerts.push({uid:u.id,name:u.name,type:'low_leave',sev:'warn',msg:'Leave balance critically low (â¤3 days)'});
   });
   return alerts;
 }
@@ -2044,7 +1934,7 @@ function calcAlerts(){
 function runAlerts(){
   activeAlerts=calcAlerts();
   const el=document.getElementById('alertList');
-  if(!activeAlerts.length){ el.innerHTML='<div style="text-align:center;padding:20px;color:var(--text3);font-size:13px">No alerts Ã¢ÂÂ all users meeting thresholds.</div>'; return; }
+  if(!activeAlerts.length){ el.innerHTML='<div style="text-align:center;padding:20px;color:var(--text3);font-size:13px">No alerts â all users meeting thresholds.</div>'; return; }
   el.innerHTML=activeAlerts.map(a=>{
     const [bg,fg,sym]={warn:['#FFFBEB','#92400E','!'],alert:['#FEF2F2','#991B1B','!!']}[a.sev];
     return `<div class="alert-item">
@@ -2057,9 +1947,9 @@ function runAlerts(){
 
 async function saveWH(){ const v=document.getElementById('whUrl').value.trim(); if(!v){alert('Enter URL.');return;} webhookUrl=v; const sp=document.getElementById('whSt'); sp.className='badge badge-teal'; sp.textContent='Saved'; addAudit(cu.id,'Webhook saved','System','n8n webhook configured'); }
 async function testWH(){ if(!webhookUrl){alert('Save URL first.');return;} const sp=document.getElementById('whSt'); sp.className='badge badge-amber'; sp.textContent='Pinging...'; try{ await fetch(webhookUrl,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'ping',source:'AMC Time Tracker',ts:new Date().toISOString()})}); sp.className='badge badge-teal'; sp.textContent='Ping OK'; }catch(e){ sp.className='badge badge-red'; sp.textContent='Failed'; } }
-async function pushAlerts(){ if(!webhookUrl){alert('Save webhook URL first.');return;} if(!activeAlerts.length){document.getElementById('pushSt').textContent='No alerts to push.';return;} document.getElementById('pushSt').textContent='Sending...'; try{ await fetch(webhookUrl,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({source:'AMC Time Tracker',timestamp:new Date().toISOString(),alert_count:activeAlerts.length,alerts:activeAlerts.map(a=>({user:a.name,type:a.type,severity:a.sev,message:a.msg,ts:new Date().toISOString()}))})}); document.getElementById('pushSt').textContent=activeAlerts.length+' alerts pushed'; addAudit(cu.id,'Alerts pushed','System',activeAlerts.length+' HR alerts sent to n8n'); }catch(e){ document.getElementById('pushSt').textContent='Push failed Ã¢ÂÂ check URL'; } }
+async function pushAlerts(){ if(!webhookUrl){alert('Save webhook URL first.');return;} if(!activeAlerts.length){document.getElementById('pushSt').textContent='No alerts to push.';return;} document.getElementById('pushSt').textContent='Sending...'; try{ await fetch(webhookUrl,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({source:'AMC Time Tracker',timestamp:new Date().toISOString(),alert_count:activeAlerts.length,alerts:activeAlerts.map(a=>({user:a.name,type:a.type,severity:a.sev,message:a.msg,ts:new Date().toISOString()}))})}); document.getElementById('pushSt').textContent=activeAlerts.length+' alerts pushed'; addAudit(cu.id,'Alerts pushed','System',activeAlerts.length+' HR alerts sent to n8n'); }catch(e){ document.getElementById('pushSt').textContent='Push failed â check URL'; } }
 
-// Ã¢ÂÂÃ¢ÂÂ AUDIT Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ââ AUDIT âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function buildAuditFilters(){ const el=document.getElementById('audUser'); if(!cu) return; if(cu.role!=='admin'){el.value=cu.id;el.closest&&el.closest('div')&&(el.closest('div').style.display='none');return;} el.closest&&el.closest('div')&&(el.closest('div').style.display=''); const cv=el.value; el.innerHTML='<option value="">All users</option>'+users.map(u=>`<option value="${u.id}"${cv==u.id?' selected':''}>${u.name}</option>`).join(''); }
 function renderAudit(){
   const cf=document.getElementById('audCat').value; const uf=document.getElementById('audUser').value;
@@ -2075,13 +1965,13 @@ function renderAudit(){
           <span class="badge ${catBadge[a.category]||'badge-gray'}">${a.category}</span>
         </div>
         <div style="font-size:12px;color:var(--text2)">${a.detail}</div>
-        <div style="font-size:11px;color:var(--text3);margin-top:2px">${u?u.name:'?'} ÃÂ· ${ts.toLocaleDateString()} ${ts.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:2px">${u?u.name:'?'} Â· ${ts.toLocaleDateString()} ${ts.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}</div>
       </div>
     </div>`;
   }).join(''):'<div style="text-align:center;padding:32px;color:var(--text3)">No audit entries.</div>';
 }
 
-// Ã¢ÂÂÃ¢ÂÂ MODAL Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ââ MODAL âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function openModal(mode,id){
   mmode=mode; medit=id||null;
   const titles_map={addUser:'Add user',editUser:'Edit user',viewUser:'User profile',addDept:'Add department',editDept:'Edit department',addShift:'Add shift',editShift:'Edit shift',addSess:'Add manual session',addLeave:'Log leave',addTitle:'Add job title',bulkTitles:'Bulk import titles',addHoliday:'Add holiday',editHoliday:'Edit holiday'};
@@ -2096,7 +1986,7 @@ function openModal(mode,id){
       <div class="form-grid">
         <div class="form-row"><label>Full name</label><input type="text" id="f-n" value="${u?u.name:''}"/></div>
         <div class="form-row"><label>Work email</label><input type="email" id="f-e" value="${u?u.email:''}"/></div>
-        <div class="form-row"><label>Job title</label><select id="f-jt"><option value="">Ã¢ÂÂ select Ã¢ÂÂ</option>${titles.map(t=>`<option value="${t}"${u?.jobTitle===t?' selected':''}>${t}</option>`).join('')}</select></div>
+        <div class="form-row"><label>Job title</label><select id="f-jt"><option value="">â select â</option>${titles.map(t=>`<option value="${t}"${u?.jobTitle===t?' selected':''}>${t}</option>`).join('')}</select></div>
         <div class="form-row"><label>Start date</label><input type="date" id="f-sd" value="${u?u.startDate||'':todayStr()}"/></div>
         <div class="form-row"><label>Status</label><select id="f-st"><option value="active"${u?.status==='active'?' selected':''}>Active</option><option value="on_leave"${u?.status==='on_leave'?' selected':''}>On leave</option><option value="inactive"${u?.status==='inactive'?' selected':''}>Inactive</option></select></div>
       </div>
@@ -2107,7 +1997,7 @@ function openModal(mode,id){
         <div class="form-row"><label>Shift</label><select id="f-sh">${shifts.map(s=>`<option value="${s.id}"${u?.shift===s.id?' selected':''}>${s.name}</option>`).join('')}</select></div>
         <div class="form-row" style="gap:8px"><div style="flex:1"><label style="font-size:11px;color:var(--text2)">Custom start <span style="font-weight:400">(overrides shift)</span></label><input type="time" id="f-cs" value="${u?.customStart||''}" style="font-size:13px"/></div><div style="flex:1"><label style="font-size:11px;color:var(--text2)">Custom end</label><input type="time" id="f-ce" value="${u?.customEnd||''}" style="font-size:13px"/></div></div>
         <div class="form-row"><label>Manager</label><select id="f-mgr"><option value="">None</option>${users.filter(x=>x.role!=='employee').map(x=>`<option value="${x.id}"${u?.manager===x.id?' selected':''}>${x.name}</option>`).join('')}</select></div>
-        <div class="form-row"><label>PIN ${mode==='editUser'?'(blank = keep)':''}</label><input type="password" id="f-p" maxlength="6" placeholder="${mode==='editUser'?'leave blank to keep':'4Ã¢ÂÂ6 digits'}"/></div>
+        <div class="form-row"><label>PIN ${mode==='editUser'?'(blank = keep)':''}</label><input type="password" id="f-p" maxlength="6" placeholder="${mode==='editUser'?'leave blank to keep':'4â6 digits'}"/></div>
       </div>
       <div class="section-divider">Leave balance (days)</div>
       <div class="form-grid">
@@ -2127,10 +2017,10 @@ function openModal(mode,id){
     <table style="width:100%;font-size:13px">
       <tr><td style="color:var(--text2);padding:5px 0;width:110px">Email</td><td style="color:var(--blue)">${u.email}</td></tr>
       
-      <tr><td style="color:var(--text2);padding:5px 0">Department</td><td>${dept?dept.name:'Ã¢ÂÂ'}</td></tr>
-      <tr><td style="color:var(--text2);padding:5px 0">Shift</td><td>${shift?shift.name:'Ã¢ÂÂ'}${(u.customStart&&u.customEnd)?'<br><span style="font-size:10px;color:var(--text2);font-family:var(--mono)">'+u.customStart+' Ã¢ÂÂ '+u.customEnd+'</span>':shift&&(shift.start||shift.end)?'<br><span style="font-size:10px;color:var(--text3);font-family:var(--mono)">'+shift.start+(shift.end?' Ã¢ÂÂ '+shift.end:'')+'</span>':''}</td></tr>
-      <tr><td style="color:var(--text2);padding:5px 0">Manager</td><td>${mgr?mgr.name:'Ã¢ÂÂ'}</td></tr>
-      <tr><td style="color:var(--text2);padding:5px 0">Start date</td><td>${u.startDate||'Ã¢ÂÂ'}</td></tr>
+      <tr><td style="color:var(--text2);padding:5px 0">Department</td><td>${dept?dept.name:'â'}</td></tr>
+      <tr><td style="color:var(--text2);padding:5px 0">Shift</td><td>${shift?shift.name:'â'}${(u.customStart&&u.customEnd)?'<br><span style="font-size:10px;color:var(--text2);font-family:var(--mono)">'+u.customStart+' â '+u.customEnd+'</span>':shift&&(shift.start||shift.end)?'<br><span style="font-size:10px;color:var(--text3);font-family:var(--mono)">'+shift.start+(shift.end?' â '+shift.end:'')+'</span>':''}</td></tr>
+      <tr><td style="color:var(--text2);padding:5px 0">Manager</td><td>${mgr?mgr.name:'â'}</td></tr>
+      <tr><td style="color:var(--text2);padding:5px 0">Start date</td><td>${u.startDate||'â'}</td></tr>
       <tr><td style="color:var(--text2);padding:5px 0">Today</td><td style="font-family:var(--mono)">${fmtHM(ts)}</td></tr>
       <tr><td style="color:var(--text2);padding:5px 0">This week</td><td style="font-family:var(--mono)">${fmtHM(wk)}</td></tr>
       <tr><td style="color:var(--text2);padding:5px 0">Leave balance</td><td>${total}d (V:${lb.vacation||0} S:${lb.sick||0} P:${lb.personal||0})</td></tr>
@@ -2175,7 +2065,7 @@ function openModal(mode,id){
   } else if(mode==='addTitle'){
     body=`<div class="form-row"><label>Job title</label><input type="text" id="f-t" placeholder="e.g. Senior Content Developer"/></div>`;
   } else if(mode==='bulkTitles'){
-    body=`<div class="form-row"><label>Paste titles Ã¢ÂÂ one per line</label><textarea id="f-bulk" rows="8" placeholder="Senior Developer&#10;Content Manager&#10;..." style="resize:vertical"></textarea></div><div style="font-size:12px;color:var(--text2)">Duplicates are ignored automatically.</div>`;
+    body=`<div class="form-row"><label>Paste titles â one per line</label><textarea id="f-bulk" rows="8" placeholder="Senior Developer&#10;Content Manager&#10;..." style="resize:vertical"></textarea></div><div style="font-size:12px;color:var(--text2)">Duplicates are ignored automatically.</div>`;
   } else if(mode==='addHoliday'||mode==='editHoliday'){
     const h=mode==='editHoliday'?holidays.find(x=>x.id===id):null;
     body=`<div class="form-row"><label>Holiday name</label><input type="text" id="f-hn" value="${h?h.name:''}"/></div>
@@ -2264,7 +2154,7 @@ function doModal(){
       else if(type==='Sick'&&(u.leaveBalance.sick||0)>=days) u.leaveBalance.sick-=days;
       else if(type==='Personal'&&(u.leaveBalance.personal||0)>=days) u.leaveBalance.personal-=days;
     }
-    addAudit(cu.id,'Leave logged','Leave',`${type} for ${u?.name} ${from} Ã¢ÂÂ ${to} (${days}d) Ã¢ÂÂ ${status}`);
+    addAudit(cu.id,'Leave logged','Leave',`${type} for ${u?.name} ${from} â ${to} (${days}d) â ${status}`);
     closeModal(); renderLeaveLog(); renderLeaveBalances();
 
   } else if(mmode==='addTitle'){
@@ -2300,7 +2190,7 @@ function doModal(){
   }
 }
 
-// Ã¢ÂÂÃ¢ÂÂ INIT Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+// ââ INIT ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 let ndid=departments.length+1;
 /* buildLoginSelect() - replaced by email login UI */;
 
@@ -2323,13 +2213,13 @@ function validatePassword(pwd) {
   if (!/[A-Z]/.test(pwd)) return { valid: false, msg: 'Password must contain at least 1 uppercase letter' };
   if (!/[a-z]/.test(pwd)) return { valid: false, msg: 'Password must contain at least 1 lowercase letter' };
   if (!/[^A-Za-z0-9]/.test(pwd)) return { valid: false, msg: 'Password must contain at least 1 symbol (e.g. !@#$%)' };
-  return { valid: true, msg: 'Strong password Ã¢ÂÂ' };
+  return { valid: true, msg: 'Strong password â' };
 }
 
 function togglePwdVis(inputId, btn) {
   var inp = document.getElementById(inputId);
-  if (inp.type === 'password') { inp.type = 'text'; btn.textContent = 'Ã°ÂÂÂ'; }
-  else { inp.type = 'password'; btn.textContent = 'Ã°ÂÂÂ'; }
+  if (inp.type === 'password') { inp.type = 'text'; btn.textContent = 'ð'; }
+  else { inp.type = 'password'; btn.textContent = 'ð'; }
 }
 
 // Device fingerprint
@@ -2739,7 +2629,7 @@ window.connectMS365 = connectMS365;
 window.checkMS365AuthReturn = checkMS365AuthReturn;
 setTimeout(function(){ if(typeof checkMS365AuthReturn==='function') checkMS365AuthReturn(); }, 600);
 
-// ââ ADMIN VIEW HELPER: get uid being viewed ââ
+// ── ADMIN VIEW HELPER: get uid being viewed ──
 function getViewUid(pageKey){
   if(!cu) return 0;
   if(cu.role!=='admin') return cu.id;
@@ -2765,7 +2655,7 @@ function showAdminViewBar(pageKey, renderFn){
   }
 }
 
-// ââ MANUAL TIME ENTRY ââ
+// ── MANUAL TIME ENTRY ──
 function openManualTimeModal(){
   const ov = document.getElementById('manualTimeOverlay');
   if(!ov) return;
@@ -2796,7 +2686,7 @@ function submitManualTime(){
   const endTs = new Date(dateVal+'T'+endVal+':00').getTime();
   if(endTs<=startTs){alert('End time must be after start time.');return;}
   const dur = Math.round((endTs-startTs)/1000/60);
-  const appr={id:napid++,uid:cu.id,type:'Time Adjustment',detail:dateVal+' '+startVal+'â'+endVal+(noteVal?' â '+noteVal:''),startTs:startTs,endTs:endTs,note:noteVal,duration:dur,status:'pending',submitted:todayStr()};
+  const appr={id:napid++,uid:cu.id,type:'Time Adjustment',detail:dateVal+' '+startVal+'–'+endVal+(noteVal?' — '+noteVal:''),startTs:startTs,endTs:endTs,note:noteVal,duration:dur,status:'pending',submitted:todayStr()};
   approvals.push(appr);
   addAudit(cu.id,'Manual time submitted','Time',appr.detail);
   closeManualTimeModal();
@@ -2809,7 +2699,7 @@ function submitManualTime(){
 <div id="ms365Widget" style="display:none;"><div id="ms365Panel" style="display:none;position:fixed;top:0;right:0;width:380px;height:100%;background:white;box-shadow:-4px 0 20px rgba(0,0,0,0.15);z-index:1000;overflow-y:auto;padding:24px;box-sizing:border-box;">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
     <h3 style="margin:0;color:#4a86a8;font-size:18px;">Microsoft 365 Activity</h3>
-    <button onclick="toggleMS365()" style="background:none;border:none;font-size:20px;cursor:pointer;color:#666;">Ã¢ÂÂ</button>
+    <button onclick="toggleMS365()" style="background:none;border:none;font-size:20px;cursor:pointer;color:#666;">â</button>
   </div></div>
   <div id="ms365ConnectSection">
     <p style="color:#666;margin-bottom:16px;font-size:14px;">Connect your Microsoft 365 account to track Teams meetings, chats, and Outlook emails.</p>
@@ -2820,13 +2710,13 @@ function submitManualTime(){
   </div>
   <div id="ms365DataSection" style="display:none;">
     <div style="background:#f0f7ff;border-radius:8px;padding:12px;margin-bottom:16px;font-size:13px;color:#2d6080;">
-      Ã¢ÂÂ Connected as <span id="ms365UserName">User</span>
+      â Connected as <span id="ms365UserName">User</span>
     </div>
-    <h4 style="color:#333;margin:0 0 12px;font-size:15px;">Ã°ÂÂÂ Recent Teams Meetings</h4>
+    <h4 style="color:#333;margin:0 0 12px;font-size:15px;">ð Recent Teams Meetings</h4>
     <div id="ms365Meetings" style="margin-bottom:20px;"></div>
-    <h4 style="color:#333;margin:0 0 12px;font-size:15px;">Ã°ÂÂÂ¬ Teams Messages</h4>
+    <h4 style="color:#333;margin:0 0 12px;font-size:15px;">ð¬ Teams Messages</h4>
     <div id="ms365Messages" style="margin-bottom:20px;"></div>
-    <h4 style="color:#333;margin:0 0 12px;font-size:15px;">Ã°ÂÂÂ§ Recent Emails</h4>
+    <h4 style="color:#333;margin:0 0 12px;font-size:15px;">ð§ Recent Emails</h4>
     <div id="ms365Emails"></div>
   </div>
 </div>
@@ -2854,12 +2744,5 @@ window.addEventListener('DOMContentLoaded', function() {
   } catch(e) {}
 });
 </script>
-
-<!-- Screenshot Lightbox Modal -->
-<div id="ss-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999;align-items:center;justify-content:center;flex-direction:column;gap:12px" onclick="this.style.display='none'">
-  <div style="color:#fff;font-size:13px;opacity:0.8" id="ss-modal-time"></div>
-  <img id="ss-img" style="max-width:90vw;max-height:85vh;border-radius:8px;box-shadow:0 8px 40px rgba(0,0,0,0.5)" src="" alt="Screenshot"/>
-  <div style="color:#aaa;font-size:12px">Click anywhere to close</div>
-</div>
 </body>
 </html>
