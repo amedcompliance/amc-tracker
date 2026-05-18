@@ -262,10 +262,15 @@
     "project": "Untitled",
     "category": "Work",
     "start": "2026-05-18T16:48:33.648Z",
-    "duration": 840,
+    "duration": 960,
     "date": "2026-05-18",
     "type": "tracked",
     "manual": false,
-    "screenshots": []
+    "screenshots": [
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_5/23_1779123814180.jpg",
+        "time": "2026-05-18T17:03:34.180Z"
+      }
+    ]
   }
 ]
