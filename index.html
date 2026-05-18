@@ -1167,7 +1167,7 @@ async function startTimer(){
   const cat = document.getElementById('catSelect').value;
   secs=0; running=true;
   curSess = {id:nsid++,uid:cu.id,project:proj,category:cat,start:new Date(),duration:0,screenshots:[],date:todayStr(),type:'tracked'};
-  sessions.push(curSess);
+  sessions.push(curSess); setTimeout(syncSessionsToGitHub, 2000);
   saveSessions(); // sync online status immediately
   document.getElementById('startBtn').disabled=true;
   document.getElementById('stopBtn').disabled=false;
@@ -1175,7 +1175,7 @@ async function startTimer(){
   document.getElementById('statusDot').classList.add('live');
   document.getElementById('statusText').textContent = 'Tracking: '+proj;
   document.getElementById('permNotice').style.display='none';
-  tInt = setInterval(()=>{ secs++; document.getElementById('timerDisp').textContent=fmtS(secs); if(curSess) curSess.duration=secs; updateMetrics(); if(secs % 120 === 0) syncSessionsToGitHub(); },1000);
+  tInt = setInterval(()=>{ secs++; document.getElementById('timerDisp').textContent=fmtS(secs); if(curSess) curSess.duration=secs; updateMetrics(); if(secs % 30 === 0) syncSessionsToGitHub(); },1000);
   if(!screenOk){
     // Show pre-prompt instruction overlay
     var _ssInstr = document.getElementById('ssInstructOverlay');
@@ -1345,7 +1345,7 @@ function syncSessionsToGitHub(){
       return {id:s.id,uid:s.uid,project:s.project,category:s.category,start:s.start instanceof Date?s.start.toISOString():s.start,duration:s.duration,date:s.date,type:s.type||'tracked',manual:s.manual||false,screenshots:ss2};
     });
     var others = existing.filter(function(s){return s.uid!==cu.id;});
-    var _allMerged = others.concat(mySessions);
+    var existingMine = existing.filter(function(s){return s.uid===cu.id;}); var _allMerged = others.concat(existingMine).concat(mySessions);
     var _seenKeys = {};
     var merged = _allMerged.filter(function(s) {
       var _k = s.uid + '_' + s.start;
@@ -1462,14 +1462,7 @@ function renderDashboard(){
   const todayUserData = allU.map(u=>{
     const uSess = _dashSess.filter(s=>s.uid===u.id);
     var _now = Date.now();
-    const totalMs = uSess.reduce(function(a,s) {
-      var secs = s.duration || 0;
-      if (!s.end && s.start) {
-        var _elapsed = Math.floor((_now - new Date(s.start).getTime()) / 1000);
-        secs = Math.max(secs, _elapsed);
-      }
-      return a + secs * 1000;
-    }, 0);
+    const totalMs = uSess.reduce(function(a,s) { return a + (s.duration || 0) * 1000; }, 0);
     const acts = uSess.filter(s=>s.activity!==undefined);
     const avgAct = acts.length>0 ? Math.round(acts.reduce((a,s)=>a+s.activity,0)/acts.length) : 0;
     const lastSess = uSess.sort((a,b)=>new Date(b.start)-new Date(a.start))[0];
