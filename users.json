@@ -5,23 +5,22 @@
       "name": "Czarina Magana",
       "email": "czarina.magana@amedcompliance.com",
       "role": "employee",
-      "pin": "1234",
-      "color": 4,
       "dept": 1,
       "shift": 1,
-      "invited": true,
-      "status": "active",
-      "phone": "",
       "jobTitle": "",
+      "phone": "",
+      "status": "active",
       "startDate": "2026-05-13",
+      "invited": true,
+      "manager": 1,
       "leaveBalance": {
         "vacation": 6,
         "sick": 4,
         "personal": 2
       },
-      "manager": 1,
-      "password": "",
-      "needsSetup": true
+      "needsSetup": true,
+      "color": 4,
+      "pin": "1234"
     },
     {
       "id": 6,
@@ -50,26 +49,24 @@
       "name": "China Trangia",
       "email": "china.trangia@amedcompliance.com",
       "role": "employee",
-      "pin": "0000",
-      "color": 3,
       "dept": 1,
       "shift": 1,
-      "manager": null,
-      "customStart": null,
-      "customEnd": null,
-      "invited": false,
-      "status": "active",
       "jobTitle": "Creative Design Manager",
+      "phone": "",
+      "status": "active",
       "startDate": "2026-05-15",
+      "invited": false,
+      "manager": null,
       "leaveBalance": {
         "vacation": 6,
         "sick": 4,
         "personal": 2
       },
-      "password": "",
-      "needsSetup": true
+      "needsSetup": true,
+      "color": 3,
+      "pin": "0000"
     }
   ],
-  "updated": "2026-05-18T16:13:45.804Z",
+  "updated": "2026-05-18T16:16:52.345Z",
   "note": "AMC Time Tracker user database. Managed automatically by the app."
 }
