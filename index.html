@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-Equiv="Expires" content="0">
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>AMC Time Tracker</title>
@@ -1615,10 +1618,7 @@ function renderDashboard(){
     const acts = uSess.filter(s=>s.activity!==undefined);
     const avgAct = acts.length>0 ? Math.round(acts.reduce((a,s)=>a+s.activity,0)/acts.length) : 0;
     const lastSess = uSess.sort((a,b)=>new Date(b.start)-new Date(a.start))[0];
-    var _fiveMin = 5 * 60 * 1000;
-    var _sessStart = lastSess ? new Date(lastSess.start).getTime() : 0;
-    var _elapsed = lastSess ? (Date.now() - _sessStart) : 0;
-    var _lastActive = _sessStart + (lastSess&&lastSess.duration?lastSess.duration*1000:0); var _recentlyActive = lastSess && !lastSess.end && (Date.now() - _lastActive) < _fiveMin;
+    var _thirtyMin = 30 * 60 * 1000; var _sessStart = lastSess ? new Date(lastSess.start).getTime() : 0; var _lastActive = _sessStart + (lastSess&&lastSess.duration?lastSess.duration*1000:0); var _recentlyActive = lastSess && !lastSess.end && (Date.now() - _lastActive) < _thirtyMin;
     const isWorking = _recentlyActive;
     return {u, totalMs, avgAct, isWorking, lastProject: lastSess?.project||'No project'};
   }).sort((a,b)=>b.totalMs-a.totalMs);
