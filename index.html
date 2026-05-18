@@ -205,7 +205,7 @@ tr:hover td{background:var(--surface2)}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 .timer-display{font-family:var(--mono);font-size:52px;font-weight:500;color:var(--text);letter-spacing:2px;margin-bottom:20px;transition:color .3s}
 .timer-display.running{color:var(--primary)}
-.timer-inputs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.timer-inputs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px}
 .timer-actions{display:flex;gap:10px;justify-content:center}
 
 /* Progress bar */
@@ -386,6 +386,9 @@ tr:hover td{background:var(--surface2)}
     <button class="nav-item" onclick="goTo('screenshots')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Screenshots
     </button>
+    <button class="nav-item admin-only" style="display:none" onclick="goTo('urlactivity')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>URL Activity
+    </button>
     <div class="nav-section admin-only" style="display:none">Admin</div>
     <button class="nav-item admin-only" style="display:none" onclick="goTo('admin')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Users & Admin
@@ -433,6 +436,7 @@ tr:hover td{background:var(--surface2)}
       <div><label style="font-size:11px;font-weight:500;color:var(--text2);display:block;margin-bottom:5px">Category</label>
         <select id="catSelect"><option>Work</option><option>Design</option><option>Dev</option><option>Meeting</option><option>Admin</option><option>Break</option></select>
       </div>
+      <div style="flex:1;min-width:180px"><label style="font-size:11px;font-weight:500;color:var(--text2);display:block;margin-bottom:5px">Website / URL (optional)</label><input type="text" id="urlInput" placeholder="e.g. docs.google.com" style="width:100%;padding:8px 10px;border-radius:var(--r-sm);border:1px solid var(--border);font-size:13px;background:var(--surface);color:var(--text1)"/></div>
     </div>
     <div class="timer-actions">
       <button class="btn btn-primary btn-lg" id="startBtn" onclick="startTimer()">Start tracking</button>
@@ -573,6 +577,28 @@ tr:hover td{background:var(--surface2)}
     <div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text3);font-size:15px;">Click Refresh to load screenshots.</div>
   </div>
 </div>
+<!-- URL ACTIVITY PAGE -->
+<div class="page" id="page-urlactivity">
+  <div class="page-header">
+    <div class="page-title">URL Activity</div>
+    <div class="page-sub">See which URLs your team visits the most. Keep your team on track toward their goals.</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px">
+    <select id="urlMemberFilter" style="padding:6px 12px;border-radius:var(--r-sm);border:1px solid var(--border);background:var(--surface);color:var(--text1);font-size:13px" onchange="renderUrlActivity()">
+      <option value="">All Members</option>
+    </select>
+    <select id="urlPeriodFilter" style="padding:6px 12px;border-radius:var(--r-sm);border:1px solid var(--border);background:var(--surface);color:var(--text1);font-size:13px" onchange="renderUrlActivity()">
+      <option value="today">Today</option>
+      <option value="week" selected>This Week</option>
+      <option value="month">This Month</option>
+      <option value="all">All Time</option>
+    </select>
+    <input type="date" id="urlDateFilter" style="padding:6px 12px;border-radius:var(--r-sm);border:1px solid var(--border);background:var(--surface);color:var(--text1);font-size:13px" onchange="renderUrlActivity()" title="Filter by specific date"/>
+    <button class="btn btn-outline" onclick="clearUrlVisits()" style="font-size:12px;padding:5px 12px">Clear All Data</button>
+  </div>
+  <div class="card" id="urlActivityList"><div style="text-align:center;padding:40px;color:var(--text3)">No URL activity data yet. Start tracking with a website/URL entered in the tracker.</div></div>
+</div>
+
 <!-- ADMIN PAGE -->
 <div class="page" id="page-admin">
   <div class="page-header"><div class="page-title">Users & admin</div><div class="page-sub">Manage remote team, sessions, and approvals</div></div>
@@ -1065,6 +1091,8 @@ function doLogin(){
     if(_isLead){
       var _dashNav=document.querySelector('.nav-item.admin-only[onclick*="dashboard"]');
       if(_dashNav)_dashNav.style.display='';
+      var _urlNav=document.querySelector('.nav-item.admin-only[onclick*="urlactivity"]');
+      if(_urlNav)_urlNav.style.display='';
     }
   }
   document.getElementById('trackerDate').textContent = new Date().toLocaleDateString([],{weekday:'long',year:'numeric',month:'long',day:'numeric'});
@@ -1207,6 +1235,7 @@ function goTo(name){
   if(name==='titles'){ renderTitles(); renderHolidays(); renderLeavePolicy(); }
   if(name==='alerts') runAlerts();
   if(name==='audit'){ buildAuditFilters(); renderAudit(); }  if(name==='screenshots'){ fetchAndCacheGHSessions(function(){renderScreenshots();}); }
+  if(name==='urlactivity'){ renderUrlActivity(); }
 
 }
 
@@ -1305,6 +1334,14 @@ function stopTimer(){
   document.getElementById('statusText').textContent='Not tracking';
   document.getElementById('ssLabel').textContent='';
   document.getElementById('permNotice').style.display='';
+  // Save URL to current session if user entered one
+  var _urlIn = document.getElementById('urlInput');
+  if(_urlIn && _urlIn.value.trim() && curSess) {
+    var _urlRaw = _urlIn.value.trim();
+    try { _urlRaw = new URL(_urlRaw.indexOf('://')!==-1?_urlRaw:'https://'+_urlRaw).hostname; } catch(e) {}
+    curSess.url = _urlRaw;
+    _urlIn.value = '';
+  }
   saveSessions();
   updateMetrics(); renderActivity();
 }
@@ -1320,7 +1357,7 @@ function saveSessions(){
     var toSave = sessions.filter(function(s){return s.uid===cu.id;}).map(function(s){
       // Include R2 screenshot URLs (skip base64 dataUrls to keep storage small)
       var ss=(s.screenshots||[]).filter(function(sc){return sc.url&&!sc.url.startsWith('data:');}).map(function(sc){return {url:sc.url,time:sc.time instanceof Date?sc.time.toISOString():sc.time};});
-      return {id:s.id,uid:s.uid,project:s.project,category:s.category,start:s.start instanceof Date?s.start.toISOString():s.start,duration:s.duration,date:s.date,type:s.type||'tracked',manual:s.manual||false,screenshots:ss};
+      return {id:s.id,uid:s.uid,project:s.project,category:s.category,start:s.start instanceof Date?s.start.toISOString():s.start,duration:s.duration,date:s.date,type:s.type||'tracked',manual:s.manual||false,url:s.url||null,screenshots:ss};
     });
     localStorage.setItem('amc_sessions_'+cu.id, JSON.stringify(toSave));
     if(nsid > 1) localStorage.setItem('amc_nsid', String(nsid));
@@ -1809,6 +1846,88 @@ function showSSModal(src,label){
   document.getElementById('ss-modal').style.display='flex';
 }
 
+function populateUrlMemberFilter(){
+  var sel=document.getElementById('urlMemberFilter'); if(!sel)return;
+  var opts='<option value="">All Members</option>';
+  var allU2=users.filter(function(u){return u.role!=='admin';});
+  allU2.forEach(function(u){opts+='<option value="'+u.id+'">'+u.name+'</option>';});
+  sel.innerHTML=opts;
+}
+
+function clearUrlVisits(){
+  if(!confirm('Clear all URL activity data? This cannot be undone.'))return;
+  localStorage.removeItem('amc_url_visits');
+  renderUrlActivity();
+}
+
+function renderUrlActivity(){
+  var el=document.getElementById('urlActivityList'); if(!el)return;
+  // Populate member filter
+  var sel=document.getElementById('urlMemberFilter');
+  if(sel && sel.options.length<=1) populateUrlMemberFilter();
+  var memberFilter=sel?+sel.value||null:null;
+  var periodFilter=document.getElementById('urlPeriodFilter')?document.getElementById('urlPeriodFilter').value:'week';
+  var dateFilter=document.getElementById('urlDateFilter')?document.getElementById('urlDateFilter').value:'';
+  // Read sessions (use GitHub cache if available)
+  var allData = (window.ghSessions && window.ghSessions.length>0) ? window.ghSessions : JSON.parse(localStorage.getItem('amc_sessions')||'[]');
+  // Only sessions with a URL
+  var urlSessions = allData.filter(function(s){return s.url&&s.url.length>0;});
+  // Filter by member
+  if(memberFilter) urlSessions=urlSessions.filter(function(s){return s.uid===memberFilter;});
+  // Filter by date/period
+  var now=new Date();
+  var todayS=now.toISOString().substring(0,10);
+  if(dateFilter){
+    urlSessions=urlSessions.filter(function(s){return s.date===dateFilter;});
+  } else if(periodFilter==='today'){
+    urlSessions=urlSessions.filter(function(s){return s.date===todayS;});
+  } else if(periodFilter==='week'){
+    var wkStart=new Date(now); wkStart.setDate(now.getDate()-now.getDay()+1); var wkStr=wkStart.toISOString().substring(0,10);
+    urlSessions=urlSessions.filter(function(s){return s.date&&s.date>=wkStr;});
+  } else if(periodFilter==='month'){
+    var moStr=todayS.substring(0,7);
+    urlSessions=urlSessions.filter(function(s){return s.date&&s.date.substring(0,7)===moStr;});
+  }
+  if(!urlSessions.length){
+    el.innerHTML='<div style="text-align:center;padding:40px;color:var(--text3)">No URL activity data for this period.<br/>Enter a website URL in the tracker field while tracking time, then stop — it will appear here.</div>';
+    return;
+  }
+  // Aggregate by URL + user
+  var agg={};
+  urlSessions.forEach(function(s){
+    var key=s.uid+'__'+(s.url||'');
+    if(!agg[key])agg[key]={uid:s.uid,url:s.url||'',duration:0,count:0};
+    agg[key].duration+=(s.duration||0);
+    agg[key].count++;
+  });
+  var rows=Object.values(agg).sort(function(a,b){return b.duration-a.duration;});
+  var totalDur=rows.reduce(function(s,r){return s+r.duration;},0)||1;
+  var html='<table style="width:100%;border-collapse:collapse">';
+  html+='<thead><tr style="border-bottom:2px solid var(--border)">';
+  html+='<th style="text-align:left;padding:10px 12px;font-size:12px;color:var(--text3);font-weight:600">MEMBER</th>';
+  html+='<th style="text-align:left;padding:10px 12px;font-size:12px;color:var(--text3);font-weight:600">APP OR WEBSITE</th>';
+  html+='<th style="text-align:right;padding:10px 12px;font-size:12px;color:var(--text3);font-weight:600">TIME SPENT</th>';
+  html+='<th style="text-align:left;padding:10px 12px;font-size:12px;color:var(--text3);font-weight:600;min-width:140px">PERCENT USED</th>';
+  html+='<th style="text-align:right;padding:10px 12px;font-size:12px;color:var(--text3);font-weight:600">SESSIONS</th>';
+  html+='</tr></thead><tbody>';
+  rows.forEach(function(r){
+    var u=users.find(function(x){return x.id===r.uid;})||{name:'Unknown',color:'#888'};
+    var pct=Math.round(r.duration/totalDur*100);
+    var totSecs=Math.round(r.duration); var hrs=Math.floor(totSecs/3600); var mins=Math.floor((totSecs%3600)/60);
+    var timeStr=(hrs>0?hrs+'h ':'')+mins+'m';
+    var favicon='https://www.google.com/s2/favicons?sz=16&domain='+encodeURIComponent(r.url);
+    var avBg=u.color||'#4a90d9'; var avStyle2='background:'+avBg+';color:#fff';
+    html+='<tr style="border-bottom:1px solid var(--border)">';
+    html+='<td style="padding:10px 12px"><div style="display:flex;align-items:center;gap:8px"><div class="av av-sm" style="'+avStyle2+'">'+ini(u.name)+'</div><span style="font-size:13px;font-weight:500">'+u.name+'</span></div></td>';
+    html+='<td style="padding:10px 12px"><div style="display:flex;align-items:center;gap:8px"><img src="'+favicon+'" width="16" height="16" style="border-radius:2px" onerror="this.style.display=\'none\'"/><div style="font-size:13px;font-weight:500">'+r.url+'</div></div></td>';
+    html+='<td style="padding:10px 12px;text-align:right;font-size:13px;font-weight:500">'+timeStr+'</td>';
+    html+='<td style="padding:10px 12px"><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:6px;background:var(--border);border-radius:3px"><div style="width:'+pct+'%;height:6px;background:var(--primary);border-radius:3px"></div></div><span style="font-size:12px;color:var(--text2);min-width:30px">'+pct+'%</span></div></td>';
+    html+='<td style="padding:10px 12px;text-align:right;font-size:13px;color:var(--text2)">'+r.count+'</td>';
+    html+='</tr>';
+  });
+  html+='</tbody></table>';
+  el.innerHTML=html;
+}
 function adminViewSS(sid, ji, evt){
   if(evt) evt.stopPropagation();
   const s=sessions.find(function(x){return x.id===sid;});
