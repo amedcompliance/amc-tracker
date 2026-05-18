@@ -65,8 +65,30 @@
       "needsSetup": true,
       "color": 3,
       "pin": "0000"
+    },
+    {
+      "id": 9,
+      "name": "Jenrica Macaraeg",
+      "email": "jenrica.macaraeg@amedcompliance.com",
+      "role": "employee",
+      "dept": 2,
+      "shift": 1,
+      "jobTitle": "Senior Operations Representative",
+      "phone": "",
+      "status": "active",
+      "startDate": "2026-05-18",
+      "invited": false,
+      "manager": null,
+      "leaveBalance": {
+        "vacation": 6,
+        "sick": 4,
+        "personal": 2
+      },
+      "needsSetup": true,
+      "color": 4,
+      "pin": "0000"
     }
   ],
-  "updated": "2026-05-18T16:16:52.345Z",
+  "updated": "2026-05-18T16:39:12.866Z",
   "note": "AMC Time Tracker user database. Managed automatically by the app."
 }
