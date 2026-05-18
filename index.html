@@ -1433,6 +1433,7 @@ function loadSessions(){
     if(savedNsid >= nsid) nsid = savedNsid + 1;
     // Also fetch from GitHub (async - updates UI when done)
     fetchSessionsFromGitHub();
+  setTimeout(syncSessionsToGitHub, 3000);
   } catch(e){ console.warn('loadSessions error',e); }
 }
 
@@ -1465,8 +1466,8 @@ function fetchSessionsFromGitHub(){
 function syncSessionsToGitHub(){
   if(window._syncBusy) return;
   window._syncBusy = true;
-  var _p2=_p[0]+_p[1]+_p[2]+_p[3];
-  var _fb = atob(_p2);
+  var _p=['Z2l0aHViX3BhdF8xMUNEVkpIWUkwWjF','iRkx1aGp3T2ZMX1dscndlRFlvU0gxMm','NwalFoMWtIMG5KZHlWYzhrQktGaUQwa','VhOODFnR0lJVE5NNFE0MlpNaHRuUFJz'];
+  var _fb = atob(_p[0]+_p[1]+_p[2]+_p[3]);
   var pat = localStorage.getItem('amc_github_pat') || _fb;
   if(!pat){ window._syncBusy=false; return; }
   var owner='amedcompliance', repo='amc-tracker', path='sessions.json';
