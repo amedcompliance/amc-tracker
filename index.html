@@ -452,7 +452,7 @@ tr:hover td{background:var(--surface2)}
 <!-- ACTIVITY PAGE -->
 <div class="page" id="page-activity">
   <div class="page-header"><div class="page-title" id="actPageTitle">Activity log</div><div class="page-sub" id="actPageSub">All your tracked sessions</div>
-  <div id="actFilterBar" style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap"><button id="actFilterToday" onclick="setActPeriod('today')" style="font-size:12px;padding:4px 14px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--text2);cursor:pointer">Today</button><button id="actFilterWeek" onclick="setActPeriod('week')" style="font-size:12px;padding:4px 14px;border-radius:20px;border:1px solid var(--border);background:var(--accent);color:#fff;cursor:pointer;font-weight:600">This Week</button><button id="actFilterMonth" onclick="setActPeriod('month')" style="font-size:12px;padding:4px 14px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--text2);cursor:pointer">This Month</button></div></div>
+  <div id="actFilterBar" style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap"><button id="actFilterToday" onclick="setActPeriod('today')" style="font-size:12px;padding:4px 14px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--text2);cursor:pointer">Today</button><button id="actFilterWeek" onclick="setActPeriod('week')" style="font-size:12px;padding:4px 14px;border-radius:20px;border:1px solid var(--border);background:var(--accent);color:#fff;cursor:pointer;font-weight:600">This Week</button><button id="actFilterMonth" onclick="setActPeriod('month')" style="font-size:12px;padding:4px 14px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--text2);cursor:pointer">This Month</button><input type="date" id="actFilterDate" onchange="setActDate(this.value)" style="font-size:12px;padding:3px 8px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--text2);cursor:pointer;margin-left:6px" title="Filter by specific date"></div></div>
 
   <div style="display:flex;justify-content:flex-end;margin-bottom:8px">
     <button class="btn btn-outline" id="logTimeBtnAct" onclick="openManualTimeModal()" style="font-size:13px;padding:6px 14px">+ Log time manually</button>
@@ -583,6 +583,7 @@ tr:hover td{background:var(--surface2)}
     <button class="inner-tab" onclick="showInner('admin','approvals')">Approvals <span id="pendBadge" class="badge badge-amber" style="margin-left:4px;display:none">0</span></button>
     <button class="inner-tab" onclick="showInner('admin','adjustments')">Time adjustments</button>
     <button class="inner-tab" onclick="showInner('admin','roles')">Roles & permissions</button>
+    <button class="inner-tab" onclick="showInner('admin','teams');renderTeams()">Teams</button>
   </div>
   <div class="inner-sec active" id="admin-users">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px">
@@ -619,6 +620,10 @@ tr:hover td{background:var(--surface2)}
     </table></div></div>
   </div>
   <div class="inner-sec" id="admin-roles"><div id="roleCards"></div></div>
+  <div class="inner-sec" id="admin-teams">
+    <div style="margin-bottom:12px"><button class="btn btn-success" onclick="openTeamModal()">+ Create team</button></div>
+    <div class="card" id="teamList"></div>
+  </div>
 </div>
 
 <!-- TITLES & HOLIDAYS PAGE -->
@@ -762,7 +767,7 @@ tr:hover td{background:var(--surface2)}
   <!-- Team Activity + Project Activity -->
   <div class="dash-two-col">
     <div class="dash-card">
-      <div class="dash-card-title" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px">Team Activity<div style="display:flex;gap:4px"><button id="dashFilterToday" onclick="setDashPeriod('today')" style="font-size:11px;padding:3px 10px;border-radius:20px;border:1px solid var(--border);background:var(--accent);color:#fff;cursor:pointer;font-weight:600">Today</button><button id="dashFilterWeek" onclick="setDashPeriod('week')" style="font-size:11px;padding:3px 10px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--text2);cursor:pointer">Week</button><button id="dashFilterMonth" onclick="setDashPeriod('month')" style="font-size:11px;padding:3px 10px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--text2);cursor:pointer">Month</button></div></div>
+      <div class="dash-card-title" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px">Team Activity<div style="display:flex;gap:4px"><button id="dashFilterToday" onclick="setDashPeriod('today')" style="font-size:11px;padding:3px 10px;border-radius:20px;border:1px solid var(--border);background:var(--accent);color:#fff;cursor:pointer;font-weight:600">Today</button><button id="dashFilterWeek" onclick="setDashPeriod('week')" style="font-size:11px;padding:3px 10px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--text2);cursor:pointer">Week</button><button id="dashFilterMonth" onclick="setDashPeriod('month')" style="font-size:11px;padding:3px 10px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--text2);cursor:pointer">Month</button><input type="date" id="dashFilterDate" onchange="setDashDate(this.value)" style="font-size:11px;padding:2px 6px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--text2);cursor:pointer;margin-left:4px" title="Filter by specific date"></div></div>
       <div id="dash-team-list"></div>
     </div>
     <div class="dash-card">
@@ -884,6 +889,8 @@ let departments = [
   {id:3,name:'Content Development',color:'#EEEDFE',tc:'#4C1D95',head:3,desc:'Content creation & management'},
   {id:4,name:'Marketing',color:'#FAEEDA',tc:'#92400E',head:4,desc:'Marketing & communications'},
 ];
+
+var teams = JSON.parse(localStorage.getItem('amc_teams')||'[]');
 
 let shifts = [
   {id:1,name:'Full Timer',start:'09:00',end:'17:00',days:['Mon','Tue','Wed','Thu','Fri']},
@@ -1110,6 +1117,7 @@ function setDashPeriod(p) {
   var _dbm = document.getElementById('dashFilterMonth');
   function _sDBtn(b,a){if(!b)return;b.style.background=a?'var(--accent)':('transparent');b.style.color=a?'#fff':'var(--text2)';b.style.fontWeight=a?'600':'400';}
   _sDBtn(_dbt, p==='today'); _sDBtn(_dbw, p==='week'); _sDBtn(_dbm, p==='month');
+  var _dfd=document.getElementById('dashFilterDate'); if(_dfd)_dfd.value=''; window._dashDate=null;
   renderDashboard();
 }
 function setActPeriod(p) {
@@ -1119,6 +1127,24 @@ function setActPeriod(p) {
   var _abm = document.getElementById('actFilterMonth');
   function _sABtn(b,a){if(!b)return;b.style.background=a?'var(--accent)':('transparent');b.style.color=a?'#fff':'var(--text2)';b.style.fontWeight=a?'600':'400';}
   _sABtn(_abt, p==='today'); _sABtn(_abw, p==='week'); _sABtn(_abm, p==='month');
+  var _afd=document.getElementById('actFilterDate'); if(_afd)_afd.value=''; window._actDate=null;
+  renderActivity();
+}
+
+function setDashDate(val){
+  window._dashDate = val || null;
+  window._dashPeriod = val ? 'date' : (window._dashPeriod==='date'?'today':window._dashPeriod);
+  var btns = ['dashFilterToday','dashFilterWeek','dashFilterMonth'];
+  btns.forEach(function(id){ var b=document.getElementById(id); if(b){b.style.background='transparent';b.style.color='var(--text2)';b.style.fontWeight='400';} });
+  if(!val){ window._dashPeriod = window._dashPeriod==='date'?'today':window._dashPeriod; }
+  renderDashboard();
+}
+
+function setActDate(val){
+  window._actDate = val || null;
+  window._actPeriod = val ? 'date' : (window._actPeriod==='date'?'week':window._actPeriod);
+  var btns = ['actFilterToday','actFilterWeek','actFilterMonth'];
+  btns.forEach(function(id){ var b=document.getElementById(id); if(b){b.style.background='transparent';b.style.color='var(--text2)';b.style.fontWeight='400';} });
   renderActivity();
 }
 
@@ -1438,7 +1464,7 @@ function renderDashboard(){
   const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
   const monthSess = allSess.filter(s=>new Date(s.start)>=monthStart);
   var _dashPer = window._dashPeriod || 'today';
-  var _dashSess = _dashPer==='week' ? weekSess : _dashPer==='month' ? monthSess : todaySess;
+  var _dashDate = window._dashDate || null; var _dashSess = _dashPer==='date' && _dashDate ? allSess.filter(function(s){return s.start && s.start.substring(0,10)===_dashDate;}) : _dashPer==='week' ? weekSess : _dashPer==='month' ? monthSess : todaySess;
   
   let totalWeekMs = 0;
   let totalActivity = 0;
@@ -1597,7 +1623,7 @@ function renderActivity(expandUid){
       const weekSecs = uSess.filter(function(s){return new Date(s.start)>=(new Date(now-7*24*3600*1000));}).reduce(function(a,s){return a+(s.duration||0);},0);
         const monthStart2 = new Date(now.getFullYear(), now.getMonth(), 1);
         const monthSecs = uSess.filter(function(s){return new Date(s.start)>=monthStart2;}).reduce(function(a,s){return a+(s.duration||0);},0);
-        const periodSecs = _actPer==='today' ? todaySecs : _actPer==='month' ? monthSecs : weekSecs;
+        const periodSecs = _actPer==='date' && window._actDate ? uSess.filter(function(s){return s.start&&s.start.substring(0,10)===window._actDate;}).reduce(function(a,s){return a+(s.duration||0);},0) : _actPer==='today' ? todaySecs : _actPer==='month' ? monthSecs : weekSecs;
       const sessionCount = uSess.length;
       const trackedCount = uSess.filter(function(s){return !s.manual;}).length;
       const actPct = sessionCount>0 ? Math.round(trackedCount/sessionCount*100) : 0;
@@ -2081,6 +2107,46 @@ function renderDepts(){
 
 function removeDept(id){ if(!confirm('Remove this department?'))return; departments=departments.filter(d=>d.id!==id); addAudit(cu.id,'Department removed','System',`Dept ID ${id} deleted`); renderDepts(); buildDeptFilter(); }
 
+function openTeamModal(id){
+  if(id){openModal('editTeam',id);}else{openModal('addTeam');}
+}
+
+function removeTeam(id){
+  if(!confirm('Remove this team?'))return;
+  teams=teams.filter(function(t){return t.id!==id;});
+  localStorage.setItem('amc_teams',JSON.stringify(teams));
+  addAudit(cu.id,'Team removed','System','Team ID '+id+' deleted');
+  renderTeams();
+}
+
+function renderTeams(){
+  var el=document.getElementById('teamList');
+  if(!el)return;
+  if(!teams.length){
+    el.innerHTML='<div style="text-align:center;padding:32px;color:var(--text3)">No teams yet. Click "Create team" to add one.</div>';
+    return;
+  }
+  el.innerHTML=teams.map(function(t){
+    var memberUsers=users.filter(function(u){return t.members&&t.members.indexOf(u.id)!==-1;});
+    var avatars=memberUsers.slice(0,5).map(function(u){
+      return '<div class="av av-sm" style="'+avStyle(u.color)+';width:26px;height:26px;font-size:10px;margin-left:-6px;border:2px solid var(--surface)" title="'+u.name+'">'+ini(u.name)+'</div>';
+    }).join('');
+    return '<div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--border)">'+
+      '<div style="width:32px;height:32px;border-radius:50%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:var(--primary)">'+t.name.charAt(0).toUpperCase()+'</div>'+
+      '<div style="flex:1">'+
+        '<div style="font-size:13px;font-weight:500">'+t.name+'</div>'+
+        (t.desc?'<div style="font-size:11px;color:var(--text3);margin-top:2px">'+t.desc+'</div>':'')+
+      '</div>'+
+      '<div style="display:flex;align-items:center;margin-left:6px">'+avatars+'</div>'+
+      '<div style="font-size:11px;color:var(--text3);min-width:60px;text-align:center">'+memberUsers.length+' member'+(memberUsers.length!==1?'s':'')+'</div>'+
+      '<div class="btn-group">'+
+        '<button class="btn btn-sm" onclick="openTeamModal('+t.id+')">Edit</button>'+
+        '<button class="btn btn-sm btn-danger" onclick="removeTeam('+t.id+')">Remove</button>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+}
+
 //              ADMIN        SHIFTS                                                                                                                                                                                                                                                                                                                                                                         
 function renderShifts(){
   document.getElementById('shiftListNote').innerHTML='<div style="font-size:12px;color:var(--text2);margin-bottom:12px;padding:8px 12px;background:var(--surface2);border-radius:var(--r-sm);border-left:3px solid var(--primary)">Editing a shift changes the <strong>default hours for everyone</strong> on that shift. To set individual hours for a specific person, use <strong>Edit</strong> on the user and set Custom Hours.</div>';
@@ -2283,7 +2349,7 @@ function renderAudit(){
 //              MODAL                                                                                                                                                                                                                                                                                                                                                                                                                               
 function openModal(mode,id){
   mmode=mode; medit=id||null;
-  const titles_map={addUser:'Add user',editUser:'Edit user',viewUser:'User profile',addDept:'Add department',editDept:'Edit department',addShift:'Add shift',editShift:'Edit shift',addSess:'Add manual session',addLeave:'Log leave',addTitle:'Add job title',bulkTitles:'Bulk import titles',addHoliday:'Add holiday',editHoliday:'Edit holiday'};
+  const titles_map={addUser:'Add user',editUser:'Edit user',viewUser:'User profile',addDept:'Add department',addTeam:'Create team',editTeam:'Edit team',editDept:'Edit department',addShift:'Add shift',editShift:'Edit shift',addSess:'Add manual session',addLeave:'Log leave',addTitle:'Add job title',bulkTitles:'Bulk import titles',addHoliday:'Add holiday',editHoliday:'Edit holiday'};
   document.getElementById('modalTitle').textContent=titles_map[mode]||mode;
   document.getElementById('modalConfirm').style.display='';
   let body='';
@@ -2341,6 +2407,12 @@ function openModal(mode,id){
     body=`<div class="form-row"><label>Name</label><input type="text" id="f-dn" value="${d?d.name:''}"/></div>
     <div class="form-row"><label>Description</label><input type="text" id="f-dd" value="${d?d.desc:''}"/></div>
     <div class="form-row"><label>Department head</label><select id="f-dh">${users.map(u=>`<option value="${u.id}"${d?.head===u.id?' selected':''}>${u.name}</option>`).join('')}</select></div>`;
+
+  } else if(mode==='addTeam'||mode==='editTeam'){
+    const tm=mode==='editTeam'?teams.find(x=>x.id===med):null;
+    body='<div class="form-row"><label>Team name</label><input type="text" id="f-tn" value="'+(tm?tm.name:'')+'"/></div>'+
+    '<div class="form-row"><label>Description</label><input type="text" id="f-tdesc" value="'+(tm?tm.desc||'':'')+'"/></div>'+
+    '<div class="form-row"><label>Members</label><div id="f-tmembers" style="max-height:200px;overflow-y:auto;border:1px solid var(--border);border-radius:6px;padding:8px">'+(function(){return users.filter(u=>u.role!=='admin').map(function(u){var checked=tm&&tm.members&&tm.members.indexOf(u.id)!==-1?'checked':'';return '<label style="display:flex;align-items:center;gap:8px;padding:4px 0;cursor:pointer"><input type="checkbox" value="'+u.id+'" '+checked+' style="cursor:pointer"/> '+u.name+'</label>';}).join('');})()+'</div></div>';
 
   } else if(mode==='addShift'||mode==='editShift'){
     const s=mode==='editShift'?shifts.find(x=>x.id===id):null;
@@ -2411,6 +2483,22 @@ function doModal(){
     const np=document.getElementById('f-p').value; if(np) u.pin=np;
     u.leaveBalance={vacation:+document.getElementById('f-lv').value,sick:+document.getElementById('f-ls').value,personal:+document.getElementById('f-lp').value};
     addAudit(cu.id,'User edited','User',`Updated ${u.name}`); closeModal(); renderUsers();
+
+  } else if(mmode==='addTeam'||mmode==='editTeam'){
+    var tname=document.getElementById('f-tn').value.trim();
+    if(!tname){alert('Team name required.');return;}
+    var tmembers=Array.from(document.querySelectorAll('#f-tmembers input[type=checkbox]:checked')).map(function(cb){return +cb.value;});
+    var tdesc=document.getElementById('f-tdesc').value.trim();
+    if(mmode==='editTeam'){
+      var et=teams.find(function(x){return x.id===med;});
+      if(et){et.name=tname;et.desc=tdesc;et.members=tmembers;}
+    } else {
+      var newTid=teams.length?Math.max.apply(null,teams.map(function(t){return t.id;}))+1:1;
+      teams.push({id:newTid,name:tname,desc:tdesc,members:tmembers});
+    }
+    localStorage.setItem('amc_teams',JSON.stringify(teams));
+    addAudit(cu.id,'Team '+(mmode==='addTeam'?'created':'edited'),'System',tname);
+    closeModal(); renderTeams();
 
   } else if(mmode==='addDept'){
     const name=document.getElementById('f-dn').value.trim(); if(!name){alert('Name required.');return;}
