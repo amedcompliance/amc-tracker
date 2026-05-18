@@ -64,7 +64,8 @@ select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='ht
 .nav-section{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;padding:12px 10px 6px}
 /* Dashboard styles */
 .dash-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:16px;margin-bottom:20px}
-.dash-stat-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;display:flex;flex-direction:column;gap:8px}
+.dash-stat-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;display:flex;flex-direction:column;gap:8px;transition:border-color .15s,box-shadow .15s}
+.dash-stat-card:hover{border-color:var(--teal);box-shadow:0 2px 8px rgba(0,0,0,.08)}
 .dash-stat-label{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em}
 .dash-stat-value{font-size:28px;font-weight:700;color:var(--text)}
 .dash-stat-sub{font-size:12px;color:var(--text3)}
@@ -75,7 +76,8 @@ select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='ht
 .dash-full{margin-bottom:20px}
 .dash-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px}
 .dash-card-title{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between}
-.dash-member-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.dash-member-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);transition:background .15s;border-radius:6px;padding-left:6px;padding-right:6px}
+.dash-member-row:hover{background:var(--surface2)}
 .dash-member-row:last-child{border-bottom:none}
 .dash-member-info{flex:1;min-width:0}
 .dash-member-name{font-size:13px;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -95,7 +97,8 @@ select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='ht
 .dash-screenshot-thumb:hover{border-color:var(--teal)}
 .dash-no-data{text-align:center;padding:40px;color:var(--text3);font-size:13px}
 .dash-attention-cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:20px}
-.dash-attention-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px}
+.dash-attention-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;transition:border-color .15s,box-shadow .15s}
+.dash-attention-card:hover{border-color:var(--teal);box-shadow:0 2px 8px rgba(0,0,0,.08)}
 .dash-attention-title{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
 .dash-attention-value{font-size:32px;font-weight:700;color:var(--text)}
 .dash-attention-link{font-size:12px;color:var(--teal);cursor:pointer;text-decoration:underline;margin-top:4px;display:inline-block}
@@ -689,17 +692,17 @@ tr:hover td{background:var(--surface2)}
 
   <!-- Needs Attention -->
   <div class="dash-attention-cards">
-    <div class="dash-attention-card">
+    <div class="dash-attention-card" onclick="goTo('admin')" style="cursor:pointer">
       <div class="dash-attention-title">Timesheet Approvals</div>
       <div class="dash-attention-value" id="dash-approvals-count">0</div>
-      <span class="dash-attention-link" onclick="goTo('admin')">Review</span>
+      <span class="dash-attention-link">Review</span>
     </div>
-    <div class="dash-attention-card">
+    <div class="dash-attention-card" onclick="goTo('leaves')" style="cursor:pointer">
       <div class="dash-attention-title">Leave Requests</div>
       <div class="dash-attention-value" id="dash-leaves-count">0</div>
-      <span class="dash-attention-link" onclick="goTo('leaves')">Review</span>
+      <span class="dash-attention-link">Review</span>
     </div>
-    <div class="dash-attention-card">
+    <div class="dash-attention-card" onclick="goTo('activity')" style="cursor:pointer">
       <div class="dash-attention-title">Active Now</div>
       <div class="dash-attention-value" id="dash-active-count">0</div>
       <div style="font-size:12px;color:var(--text3);margin-top:4px">members working</div>
@@ -708,22 +711,22 @@ tr:hover td{background:var(--surface2)}
 
   <!-- Summary Stats -->
   <div class="dash-grid">
-    <div class="dash-stat-card">
+    <div class="dash-stat-card" onclick="goTo('reports')" style="cursor:pointer">
       <div class="dash-stat-label">Weekly Activity</div>
       <div class="dash-stat-value" id="dash-weekly-activity">0%</div>
       <div class="dash-weekly-bar"><div class="dash-weekly-bar-fill" id="dash-weekly-activity-bar" style="width:0%"></div></div>
     </div>
-    <div class="dash-stat-card">
+    <div class="dash-stat-card" onclick="goTo('activity')" style="cursor:pointer">
       <div class="dash-stat-label">Worked This Week</div>
       <div class="dash-stat-value" id="dash-weekly-time">0h 0m</div>
       <div class="dash-stat-sub" id="dash-weekly-sessions">0 sessions</div>
     </div>
-    <div class="dash-stat-card">
+    <div class="dash-stat-card" onclick="goTo('admin')" style="cursor:pointer">
       <div class="dash-stat-label">Total Members</div>
       <div class="dash-stat-value" id="dash-total-members">0</div>
       <div class="dash-stat-sub" id="dash-tracking-members">0 tracking today</div>
     </div>
-    <div class="dash-stat-card">
+    <div class="dash-stat-card" onclick="goTo('admin')" style="cursor:pointer">
       <div class="dash-stat-label">Projects Active</div>
       <div class="dash-stat-value" id="dash-projects-count">0</div>
       <div class="dash-stat-sub">this week</div>
@@ -1368,7 +1371,7 @@ function renderDashboard(){
       const statusDot = d.isWorking?'working':'offline';
       const statusLabel = d.isWorking?'Working':'Offline';
       const initials = (d.u.name||'?').split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
-      return `<div class="dash-member-row">
+      return `<div class="dash-member-row" onclick="goTo('activity')" style="cursor:pointer">
         <div class="avatar-circle" style="width:34px;height:34px;font-size:12px;flex-shrink:0">${initials}</div>
         <div class="dash-member-info">
           <div class="dash-member-name">${d.u.name||d.u.email}</div>
