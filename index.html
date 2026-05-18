@@ -1463,42 +1463,51 @@ function fetchSessionsFromGitHub(){
 
 // Sync this user's sessions to GitHub sessions.json
 function syncSessionsToGitHub(){
-  var _p=['Z2l0aHViX3BhdF8xMUNEVkpIWUkwWjF','iRkx1aGp3T2ZMX1dscndlRFlvU0gxMm','NwalFoMWtIMG5KZHlWYzhrQktGaUQwa','VhOODFnR0lJVE5NNFE0MlpNaHRuUFJz'];
-  var _fb = atob(_p[0]+_p[1]+_p[2]+_p[3]);
+  if(window._syncBusy) return;
+  window._syncBusy = true;
+  var _p2=_p[0]+_p[1]+_p[2]+_p[3];
+  var _fb = atob(_p2);
   var pat = localStorage.getItem('amc_github_pat') || _fb;
-  if(!pat) return;
-  var owner = 'amedcompliance', repo = 'amc-tracker', path = 'sessions.json';
-  // Fetch current sessions.json first
-  fetch('https://api.github.com/repos/'+owner+'/'+repo+'/contents/'+path,{
-    headers:{'Authorization':'token '+pat,'Accept':'application/vnd.github.v3+json'}
-  }).then(function(r){ return r.json(); }).then(function(data){
-    var existing = [];
-    if(data.content){
-      try { existing = JSON.parse(atob(data.content.split('\n').join(''))); } catch(e){}
-    }
-    // Merge: replace sessions for current user, keep others
+  if(!pat){ window._syncBusy=false; return; }
+  var owner='amedcompliance', repo='amc-tracker', path='sessions.json';
+  var _doWrite = function(data){
+    var existing=[];
+    if(data.content){ try{ existing=JSON.parse(atob(data.content.split('\n').join(''))); }catch(e){} }
     var mySessions = sessions.filter(function(s){return s.uid===cu.id;}).map(function(s){
       var ss2=(s.screenshots||[]).filter(function(sc){return sc.url&&!sc.url.startsWith('data:');}).map(function(sc){return {url:sc.url,time:sc.time instanceof Date?sc.time.toISOString():sc.time};});
-      return {id:s.id,uid:s.uid,project:s.project,category:s.category,start:s.start instanceof Date?s.start.toISOString():s.start,duration:s.duration,date:s.date,type:s.type||'tracked',manual:s.manual||false,screenshots:ss2};
+      return {id:s.id,uid:s.uid,project:s.project,category:s.category,start:s.start instanceof Date?s.start.toISOString():s.start,duration:s.duration,date:s.date,type:s.type||'tracked',manual:s.manual||false,screenshots:ss2,url:s.url||null};
     });
-    var others = existing.filter(function(s){return s.uid!==cu.id;});
-    var existingMine = existing.filter(function(s){return s.uid===cu.id;}); var _allMerged = others.concat(existingMine).concat(mySessions);
-    var _seenKeys = {};
-    var merged = _allMerged.filter(function(s) {
-      var _k = s.uid + '_' + s.start;
-      if (_seenKeys[_k]) return false;
-      _seenKeys[_k] = true; return true;
+    var others=existing.filter(function(s){return s.uid!==cu.id;});
+    var existingMine=existing.filter(function(s){return s.uid===cu.id;});
+    var _allMerged=others.concat(existingMine).concat(mySessions);
+    var _seenKeys={};
+    var merged=_allMerged.filter(function(s){
+      var _k=s.uid+'_'+(s.start instanceof Date?s.start.toISOString():s.start);
+      if(_seenKeys[_k]) return false;
+      _seenKeys[_k]=true; return true;
     });
-    var encoded = btoa(unescape(encodeURIComponent(JSON.stringify(merged,null,2))));
-    var body = {message:'Update sessions for uid '+cu.id,content:encoded};
-    if(data.sha) body.sha = data.sha;
+    var encoded=btoa(unescape(encodeURIComponent(JSON.stringify(merged,null,2))));
+    var body={message:'Update sessions for uid '+cu.id,content:encoded};
+    if(data.sha) body.sha=data.sha;
     return fetch('https://api.github.com/repos/'+owner+'/'+repo+'/contents/'+path,{
       method:'PUT',
       headers:{'Authorization':'token '+pat,'Content-Type':'application/json','Accept':'application/vnd.github.v3+json'},
       body:JSON.stringify(body)
-    });
-  }).then(function(r){ if(r && r.ok) console.log('Sessions synced to GitHub'); })
-  .catch(function(e){ console.warn('syncSessionsToGitHub error',e); });
+    }).then(function(r){
+      if(r.status===409){
+        return fetch('https://api.github.com/repos/'+owner+'/'+repo+'/contents/'+path,{headers:{'Authorization':'token '+pat,'Accept':'application/vnd.github.v3+json'}})
+          .then(function(r2){return r2.json();})
+          .then(function(d2){return _doWrite(d2);});
+      }
+      if(r&&r.ok) console.log('Sessions synced to GitHub');
+      window._syncBusy=false;
+    }).catch(function(e){console.warn('syncSessions PUT error',e);window._syncBusy=false;});
+  };
+  fetch('https://api.github.com/repos/'+owner+'/'+repo+'/contents/'+path,{
+    headers:{'Authorization':'token '+pat,'Accept':'application/vnd.github.v3+json'}
+  }).then(function(r){return r.json();}).then(function(data){
+    _doWrite(data);
+  }).catch(function(e){console.warn('syncSessions GET error',e);window._syncBusy=false;});
 }
 
 function updateMetrics(){
