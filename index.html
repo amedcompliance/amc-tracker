@@ -1012,8 +1012,7 @@ function doLogout(){
   if(running) stopTimer();
   cu=null;
   try { localStorage.removeItem('amc_logged_in_uid'); } catch(e) {}
-  stopIdleTracking();
-  document.getElementById('loginScreen').style.display='flex';
+    document.getElementById('loginScreen').style.display='flex';
   document.getElementById('appShell').style.display='none';
   var pinEl = document.getElementById('loginPin');
   if (pinEl) pinEl.value='';
@@ -2665,8 +2664,7 @@ function loadMS365Data() {
 var _originalDoLogout = typeof doLogout === 'function' ? doLogout : null;
 function doLogout() {
   // Stop idle tracking
-  stopIdleTracking();
-  
+    
   // Clear user session
   window._currentUser = null;
   _pendingLoginUser = null;
