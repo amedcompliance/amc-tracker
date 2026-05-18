@@ -1226,7 +1226,13 @@ function syncSessionsToGitHub(){
       return {id:s.id,uid:s.uid,project:s.project,category:s.category,start:s.start instanceof Date?s.start.toISOString():s.start,duration:s.duration,date:s.date,type:s.type||'tracked',manual:s.manual||false,screenshots:ss2};
     });
     var others = existing.filter(function(s){return s.uid!==cu.id;});
-    var merged = others.concat(mySessions);
+    var _allMerged = others.concat(mySessions);
+    var _seenKeys = {};
+    var merged = _allMerged.filter(function(s) {
+      var _k = s.uid + '_' + s.start;
+      if (_seenKeys[_k]) return false;
+      _seenKeys[_k] = true; return true;
+    });
     var encoded = btoa(unescape(encodeURIComponent(JSON.stringify(merged,null,2))));
     var body = {message:'Update sessions for uid '+cu.id,content:encoded};
     if(data.sha) body.sha = data.sha;
@@ -1258,7 +1264,12 @@ function fetchAndCacheGHSessions(callback) {
   var url = 'https://raw.githubusercontent.com/amedcompliance/amc-tracker/main/sessions.json?_=' + Date.now();
   fetch(url).then(function(r) { return r.ok ? r.json() : []; }).then(function(data) {
     if (Array.isArray(data) && data.length > 0) {
-      window.ghSessions = data.map(function(s) {
+      var _seen = {};
+      window.ghSessions = data.filter(function(s) {
+        var _key = s.uid + '_' + s.start;
+        if (_seen[_key]) return false;
+        _seen[_key] = true; return true;
+      }).map(function(s) {
         if (s.start && typeof s.start === 'string') s.start = new Date(s.start);
         return s;
       });
@@ -1327,11 +1338,23 @@ function renderDashboard(){
   
   const todayUserData = allU.map(u=>{
     const uSess = todaySess.filter(s=>s.uid===u.id);
-    const totalMs = uSess.reduce((a,s)=>a+(s.duration||0),0);
+    var _now = Date.now();
+    const totalMs = uSess.reduce(function(a,s) {
+      var secs = s.duration || 0;
+      if (!s.end && s.start) {
+        var _elapsed = Math.floor((_now - new Date(s.start).getTime()) / 1000);
+        secs = Math.max(secs, _elapsed);
+      }
+      return a + secs * 1000;
+    }, 0);
     const acts = uSess.filter(s=>s.activity!==undefined);
     const avgAct = acts.length>0 ? Math.round(acts.reduce((a,s)=>a+s.activity,0)/acts.length) : 0;
     const lastSess = uSess.sort((a,b)=>new Date(b.start)-new Date(a.start))[0];
-    const isWorking = lastSess && !lastSess.end;
+    var _fiveMin = 5 * 60 * 1000;
+    var _sessStart = lastSess ? new Date(lastSess.start).getTime() : 0;
+    var _elapsed = lastSess ? (Date.now() - _sessStart) : 0;
+    var _recentlyActive = lastSess && !lastSess.end && _elapsed < (lastSess.duration || 0) * 1000 + _fiveMin;
+    const isWorking = _recentlyActive;
     return {u, totalMs, avgAct, isWorking, lastProject: lastSess?.project||'No project'};
   }).sort((a,b)=>b.totalMs-a.totalMs);
   
