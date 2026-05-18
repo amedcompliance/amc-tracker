@@ -260,5 +260,17 @@
     "type": "tracked",
     "manual": false,
     "screenshots": []
+  },
+  {
+    "id": 28,
+    "uid": 9,
+    "project": "Untitled",
+    "category": "Work",
+    "start": "2026-05-18T17:06:47.994Z",
+    "duration": 0,
+    "date": "2026-05-18",
+    "type": "tracked",
+    "manual": false,
+    "screenshots": []
   }
 ]
