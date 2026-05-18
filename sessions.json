@@ -1,30 +1,6 @@
 [
   {
     "id": 1,
-    "uid": 6,
-    "project": "Untitled",
-    "category": "Work",
-    "start": "2026-05-18T15:36:30.579Z",
-    "duration": 1537,
-    "date": "2026-05-18",
-    "type": "tracked",
-    "manual": false,
-    "screenshots": []
-  },
-  {
-    "id": 3,
-    "uid": 6,
-    "project": "Untitled",
-    "category": "Work",
-    "start": "2026-05-18T16:26:03.777Z",
-    "duration": 1561,
-    "date": "2026-05-18",
-    "type": "tracked",
-    "manual": false,
-    "screenshots": []
-  },
-  {
-    "id": 1,
     "uid": 5,
     "project": "Untitled",
     "category": "Work",
@@ -263,6 +239,30 @@
     "category": "Work",
     "start": "2026-05-18T16:48:33.648Z",
     "duration": 240,
+    "date": "2026-05-18",
+    "type": "tracked",
+    "manual": false,
+    "screenshots": []
+  },
+  {
+    "id": 1,
+    "uid": 6,
+    "project": "Untitled",
+    "category": "Work",
+    "start": "2026-05-18T15:36:30.579Z",
+    "duration": 1537,
+    "date": "2026-05-18",
+    "type": "tracked",
+    "manual": false,
+    "screenshots": []
+  },
+  {
+    "id": 3,
+    "uid": 6,
+    "project": "Untitled",
+    "category": "Work",
+    "start": "2026-05-18T16:26:03.777Z",
+    "duration": 1681,
     "date": "2026-05-18",
     "type": "tracked",
     "manual": false,
