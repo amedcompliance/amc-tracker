@@ -439,11 +439,16 @@
     "project": "Untitled",
     "category": "Work",
     "start": "2026-05-19T14:51:46.364Z",
-    "duration": 2,
+    "duration": 30,
     "date": "2026-05-19",
     "type": "tracked",
     "manual": false,
-    "screenshots": [],
+    "screenshots": [
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_6/41_1779202313508.jpg",
+        "time": "2026-05-19T14:51:53.508Z"
+      }
+    ],
     "url": null
   },
   {
