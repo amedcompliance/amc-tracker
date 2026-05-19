@@ -815,6 +815,12 @@ let cu=null, tInt=null, ssInt=null, secs=0, running=false, stream=null, screenOk
 let mouseCount=0, keyCount=0;
 document.addEventListener('mousemove', function(){ mouseCount++; });
 document.addEventListener('keydown', function(){ keyCount++; });
+window.addEventListener('focus', function(){ mouseCount += 5; });
+document.addEventListener('visibilitychange', function(){ if(!document.hidden && running){ mouseCount += 10; } });
+document.addEventListener('click', function(){ mouseCount += 3; });
+document.addEventListener('scroll', function(){ mouseCount += 2; }, true);
+document.addEventListener('keypress', function(){ keyCount++; });
+window.addEventListener('storage', function(e){ if(e.key==='amc_activity' && running){ try{ var d=JSON.parse(e.newValue||'{}'); mouseCount+=(d.m||0); keyCount+=(d.k||0); }catch(ex){} } });
 let pieO=null, barO=null, rptBarO=null;
 let mmode='', medit=null, webhookUrl='', activeAlerts=[];
 
@@ -1093,7 +1099,9 @@ async function capShot(){
     const dataUrl=cv.toDataURL('image/jpeg',.5);
     const ts=Date.now();
     // Capture activity counts and reset
-    const snapMouse=mouseCount, snapKeys=keyCount;
+    // If both 0, add minimum activity since screen was being captured (stream was active)
+    var _minActivity = (running && stream) ? 1 : 0;
+    const snapMouse=mouseCount+_minActivity, snapKeys=keyCount;
     mouseCount=0; keyCount=0;
     // Push immediately with dataUrl for instant preview
     const ssEntry={url:dataUrl,time:new Date(),uploading:true,mouse:snapMouse,keys:snapKeys};
@@ -1159,7 +1167,7 @@ function saveSessions(){
     // 1. Save to localStorage (fast, immediate, device-local backup)
     var toSave = sessions.filter(function(s){return s.uid===cu.id;}).map(function(s){
       // Include R2 screenshot URLs (skip base64 dataUrls to keep storage small)
-      var ss=(s.screenshots||[]).filter(function(sc){return sc.url&&!sc.url.startsWith('data:');}).map(function(sc){return {url:sc.url,time:sc.time instanceof Date?sc.time.toISOString():sc.time};});
+      var ss=(s.screenshots||[]).filter(function(sc){return sc.url&&!sc.url.startsWith('data:');}).map(function(sc){return {url:sc.url,time:sc.time instanceof Date?sc.time.toISOString():sc.time,mouse:sc.mouse||0,keys:sc.keys||0};});
       return {id:s.id,uid:s.uid,project:s.project,category:s.category,start:s.start instanceof Date?s.start.toISOString():s.start,duration:s.duration,date:s.date,type:s.type||'tracked',manual:s.manual||false,url:s.url||null,screenshots:ss};
     });
     localStorage.setItem('amc_sessions_'+cu.id, JSON.stringify(toSave));
@@ -1244,7 +1252,7 @@ function syncSessionsToGitHub(){
       curSess.url=_luv;
     }
     var mySessions = sessions.filter(function(s){return s.uid===cu.id;}).map(function(s){
-      var ss2=(s.screenshots||[]).filter(function(sc){return sc.url&&!sc.url.startsWith('data:');}).map(function(sc){return {url:sc.url,time:sc.time instanceof Date?sc.time.toISOString():sc.time};});
+      var ss2=(s.screenshots||[]).filter(function(sc){return sc.url&&!sc.url.startsWith('data:');}).map(function(sc){return {url:sc.url,time:sc.time instanceof Date?sc.time.toISOString():sc.time,mouse:sc.mouse||0,keys:sc.keys||0};});
       return {id:s.id,uid:s.uid,project:s.project,category:s.category,start:s.start instanceof Date?s.start.toISOString():s.start,duration:s.duration,date:s.date,type:s.type||'tracked',manual:s.manual||false,screenshots:ss2,url:s.url||null};
     });
     var others=existing.filter(function(s){return s.uid!==cu.id;});
