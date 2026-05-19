@@ -439,6 +439,19 @@
     "url": null
   },
   {
+    "id": 45,
+    "uid": 5,
+    "project": "AMC Project",
+    "category": "Work",
+    "start": "2026-05-19T15:51:30.000Z",
+    "duration": 14100,
+    "date": "2026-05-19",
+    "type": "tracked",
+    "manual": false,
+    "screenshots": [],
+    "url": null
+  },
+  {
     "id": 1,
     "uid": 6,
     "project": "Untitled",
@@ -514,7 +527,7 @@
     "project": "Untitled",
     "category": "Work",
     "start": "2026-05-19T14:57:37.860Z",
-    "duration": 18240,
+    "duration": 18270,
     "date": "2026-05-19",
     "type": "tracked",
     "manual": false,
@@ -552,19 +565,6 @@
         "time": "2026-05-19T19:12:43.266Z"
       }
     ],
-    "url": null
-  },
-  {
-    "id": 45,
-    "uid": 5,
-    "project": "AMC Project",
-    "category": "Work",
-    "start": "2026-05-19T15:51:30.000Z",
-    "duration": 14100,
-    "date": "2026-05-19",
-    "type": "tracked",
-    "manual": false,
-    "screenshots": [],
     "url": null
   }
 ]
