@@ -188,7 +188,7 @@
       <div><label style="font-size:11px;font-weight:500;color:var(--text2);display:block;margin-bottom:5px">Category</label>
         <select id="catSelect"><option>Work</option><option>Design</option><option>Dev</option><option>Meeting</option><option>Admin</option><option>Break</option></select>
       </div>
-      <div style="flex:1;min-width:180px"><label style="font-size:11px;font-weight:500;color:var(--text2);display:block;margin-bottom:5px">Website / URL (optional)</label><input type="text" id="urlInput" placeholder="e.g. docs.google.com" style="width:100%;padding:8px 10px;border-radius:var(--r-sm);border:1px solid var(--border);font-size:13px;background:var(--surface);color:var(--text1)"/></div>
+      <div style="flex:1;min-width:180px"><label style="font-size:11px;font-weight:500;color:var(--text2);display:block;margin-bottom:5px">Website / URL</label><input type="text" id="urlInput" placeholder="e.g. docs.google.com, salesforce.com" style="width:100%;padding:8px 10px;border-radius:var(--r-sm);border:1px solid var(--border);font-size:13px;background:var(--surface);color:var(--text1)"/></div>
     </div>
     <div class="timer-actions">
       <button class="btn btn-primary btn-lg" id="startBtn" onclick="startTimer()">Start tracking</button>
@@ -1024,7 +1024,7 @@ function goTo(name){
   if(name==='titles'){ renderTitles(); renderHolidays(); renderLeavePolicy(); }
   if(name==='alerts') runAlerts();
   if(name==='audit'){ buildAuditFilters(); renderAudit(); }  if(name==='screenshots'){ fetchAndCacheGHSessions(function(){renderScreenshots();}); }
-  if(name==='urlactivity'){ renderUrlActivity(); }
+  if(name==='urlactivity'){ fetchAndCacheGHSessions(function(){renderUrlActivity();}); }
 
 }
 
@@ -1054,7 +1054,7 @@ async function startTimer(){
   const proj = document.getElementById('projInput').value.trim()||'Untitled';
   const cat = document.getElementById('catSelect').value;
   secs=0; running=true;
-  curSess = {id:nsid++,uid:cu.id,project:proj,category:cat,start:new Date(),duration:0,screenshots:[],date:todayStr(),type:'tracked'};
+  var _urlVal=document.getElementById('urlInput')?document.getElementById('urlInput').value.trim():''; var _urlHost=''; if(_urlVal){try{_urlHost=new URL(_urlVal.indexOf('://')!==-1?_urlVal:'https://'+_urlVal).hostname;}catch(e){_urlHost=_urlVal;}} curSess = {id:nsid++,uid:cu.id,project:proj,category:cat,start:new Date(),duration:0,screenshots:[],date:todayStr(),type:'tracked',url:_urlHost||null};
   sessions.push(curSess); setTimeout(syncSessionsToGitHub, 2000);
   saveSessions(); // sync online status immediately
   document.getElementById('startBtn').disabled=true;
@@ -1236,6 +1236,13 @@ function syncSessionsToGitHub(){
   var _doWrite = function(data){
     var existing=[];
     if(data.content){ try{ existing=JSON.parse(atob(data.content.split('\n').join(''))); }catch(e){} }
+    // Capture URL from input field during active session
+    var _liveUrlIn=document.getElementById('urlInput');
+    if(curSess && _liveUrlIn && _liveUrlIn.value.trim() && !curSess.url){
+      var _luv=_liveUrlIn.value.trim();
+      try{_luv=new URL(_luv.indexOf('://')!==-1?_luv:'https://'+_luv).hostname;}catch(e){}
+      curSess.url=_luv;
+    }
     var mySessions = sessions.filter(function(s){return s.uid===cu.id;}).map(function(s){
       var ss2=(s.screenshots||[]).filter(function(sc){return sc.url&&!sc.url.startsWith('data:');}).map(function(sc){return {url:sc.url,time:sc.time instanceof Date?sc.time.toISOString():sc.time};});
       return {id:s.id,uid:s.uid,project:s.project,category:s.category,start:s.start instanceof Date?s.start.toISOString():s.start,duration:s.duration,date:s.date,type:s.type||'tracked',manual:s.manual||false,screenshots:ss2,url:s.url||null};
@@ -1691,7 +1698,7 @@ function renderUrlActivity(){
   var periodFilter=document.getElementById('urlPeriodFilter')?document.getElementById('urlPeriodFilter').value:'week';
   var dateFilter=document.getElementById('urlDateFilter')?document.getElementById('urlDateFilter').value:'';
   // Read sessions (use GitHub cache if available)
-  var allData = (window.ghSessions && window.ghSessions.length>0) ? window.ghSessions : JSON.parse(localStorage.getItem('amc_sessions')||'[]');
+  var allData = (window.ghSessions && window.ghSessions.length>0) ? window.ghSessions : (typeof sessions !== 'undefined' && sessions.length>0) ? sessions : [];
   // Only sessions with a URL
   var urlSessions = allData.filter(function(s){return s.url&&s.url.length>0;});
   // Filter by member
@@ -1711,7 +1718,7 @@ function renderUrlActivity(){
     urlSessions=urlSessions.filter(function(s){return s.date&&s.date.substring(0,7)===moStr;});
   }
   if(!urlSessions.length){
-    el.innerHTML='<div style="text-align:center;padding:40px;color:var(--text3)">No URL activity data for this period.<br/>Enter a website URL in the tracker field while tracking time, then stop ÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ it will appear here.</div>';
+    el.innerHTML='<div style="text-align:center;padding:40px;color:var(--text3)">No URL activity data for this period.<br/><br/>URL tracking is automatic - just start tracking and the website will be captured. Or enter a URL manually in the Website/URL field.</div>';
     return;
   }
   // Aggregate by URL + user
