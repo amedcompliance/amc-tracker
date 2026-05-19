@@ -3081,7 +3081,7 @@ function completeLogin(user) {
 
 
 // Microsoft 365 integration
-var MS365_CONFIG = {
+window.MS365_CONFIG = {
   clientId: 'af06f95a-eeef-4b9f-86c0-ce2d2439daea',
   tenantId: '5a4a9eca-309c-4cb9-8916-77ed2bda3f05',
   scopes: ['User.Read','Calendars.Read','Mail.Read','Chat.Read','OnlineMeetings.Read']
@@ -3096,11 +3096,11 @@ function toggleMS365() {
 function connectMS365() {
   var redirectUri = location.origin + location.pathname;
   if (redirectUri.slice(-1) !== '/') redirectUri += '/';
-  var authUrl = 'https://login.microsoftonline.com/' + MS365_CONFIG.tenantId + 
-    '/oauth2/v2.0/authorize?client_id=' + MS365_CONFIG.clientId +
+  var authUrl = 'https://login.microsoftonline.com/' + window.MS365_CONFIG.tenantId + 
+    '/oauth2/v2.0/authorize?client_id=' + window.MS365_CONFIG.clientId +
     '&response_type=token' +
     '&redirect_uri=' + encodeURIComponent(redirectUri) +
-    '&scope=' + encodeURIComponent(MS365_CONFIG.scopes.join(' ')) +
+    '&scope=' + encodeURIComponent(window.MS365_CONFIG.scopes.join(' ')) +
     '&response_mode=fragment' +
     '&state=ms365auth';
   try { localStorage.setItem('ms365_auth_pending', '1'); } catch(e) {}
