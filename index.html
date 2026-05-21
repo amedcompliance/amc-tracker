@@ -3,7 +3,7 @@
 <!-- AMC Tracker v20260521r5 - OTP Login Build -->
 <html lang="en">
 <head>
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Cache-Control" content="no-cace, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-Equiv="Expires" content="0">
 <meta charset="UTF-8"/>
@@ -2716,11 +2716,11 @@ async function doEmailLogin() {
     btn.textContent = 'Send Verification Code';
     return;
   }
-  window._pendingLoginUser = user;
+  _pendingLoginUser = user;
   var otp = generateOTP();
-  window._otp = otp;
-  window._otpExpiry = Date.now() + 10 * 60 * 1000; localStorage.setItem('amc_otp', otp); localStorage.setItem('amc_otp_expiry', String(window._otpExpiry));
-  window._loginIsSetup = user.needsSetup ? true : false;
+  _otp = otp;
+  _otpExpiry = Date.now() + 10 * 60 * 1000; localStorage.setItem('amc_otp', otp); localStorage.setItem('amc_otp_expiry', String(_otpExpiry));
+  _loginIsSetup = user.needsSetup ? true : false;
   await sendOTPEmail(email, otp);
   document.getElementById('loginStep1').style.display = 'none';
   document.getElementById('loginStep2').style.display = 'block';
