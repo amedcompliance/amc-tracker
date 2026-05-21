@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!-- AMC Tracker v20260521r2 - fix OTP email template ID -->
-<!-- AMC Tracker v20260521r2 - OTP Login Build -->
+<!-- AMC Tracker v20260521r3 - fix OTP email template ID -->
+<!-- AMC Tracker v20260521r3 - OTP Login Build -->
 <html lang="en">
 <head>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -724,18 +724,7 @@ let users = [
   if(_deleted.length) users = users.filter(function(u){return !_deleted.includes(u.id);});
   const _extra = JSON.parse(localStorage.getItem('amc_users_extra')||'[]');
   _extra.forEach(function(u){ if(!users.find(function(x){return x.id===u.id;})) users.push(u); });
-  // Apply saved passwords for all users (including hardcoded ones like Czarina)
-  try {
-    var _savedPwds = JSON.parse(localStorage.getItem('amc_user_passwords') || '{}');
-    users.forEach(function(u) {
-      if (_savedPwds[u.id]) {
-        u.password = _savedPwds[u.id].password;
-        u.needsSetup = _savedPwds[u.id].needsSetup;
-      }
-    });
-  } catch(e) {}
-})();
-// Fetch users from GitHub on startup
+  // Fetch users from GitHub on startup
 fetchUsersFromGitHub();
 //        ADD USER TO SOURCE CODE via GitHub API                                                       
 // When admin adds a user, this patches index.html directly in GitHub
@@ -772,10 +761,7 @@ async function fetchUsersFromGitHub() {
     data.users.forEach(u => {
       if (deleted.includes(u.id)) return; // skip deleted
       if (users.find(x => x.id === u.id || x.email === u.email)) return; // already exists
-      // Apply saved password if any
-      const savedPwds = JSON.parse(localStorage.getItem('amc_user_passwords') || '{}');
-      if (savedPwds[u.id]) { u.password = savedPwds[u.id].password; u.needsSetup = savedPwds[u.id].needsSetup; }
-      users.push(u);
+            users.push(u);
       added++;
     });
     if (added > 0) console.log('AMC: Loaded ' + added + ' users from GitHub');
@@ -2779,37 +2765,7 @@ function resendOtp() {
   setTimeout(function() { if (errEl) { errEl.style.display='none'; errEl.style.color='#e74c3c'; } }, 3000);
 }
 
-function completeSetup() {
-  var np = (document.getElementById('newPwd') || {}).value || '';
-  var cp = (document.getElementById('confirmPwd') || {}).value || '';
-  var errEl = document.getElementById('setupError');
-  
-  var validation = validatePassword(np);
-  if (!validation.valid) {
-    if (errEl) { errEl.textContent = validation.msg; errEl.style.display='block'; }
-    return;
-  }
-  if (np !== cp) {
-    if (errEl) { errEl.textContent = 'Passwords do not match'; errEl.style.display='block'; }
-    return;
-  }
-  
-  if (_pendingLoginUser) {
-    _pendingLoginUser.password = np;
-    _pendingLoginUser.needsSetup = false;
-    // Persist password + needsSetup for this user (works for all users including hardcoded id<=5)
-    try {
-      var savedPwds = JSON.parse(localStorage.getItem('amc_user_passwords') || '{}');
-      savedPwds[_pendingLoginUser.id] = { password: np, needsSetup: false };
-      localStorage.setItem('amc_user_passwords', JSON.stringify(savedPwds));
-    } catch(e) {}
-    localStorage.setItem('amc_users_extra',JSON.stringify(users.filter(function(u){return u.id>5;})));
-    var userInArr = users.find(function(u) { return u.id === _pendingLoginUser.id; });
-    if (userInArr) { userInArr.password = np; userInArr.needsSetup = false; }
-  }
-  
-  completeLogin(_pendingLoginUser);
-}
+function completeSetup() { if (_pendingLoginUser) { completeLogin(_pendingLoginUser); } }
 
 function completeLogin(user) {
   var u = user;
@@ -2978,7 +2934,6 @@ function doLogout() {
     var emailEl = document.getElementById('loginEmail');
     var pwdEl = document.getElementById('loginPassword');
     var errEl = document.getElementById('loginError');
-    var pwdGroup = document.getElementById('loginPwdGroup');
     var continueBtn = document.getElementById('loginContinueBtn');
     if (emailEl) emailEl.value = '';
     if (pwdEl) pwdEl.value = '';
@@ -3108,13 +3063,6 @@ function submitManualTime(){
 </button>
 
 <script>
-// Auto-restore session on page load (keeps user logged in across refreshes)
-window.addEventListener('DOMContentLoaded', function() {
-  try {
-    var savedUid = localStorage.getItem('amc_logged_in_uid');
-    if (savedUid) {
-      var uid = parseInt(savedUid, 10);
-      var u = users.find(function(x) { return x.id === uid; });
       if (u && u.password && !u.needsSetup) {
         // Mark this device as trusted so no OTP is required on auto-restore
         try { markDeviceTrusted(u.email); } catch(e) {}
