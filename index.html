@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!-- AMC Tracker v20260521r1 - fix OTP email template ID -->
-<!-- AMC Tracker v20260521r1 - OTP Login Build -->
+<!-- AMC Tracker v20260521r2 - fix OTP email template ID -->
+<!-- AMC Tracker v20260521r2 - OTP Login Build -->
 <html lang="en">
 <head>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -895,7 +895,7 @@ function doLogin(){
       if(_urlNav)_urlNav.style.display='';
     }
   }
-  document.getElementById('trackerDate').textContent = new Date().toLocaleDateString([],{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  document.getElementById('trackerDate').textContent = new Date().toLocaleDateString([],{weekday:'long',year:'numeric',month:'long',day:'numeric',timeZone:'America/Phoenix'});
   updateMetrics(); renderActivity();
   // Pre-fill AMC Project for all users
   document.getElementById('projInput').value='AMC Project';
@@ -1133,7 +1133,7 @@ async function capShot(){
     // Push immediately with dataUrl for instant preview
     const ssEntry={url:dataUrl,time:new Date(),uploading:true,mouse:snapMouse,keys:snapKeys};
     curSess.screenshots.push(ssEntry);
-    document.getElementById('ssLabel').textContent='Captured '+new Date().toLocaleTimeString()+' (uploading...)';
+    document.getElementById('ssLabel').textContent='Captured '+new Date().toLocaleTimeString([],{timeZone:'America/Phoenix'})+' (uploading...)';
     renderActivity();
     // Upload to R2 via Pages Function
     try{
@@ -1147,7 +1147,7 @@ async function capShot(){
         if(result.url){
           ssEntry.url=result.url;
           delete ssEntry.uploading;
-          document.getElementById('ssLabel').textContent='Captured '+new Date().toLocaleTimeString();
+          document.getElementById('ssLabel').textContent='Captured '+new Date().toLocaleTimeString([],{timeZone:'America/Phoenix'});
           renderActivity();
         }
       }
@@ -1588,9 +1588,9 @@ function renderActivity(expandUid){
           html += '<div style="color:var(--text3);font-size:13px;padding:12px 0">No sessions recorded yet.</div>';
         } else {
           userSessions.forEach(function(s){
-            const ds2=s.start?new Date(s.start).toLocaleDateString([],{weekday:'short',month:'short',day:'numeric'}):'';
-            const ts2=s.start?new Date(s.start).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):'';
-            const te2=s.end?new Date(s.end).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):'';
+            const ds2=s.start?new Date(s.start).toLocaleDateString([],{weekday:'short',month:'short',day:'numeric',timeZone:'America/Phoenix'}):'';
+            const ts2=s.start?new Date(s.start).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',timeZone:'America/Phoenix'}):'';
+            const te2=s.end?new Date(s.end).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',timeZone:'America/Phoenix'}):'';
             const mb2=(s.type==='manual'||s.manual)?'<span class="badge badge-amber" style="margin-left:4px;font-size:10px">manual</span>':'';
             const catBadge2=(typeof CAT_BADGE!=='undefined'&&CAT_BADGE[s.category])?CAT_BADGE[s.category]:'badge-gray';
             var thumbsHtml2='';
@@ -1616,8 +1616,8 @@ function renderActivity(expandUid){
   const all=[...sessions.filter(function(s){return s.uid===cu.id;})].reverse();
   if(!all.length){ el.innerHTML='<div style="text-align:center;padding:32px;color:var(--text3)">No sessions yet. Start tracking to see your activity here.</div>'; return; }
   el.innerHTML = all.map(function(s){
-    const ds=s.start?new Date(s.start).toLocaleDateString([],{month:'short',day:'numeric'}):'';
-    const ts=s.start?new Date(s.start).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):'';
+    const ds=s.start?new Date(s.start).toLocaleDateString([],{month:'short',day:'numeric',timeZone:'America/Phoenix'}):'';
+    const ts=s.start?new Date(s.start).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',timeZone:'America/Phoenix'}):'';
     const thumbs=s.screenshots?s.screenshots.map(function(sc,j){return '<div class="ss-thumb" onclick="openSS('+s.id+','+j+')"><img src="'+sc.url+'" alt="ss"/></div>';}).join(''):'';
     const mb=s.type==='manual'||s.manual?'<span class="badge badge-amber" style="margin-left:4px">manual</span>':'';
     return '<div style="display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)"><div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:500;margin-bottom:3px">'+s.project+' <span class="badge '+(CAT_BADGE[s.category]||'badge-gray')+'">'+s.category+'</span>'+mb+'</div><div style="font-size:12px;color:var(--text2)">'+ds+'     '+ts+'</div>'+(thumbs?'<div class="ss-strip">'+thumbs+'</div>':'')+'</div><div style="font-family:var(--mono);font-size:13px;font-weight:500;white-space:nowrap">'+fmtS(s.duration||0)+'</div></div>';
@@ -1681,7 +1681,7 @@ function renderScreenshots() {
     var initials = nm.split(' ').map(function(w){return w[0]||''}).join('').substring(0,2).toUpperCase();
     var shtml = '';
     shots.forEach(function(ss) {
-      var timeStr = ss.date ? ss.date.toLocaleString() : '';
+      var timeStr = ss.date ? ss.date.toLocaleString([],{timeZone:'America/Phoenix'}) : '';
       shtml += '<div style="background:var(--surface2);border-radius:8px;overflow:hidden;cursor:pointer" onclick="showSSModal(this.dataset.src,this.dataset.lbl)" data-src="';
       shtml += ss.src;
       shtml += '" data-lbl="';
@@ -1798,11 +1798,11 @@ function adminViewSS(sid, ji, evt){
   if(!s||!s.screenshots||!s.screenshots[ji]) return;
   const sc=s.screenshots[ji];
   document.getElementById('ssImg').src=sc.url;
-  document.getElementById('ssMeta').textContent=(s.project||'Session')+'     '+new Date(sc.time).toLocaleString();
+  document.getElementById('ssMeta').textContent=(s.project||'Session')+'     '+new Date(sc.time).toLocaleString([],{timeZone:'America/Phoenix'});
   document.getElementById('ssTitle').textContent='Screenshot  '+(s.project||'Session');
   document.getElementById('ssOverlay').classList.add('open');
 }
-function openSS(sid,ji){ const s=sessions.find(x=>x.id===sid); if(!s)return; const sc=s.screenshots[ji]; document.getElementById('ssImg').src=sc.url; document.getElementById('ssMeta').textContent=s.project+'      '+new Date(sc.time).toLocaleString(); document.getElementById('ssTitle').textContent='Screenshot        '+s.project; document.getElementById('ssOverlay').classList.add('open'); }
+function openSS(sid,ji){ const s=sessions.find(x=>x.id===sid); if(!s)return; const sc=s.screenshots[ji]; document.getElementById('ssImg').src=sc.url; document.getElementById('ssMeta').textContent=s.project+'      '+new Date(sc.time).toLocaleString([],{timeZone:'America/Phoenix'}); document.getElementById('ssTitle').textContent='Screenshot        '+s.project; document.getElementById('ssOverlay').classList.add('open'); }
 function closeSS(){ document.getElementById('ssOverlay').classList.remove('open'); }
 
 //              INSIGHTS                                                                                                                                                                                                                                                                                                                                                                                                             
@@ -1881,7 +1881,7 @@ function renderInsights(selectedUid){
           dm3[s.date]=(dm3[s.date]||0)+s.duration;
         });
         var ps3=Object.entries(pm3).sort(function(a,b){return b[1]-a[1];});
-        var last7=[]; for(var i2=6;i2>=0;i2--){ var d2=new Date(now-i2*24*3600*1000); var k2=d2.toISOString().slice(0,10); last7.push({label:d2.toLocaleDateString([],{weekday:'short'}),sec:dm3[k2]||0,isT:k2===td}); }
+        var last7=[]; for(var i2=6;i2>=0;i2--){ var d2=new Date(now-i2*24*3600*1000); var k2=d2.toISOString().slice(0,10); last7.push({label:d2.toLocaleDateString([],{weekday:'short',timeZone:'America/Phoenix'}),sec:dm3[k2]||0,isT:k2===td}); }
         setTimeout(function(){
           var pc=document.getElementById('adminPieChart'); var bc=document.getElementById('adminBarChart');
           if(pc&&ps3.length) new Chart(pc,{type:'doughnut',data:{labels:ps3.map(function(p){return p[0];}),datasets:[{data:ps3.map(function(p){return Math.round(p[1]/60);}),backgroundColor:ps3.map(function(_,i3){return CHART_COLORS[i3%CHART_COLORS.length];}),borderWidth:1,borderColor:'rgba(255,255,255,.3)'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}}}});
@@ -1907,7 +1907,7 @@ function renderInsights(selectedUid){
   document.getElementById('projBars').innerHTML=ps.length?ps.map(function(entry,i){ var n=entry[0],sv=entry[1]; return '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px"><div style="font-size:12px;width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text)">'+n+'</div><div style="flex:1"><div class="prog-wrap"><div class="prog-fill" style="width:'+Math.round(sv/tot*100)+'%;background:'+CHART_COLORS[i%CHART_COLORS.length]+'"></div></div></div><div style="font-size:11px;color:var(--text2);width:50px;text-align:right;font-family:var(--mono)">'+fmtHM(sv)+'</div></div>'; }).join(''):'<div style="color:var(--text3);font-size:13px;text-align:center;padding:12px">No data yet.</div>';
   if(pieO){pieO.destroy();pieO=null;}
   if(ps.length) pieO=new Chart(document.getElementById('pieChart'),{type:'doughnut',data:{labels:ps.map(function(p){return p[0];}),datasets:[{data:ps.map(function(p){return Math.round(p[1]/60);}),backgroundColor:ps.map(function(_,i){return CHART_COLORS[i%CHART_COLORS.length];}),borderWidth:1,borderColor:'rgba(255,255,255,.3)'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:function(ctx){return ctx.label+': '+fmtHM(ps[ctx.dataIndex][1]);}}}}}});
-  var last7=[]; for(var i=6;i>=0;i--){ var d=new Date(now-i*24*3600*1000); var k=d.toISOString().slice(0,10); last7.push({label:d.toLocaleDateString([],{weekday:'short'}),sec:dm[k]||0,isT:k===td}); }
+  var last7=[]; for(var i=6;i>=0;i--){ var d=new Date(now-i*24*3600*1000); var k=d.toISOString().slice(0,10); last7.push({label:d.toLocaleDateString([],{weekday:'short',timeZone:'America/Phoenix'}),sec:dm[k]||0,isT:k===td}); }
   if(barO){barO.destroy();barO=null;}
   barO=new Chart(document.getElementById('barChart'),{type:'bar',data:{labels:last7.map(function(d){return d.label;}),datasets:[{label:'Hours',data:last7.map(function(d){return parseFloat((d.sec/3600).toFixed(2));}),backgroundColor:last7.map(function(d){return d.isT?'#4a86a8':'#9FE1CB';}),borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,grid:{color:'rgba(0,0,0,.05)'},ticks:{callback:function(v){return v+'h';}}},x:{grid:{display:false}}}}});
 }
@@ -2354,7 +2354,7 @@ function renderAudit(){
           <span class="badge ${catBadge[a.category]||'badge-gray'}">${a.category}</span>
         </div>
         <div style="font-size:12px;color:var(--text2)">${a.detail}</div>
-        <div style="font-size:11px;color:var(--text3);margin-top:2px">${u?u.name:'?'}      ${ts.toLocaleDateString()} ${ts.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:2px">${u?u.name:'?'}      ${ts.toLocaleDateString([],{timeZone:'America/Phoenix'})} ${ts.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',timeZone:'America/Phoenix'})}</div>
       </div>
     </div>`;
   }).join(''):'<div style="text-align:center;padding:32px;color:var(--text3)">No audit entries.</div>';
@@ -2840,7 +2840,7 @@ function completeLogin(user) {
   
   // Set tracker date
   var trackerDate = document.getElementById('trackerDate');
-  if (trackerDate) trackerDate.textContent = new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  if (trackerDate) trackerDate.textContent = new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric',timeZone:'America/Phoenix'});
   
   // Navigate to tracker - safely
   try { if (typeof goTo === 'function') goTo('tracker'); } catch(e) { 
@@ -2921,7 +2921,7 @@ function loadMS365Data() {
     container.innerHTML = data.value.slice(0,5).map(function(evt) {
       return '<div style="background:#f8f9fa;border-radius:6px;padding:10px;margin-bottom:8px;font-size:13px;">' +
         '<div style="font-weight:600;color:#333;margin-bottom:2px;">' + evt.subject + '</div>' +
-        '<div style="color:#888;">' + new Date(evt.start.dateTime).toLocaleString() + '</div>' +
+        '<div style="color:#888;">' + new Date(evt.start.dateTime).toLocaleString([],{timeZone:'America/Phoenix'}) + '</div>' +
         '</div>';
     }).join('') || '<div style="color:#888;font-size:13px;">No recent meetings</div>';
   }).catch(function() {});
