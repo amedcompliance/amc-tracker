@@ -2943,7 +2943,7 @@ function doLogout() {
   }
 }
 
-// Show login on load
+window.goTo=goTo; window.showInner=showInner; window.toggleAdminNav=toggleAdminNav; window.openProfileMenu=openProfileMenu; window.renderTeams=renderTeams; window.startTimer=startTimer; window.stopTimer=stopTimer; // Show login on load
 window.addEventListener('DOMContentLoaded', function() {
   var ls = document.getElementById('loginScreen');
   if (ls) ls.style.display = 'flex';
