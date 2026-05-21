@@ -174,7 +174,7 @@
       Edit Profile
     </button>
     <div style="height:1px;background:var(--border);margin:0 10px;"></div>
-    <button onclick="doLogout()" style="width:100%;background:none;border:none;cursor:pointer;padding:11px 14px;display:flex;align-items:center;gap:10px;color:var(--red,#ef4444);font-size:13px;text-align:left;transition:background .15s;" onmouseover="this.style.background='var(--red-light,rgba(239,68,68,.1))'" onmouseout="this.style.background='none'">
+    <button onclick="doLogout()" style="width:calc(100% - 28px);margin:8px 14px 14px;background:#ef4444;border:none;border-radius:8px;cursor:pointer;padding:12px 16px;display:flex;align-items:center;justify-content:center;gap:8px;color:#fff;font-size:14px;font-weight:600;letter-spacing:.3px;text-align:center;transition:background .15s;box-shadow:0 2px 6px rgba(239,68,68,.35);" onmouseover="this.style.background='#dc2626'" onmouseout="this.style.background='#ef4444'">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:15px;height:15px;flex-shrink:0;"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
       Sign Out
     </button>
@@ -2903,7 +2903,7 @@ function doLogout() {
   // Stop idle tracking
     
   // Clear user session
-  window._currentUser = null;
+  _currentUser = null;
   _pendingLoginUser = null;
   _currentOTP = null;
   
