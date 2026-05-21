@@ -2938,7 +2938,7 @@ function doLogout() {
     if (emailEl) emailEl.value = '';
     if (pwdEl) pwdEl.value = '';
     if (errEl) { errEl.textContent = ''; errEl.style.display = 'none'; }
-    if (pwdGroup) pwdGroup.style.display = 'none';
+    var pwdGroup = document.getElementById('pwdGroup'); if (pwdGroup) pwdGroup.style.display = 'none';
     if (continueBtn) continueBtn.textContent = 'Continue';
   }
 }
