@@ -1713,11 +1713,18 @@
     "project": "AMC Project",
     "category": "Work",
     "start": "2026-05-26T21:54:25.845Z",
-    "duration": 1,
+    "duration": 15,
     "date": "2026-05-26",
     "type": "tracked",
     "manual": false,
-    "screenshots": [],
+    "screenshots": [
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_5/69_1779832465981.jpg",
+        "time": "2026-05-26T21:54:25.981Z",
+        "mouse": 207,
+        "keys": 0
+      }
+    ],
     "url": null
   }
 ]
