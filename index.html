@@ -2780,6 +2780,15 @@ function resendOtp() {
 
 function completeSetup() { if (_pendingLoginUser) { completeLogin(_pendingLoginUser); } }
 
+
+
+
+// Microsoft 365 integration
+window.MS365_CONFIG = {
+  clientId: 'af06f95a-eeef-4b9f-86c0-ce2d2439daea',
+  tenantId: '5a4a9eca-309c-4cb9-8916-77ed2bda3f05',
+  scopes: ['User.Read','Calendars.Read','Mail.Read','Chat.Read','OnlineMeetings.Read']
+};
 function completeLogin(user) {
   var u = user;
   window._currentUser = u;
@@ -2822,14 +2831,6 @@ function completeLogin(user) {
   try { if(u && u.role==='admin') setTimeout(function(){ fetchSessionsFromGitHub(); }, 800); } catch(e) {}
   // Save login state so page refresh restores session
   try { localStorage.setItem('amc_logged_in_uid', u.id); } catch(e) {}
-
-
-// Microsoft 365 integration
-window.MS365_CONFIG = {
-  clientId: 'af06f95a-eeef-4b9f-86c0-ce2d2439daea',
-  tenantId: '5a4a9eca-309c-4cb9-8916-77ed2bda3f05',
-  scopes: ['User.Read','Calendars.Read','Mail.Read','Chat.Read','OnlineMeetings.Read']
-};
 
 }
 function toggleMS365() {
