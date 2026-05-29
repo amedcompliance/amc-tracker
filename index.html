@@ -2868,6 +2868,7 @@ function checkMS365AuthReturn() {
   try { localStorage.removeItem('ms365_auth_pending'); } catch(e) {}
   var redirectUri = location.origin + location.pathname;
   if (redirectUri.slice(-1) !== '/') redirectUri += '/';
+  var errEl = document.getElementById('loginError');
   fetch('https://login.microsoftonline.com/' + window.MS365_CONFIG.tenantId + '/oauth2/v2.0/token', {
     method: 'POST',
     headers: {'Content-Type': 'application/x-www-form-urlencoded'},
@@ -2878,12 +2879,35 @@ function checkMS365AuthReturn() {
           '&code_verifier=' + encodeURIComponent(verifier) +
           '&scope=' + encodeURIComponent(window.MS365_CONFIG.scopes.join(' '))
   }).then(function(r){ return r.json(); }).then(function(data){
-    if (data.access_token) {
-      var panel = document.getElementById('ms365Panel');
-      if (panel) panel.style.display = 'block';
-      onMS365Connected(data.access_token);
+    if (!data.access_token) {
+      if (errEl) { errEl.textContent = 'Microsoft sign-in failed. Please try again.'; errEl.style.display = 'block'; }
+      return;
     }
-  }).catch(function(e){ console.error('MS365 auth error', e); });
+    var token = data.access_token;
+    // Get the user's email from Microsoft Graph
+    return fetch('https://graph.microsoft.com/v1.0/me', {
+      headers: { 'Authorization': 'Bearer ' + token }
+    }).then(function(r){ return r.json(); }).then(function(profile){
+      var msEmail = (profile.mail || profile.userPrincipalName || '').toLowerCase();
+      if (!msEmail) {
+        if (errEl) { errEl.textContent = 'Could not retrieve your Microsoft email. Please try again.'; errEl.style.display = 'block'; }
+        return;
+      }
+      // Find the matching user in the app
+      var matched = users.find(function(u){ return u.email && u.email.toLowerCase() === msEmail; });
+      if (!matched) {
+        if (errEl) { errEl.textContent = 'No account found for ' + msEmail + '. Please contact your admin.'; errEl.style.display = 'block'; }
+        return;
+      }
+      // Log the user in
+      completeLogin(matched);
+      // Also connect MS365 Activity
+      try { onMS365Connected(token); } catch(e) {}
+    });
+  }).catch(function(e){ 
+    console.error('MS365 auth error', e);
+    if (errEl) { errEl.textContent = 'Microsoft sign-in error: ' + e.message; errEl.style.display = 'block'; }
+  });
 }
 function onMS365Connected(token) {
   _ms365Token = token;
