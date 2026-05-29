@@ -842,7 +842,7 @@ let mmode='', medit=null, webhookUrl='', activeAlerts=[];
 const pad = n => String(n).padStart(2,'0');
 const fmtS = s => { const h=Math.floor(s/3600),m=Math.floor((s%3600)/60),sc=s%60; return `${pad(h)}:${pad(m)}:${pad(sc)}`; };
 const fmtHM = s => `${Math.floor(s/3600)}h ${Math.floor((s%3600)/60)}m`;
-function todayStr(){ return new Date().toISOString().slice(0,10); }
+function todayStr(){ var d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
 const ini = n => n.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
 const avStyle = i => { const c=AV_COLORS[i%AV_COLORS.length]; return `background:${c[0]};color:${c[1]}`; };
 function addAudit(uid,action,cat,detail){ auditLog.unshift({id:naudid++,uid,action,category:cat,detail,ts:new Date()}); }
@@ -2841,34 +2841,53 @@ function toggleMS365() {
 function connectMS365() {
   var redirectUri = location.origin + location.pathname;
   if (redirectUri.slice(-1) !== '/') redirectUri += '/';
-  var authUrl = 'https://login.microsoftonline.com/' + window.MS365_CONFIG.tenantId + 
-    '/oauth2/v2.0/authorize?client_id=' + window.MS365_CONFIG.clientId +
-    '&response_type=token' +
-    '&redirect_uri=' + encodeURIComponent(redirectUri) +
-    '&scope=' + encodeURIComponent(window.MS365_CONFIG.scopes.join(' ')) +
-    '&response_mode=fragment' +
-    '&state=ms365auth';
-  try { localStorage.setItem('ms365_auth_pending', '1'); } catch(e) {}
-  location.href = authUrl;
-}
-
-function checkMS365AuthReturn() {
-  var hash = location.hash || '';
-  if (hash.indexOf('access_token=') === -1) return;
-  var params = {};
-  hash.replace(/^#/, '').split('&').forEach(function(p) {
-    var kv = p.split('=');
-    if (kv.length >= 2) params[decodeURIComponent(kv[0])] = decodeURIComponent(kv.slice(1).join('='));
+  function _b64url(buf){ return btoa(String.fromCharCode.apply(null,new Uint8Array(buf))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,''); }
+  var verifier = _b64url(crypto.getRandomValues(new Uint8Array(32)));
+  crypto.subtle.digest('SHA-256', new TextEncoder().encode(verifier)).then(function(hash){
+    var challenge = _b64url(hash);
+    try { sessionStorage.setItem('ms365_pkce_verifier', verifier); } catch(e) {}
+    var authUrl = 'https://login.microsoftonline.com/' + window.MS365_CONFIG.tenantId +
+      '/oauth2/v2.0/authorize?client_id=' + window.MS365_CONFIG.clientId +
+      '&response_type=code' +
+      '&redirect_uri=' + encodeURIComponent(redirectUri) +
+      '&scope=' + encodeURIComponent(window.MS365_CONFIG.scopes.join(' ')) +
+      '&code_challenge=' + challenge +
+      '&code_challenge_method=S256' +
+      '&state=ms365auth';
+    try { localStorage.setItem('ms365_auth_pending', '1'); } catch(e) {}
+    location.href = authUrl;
   });
-  if (params.access_token) {
-    history.replaceState(null, '', location.pathname);
-    try { localStorage.removeItem('ms365_auth_pending'); } catch(e) {}
-    var panel = document.getElementById('ms365Panel');
-    if (panel) panel.style.display = 'block';
-    onMS365Connected(params.access_token);
-  }
 }
-
+function checkMS365AuthReturn() {
+  var params = new URLSearchParams(location.search);
+  var code = params.get('code');
+  var state = params.get('state');
+  if (!code || state !== 'ms365auth') return;
+  history.replaceState(null, '', location.pathname);
+  var verifier;
+  try { verifier = sessionStorage.getItem('ms365_pkce_verifier'); } catch(e) {}
+  if (!verifier) return;
+  try { sessionStorage.removeItem('ms365_pkce_verifier'); } catch(e) {}
+  try { localStorage.removeItem('ms365_auth_pending'); } catch(e) {}
+  var redirectUri = location.origin + location.pathname;
+  if (redirectUri.slice(-1) !== '/') redirectUri += '/';
+  fetch('https://login.microsoftonline.com/' + window.MS365_CONFIG.tenantId + '/oauth2/v2.0/token', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    body: 'client_id=' + window.MS365_CONFIG.clientId +
+          '&grant_type=authorization_code' +
+          '&code=' + encodeURIComponent(code) +
+          '&redirect_uri=' + encodeURIComponent(redirectUri) +
+          '&code_verifier=' + encodeURIComponent(verifier) +
+          '&scope=' + encodeURIComponent(window.MS365_CONFIG.scopes.join(' '))
+  }).then(function(r){ return r.json(); }).then(function(data){
+    if (data.access_token) {
+      var panel = document.getElementById('ms365Panel');
+      if (panel) panel.style.display = 'block';
+      onMS365Connected(data.access_token);
+    }
+  }).catch(function(e){ console.error('MS365 auth error', e); });
+}
 function onMS365Connected(token) {
   _ms365Token = token;
   var connectSection = document.getElementById('ms365ConnectSection');
@@ -3011,7 +3030,7 @@ function openManualTimeModal(){
   const ov = document.getElementById('manualTimeOverlay');
   if(!ov) return;
   // Set default date to today
-  const today = new Date().toISOString().slice(0,10);
+  var _d=new Date(); const today = _d.getFullYear()+'-'+String(_d.getMonth()+1).padStart(2,'0')+'-'+String(_d.getDate()).padStart(2,'0');
   const di = document.getElementById('mt_date');
   const si = document.getElementById('mt_start');
   const ei = document.getElementById('mt_end');
