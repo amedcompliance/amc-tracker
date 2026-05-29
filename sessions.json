@@ -2051,11 +2051,18 @@
     "project": "AMC Project",
     "category": "Work",
     "start": "2026-05-29T15:30:37.375Z",
-    "duration": 1,
+    "duration": 15,
     "date": "2026-05-29",
     "type": "tracked",
     "manual": false,
-    "screenshots": [],
+    "screenshots": [
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_5/77_1780068641126.jpg",
+        "time": "2026-05-29T15:30:41.126Z",
+        "mouse": 271,
+        "keys": 6
+      }
+    ],
     "url": null
   }
 ]
