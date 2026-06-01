@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- AMC Tracker v20260521r10  - fix OTP email template ID -->
+<!-- AMC Tracker v20260601r1 - fix: stopTimer curSess null order + show daily total on stop -->
 <!-- AMC Tracker v20260521r5 - OTP Login Build -->
 <html lang="en">
 <head>
@@ -674,7 +674,7 @@
 <script>
 // AUTO VERSION CHECK
 (function(){
-  var _ver="v20260520r2";
+  var _ver="v20260601r1";
   var _prev=sessionStorage.getItem("amc_ver");
   sessionStorage.setItem("amc_ver",_ver);
   if(_prev&&_prev!==_ver){ location.reload(true); }
@@ -1162,21 +1162,21 @@ function manualSnap(){ if(!curSess){alert('Start tracking first.');return;} capS
 
 function stopTimer(){
   clearInterval(tInt); clearInterval(ssInt); running=false;
-  if(curSess) curSess.duration=secs; curSess=null; secs=0;
+  if(curSess) curSess.duration=secs; var _sess=curSess; curSess=null; secs=0;
   document.getElementById('startBtn').disabled=false;
   document.getElementById('stopBtn').disabled=true;
   document.getElementById('timerDisp').classList.remove('running');
-  document.getElementById('timerDisp').textContent='00:00:00';
+  var _t=0,_d=todayStr();sessions.filter(s=>s.uid&&cu&&s.uid===cu.id&&s.duration&&s.date===_d).forEach(s=>_t+=s.duration);document.getElementById('timerDisp').textContent=_t>0?fmtS(_t):'00:00:00';
   document.getElementById('statusDot').classList.remove('live');
   document.getElementById('statusText').textContent='Not tracking';
   document.getElementById('ssLabel').textContent='';
   document.getElementById('permNotice').style.display='';
   // Save URL to current session if user entered one
   var _urlIn = document.getElementById('urlInput');
-  if(_urlIn && _urlIn.value.trim() && curSess) {
+  if(_urlIn && _urlIn.value.trim() && _sess) {
     var _urlRaw = _urlIn.value.trim();
     try { _urlRaw = new URL(_urlRaw.indexOf('://')!==-1?_urlRaw:'https://'+_urlRaw).hostname; } catch(e) {}
-    curSess.url = _urlRaw;
+    _sess.url = _urlRaw;
     _urlIn.value = '';
   }
   saveSessions();
