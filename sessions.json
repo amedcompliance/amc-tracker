@@ -2499,11 +2499,18 @@
     "project": "AMC Project",
     "category": "Work",
     "start": "2026-06-02T00:41:33.373Z",
-    "duration": 0,
+    "duration": 16,
     "date": "2026-06-01",
     "type": "tracked",
     "manual": false,
-    "screenshots": [],
+    "screenshots": [
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_5/83_1780360893559.jpg",
+        "time": "2026-06-02T00:41:33.559Z",
+        "mouse": 79,
+        "keys": 0
+      }
+    ],
     "url": null
   }
 ]
