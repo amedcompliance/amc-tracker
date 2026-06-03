@@ -49,8 +49,10 @@
         <input type="email" id="loginEmail" placeholder="your@email.com" style="width:100%;padding:12px;border:2px solid #e0e0e0;border-radius:8px;font-size:15px;box-sizing:border-box;outline:none;transition:border 0.2s;" onfocus="this.style.borderColor='#4a86a8'" onblur="this.style.borderColor='#e0e0e0'"/>
       </div>
       
+      <div style="margin-bottom:16px;text-align:left;"><label style="display:block;font-size:13px;font-weight:600;color:#555;margin-bottom:6px;">Password</label><input type="password" id="loginPwd1" placeholder="Enter your password" style="width:100%;padding:12px;border:2px solid #e0e0e0;border-radius:8px;font-size:15px;box-sizing:border-box;outline:none;transition:border 0.2s;" onfocus="this.style.borderColor='#4a86a8'" onblur="this.style.borderColor='#e0e0e0'" onkeydown="if(event.key==='Enter'){doEmailLogin();}"/></div>
       <div id="loginError" style="color:#e74c3c;font-size:13px;margin-bottom:12px;display:none;"></div>
-      <button id="loginContinueBtn" onclick="doEmailLogin()" style="width:100%;background:#4a86a8;color:white;border:none;padding:14px;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer;">Send Verification Code</button>
+      <button id="loginContinueBtn" onclick="doEmailLogin()" style="width:100%;background:#4a86a8;color:white;border:none;padding:14px;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer;">Sign In</button>
+      <div style="text-align:center;margin-top:10px;"><a href="#" onclick="useCodeFromStart();return false;" style="font-size:13px;color:#4a86a8;text-decoration:none;">First time here? Email me a code instead</a></div>
     </div>
     
         <!-- Microsoft Sign-In -->
@@ -2665,6 +2667,14 @@ function useEmailCodeInstead() {
   if (s1ms) s1ms.style.display = 'block';
   doEmailLogin();
 }
+function useCodeFromStart() {
+  // From the first screen: skip password and email a one-time code (used to set up a password).
+  _forceOtpFlow = true;
+  var p = document.getElementById('loginPwd1');
+  if (p) p.value = '';
+  doEmailLogin();
+}
+window.useCodeFromStart = useCodeFromStart;
 var _currentOTP = null;
 var _otpExpiry = null;
 var _otpTimerInterval = null;
@@ -2777,6 +2787,25 @@ async function doEmailLogin() {
     return;
   }
   _pendingLoginUser = user;
+  // First-screen password sign-in: if the user typed a password, try it directly.
+  var _firstPwdEl = document.getElementById('loginPwd1');
+  var _firstPwd = _firstPwdEl ? (_firstPwdEl.value || '') : '';
+  if (_firstPwd && !_forceOtpFlow) {
+    if (!getStoredPassword(email)) {
+      if (errEl) { errEl.textContent = 'No password set up yet for this account on this device. Use "Email me a code instead" to create one.'; errEl.style.display = 'block'; errEl.style.color = 'var(--danger)'; }
+      btn.disabled = false; btn.textContent = 'Sign In';
+      return;
+    }
+    if (checkStoredPassword(email, _firstPwd)) {
+      markDeviceTrusted(email);
+      completeLogin(_pendingLoginUser);
+      return;
+    } else {
+      if (errEl) { errEl.textContent = 'Incorrect password. Please try again.'; errEl.style.display = 'block'; errEl.style.color = 'var(--danger)'; }
+      btn.disabled = false; btn.textContent = 'Sign In';
+      return;
+    }
+  }
   // Returning user with a password set -> ask for password instead of emailing a code.
   if (getStoredPassword(email) && !_forceOtpFlow) {
     if (errEl) { errEl.style.display = 'none'; }
