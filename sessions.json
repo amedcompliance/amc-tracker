@@ -2676,7 +2676,7 @@
     "project": "AMC Project",
     "category": "Work",
     "start": "2026-06-03T15:58:06.964Z",
-    "duration": 5401,
+    "duration": 5416,
     "date": "2026-06-03",
     "type": "tracked",
     "manual": false,
@@ -2714,6 +2714,12 @@
       {
         "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_5/90_1780506791268.jpg",
         "time": "2026-06-03T17:13:11.268Z",
+        "mouse": 1,
+        "keys": 0
+      },
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_5/90_1780507691193.jpg",
+        "time": "2026-06-03T17:28:11.193Z",
         "mouse": 1,
         "keys": 0
       }
