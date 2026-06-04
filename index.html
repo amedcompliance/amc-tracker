@@ -293,6 +293,27 @@
       <button class="btn" onclick="exportCSV()">Export CSV</button>
     </div>
   </div>
+  <div class="card" id="bwCard">
+    <div class="card-title">📅 Bi-Weekly Work Hours (Mon–Sun)</div>
+    <div style="font-size:12px;color:var(--text2);margin-bottom:10px">Daily and total work hours across full Monday–Sunday weeks. Uses the Employee filter above (All users or a single person).</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;margin-bottom:6px">
+      <div style="min-width:170px"><label style="font-size:11px;font-weight:500;color:var(--text2);display:block;margin-bottom:5px">Period</label><select id="bwWeeks"><option value="2" selected>Last 2 weeks</option><option value="1">Last 1 week</option><option value="4">Last 4 weeks</option></select></div>
+      <button class="btn btn-primary" onclick="runBiWeekly()">Run report</button>
+      <button class="btn" onclick="bwExportCSV()">Export CSV</button>
+    </div>
+    <div id="bwReport" style="margin-top:12px"></div>
+    <div style="border-top:1px solid var(--border);margin-top:16px;padding-top:14px">
+      <div class="card-title" style="font-size:14px">⏰ Automate this report</div>
+      <div style="font-size:12px;color:var(--text2);margin-bottom:10px">When due, the report is sent automatically the next time the app is opened. Configure the n8n / Microsoft Teams webhook on the HR Alerts page first.</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end">
+        <div style="min-width:150px"><label style="font-size:11px;font-weight:500;color:var(--text2);display:block;margin-bottom:5px">Frequency</label><select id="bwFreq"><option value="off">Off</option><option value="weekly">Weekly (Mon)</option><option value="biweekly">Bi-weekly (Mon)</option></select></div>
+        <div style="min-width:150px"><label style="font-size:11px;font-weight:500;color:var(--text2);display:block;margin-bottom:5px">Send to</label><select id="bwDest"><option value="n8n">n8n webhook</option><option value="teams">Microsoft Teams</option></select></div>
+        <button class="btn btn-primary" onclick="saveReportSchedule()">Save schedule</button>
+        <span id="bwSchSt" class="badge" style="display:none"></span>
+      </div>
+      <div id="bwSchInfo" style="font-size:12px;color:var(--text2);margin-top:8px"></div>
+    </div>
+  </div>
   <div id="rptSummary" style="display:none">
     <div class="metric-grid">
       <div class="metric"><div class="metric-label">Employees</div><div class="metric-value" id="rs-emp">0</div></div>
@@ -1086,7 +1107,7 @@ function goTo(name){
 }
   if(name==='activity'){ if(cu && cu.role==='admin') fetchSessionsFromGitHub(); renderActivity(); }
   if(name==='insights') renderInsights();
-  if(name==='reports'){ populateRptUsers(); applyRange(); }
+  if(name==='reports'){ populateRptUsers(); applyRange(); bwRefreshScheduleUI(); checkReportSchedule(); }
   if(name==='leaves'){ populateLvFilter(); renderLeaveBalances(); renderLeaveLog(); }
   if(name==='admin'){ buildDeptFilter(); renderUsers(); renderDepts(); renderShifts(); renderApprovals(); renderAdj(); populateAdjFilters(); renderRoles(); }
   var _asn=document.getElementById('adminSubNav'); var _ach=document.getElementById('adminNavChevron'); var _ap=document.getElementById('adminNavParent'); if(_asn&&_asn.style.display==='none'){_asn.style.display='block';if(_ach)_ach.style.transform='rotate(180deg)';if(_ap)_ap.classList.add('active');}
@@ -2029,6 +2050,119 @@ function renderRptBar(rows,from,to){
   const h=Math.max(rows.length*44+80,160); wrap.style.height=h+'px';
   if(rptBarO){rptBarO.destroy();rptBarO=null;}
   rptBarO=new Chart(document.getElementById('rptBarChart'),{type:'bar',data:{labels:rows.map(r=>r.u.name.split(' ')[0]),datasets:[{label:'Total hours',data:rows.map(r=>parseFloat((r.totalSec/3600).toFixed(1))),backgroundColor:rows.map((_,i)=>CHART_COLORS[i%CHART_COLORS.length]),borderRadius:6,borderSkipped:false}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{beginAtZero:true,ticks:{callback:v=>v+'h'},grid:{color:'rgba(128,128,128,0.08)'}},y:{grid:{display:false}}}}});
+}
+
+// ===== Bi-Weekly Work Hours report =====
+function bwFmt(dt){ return dt.getFullYear()+"-"+String(dt.getMonth()+1).padStart(2,"0")+"-"+String(dt.getDate()).padStart(2,"0"); }
+function bwParse(s){ var p=String(s).split("-"); return new Date(+p[0], +p[1]-1, +p[2]); }
+function bwMonday(s){ var dt=bwParse(s); var day=dt.getDay()||7; dt.setDate(dt.getDate()-(day-1)); return bwFmt(dt); }
+function bwAdd(s,n){ var dt=bwParse(s); dt.setDate(dt.getDate()+n); return bwFmt(dt); }
+function bwDow(s){ return ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][bwParse(s).getDay()]; }
+function bwBuildData(weeks){
+  var uid = document.getElementById("rptUser") ? document.getElementById("rptUser").value : "";
+  var emps = cu.role==="admin" ? (uid?users.filter(function(u){return u.id==uid;}):users.filter(function(u){return u.role!=="admin";})) : cu.role==="manager" ? (uid?users.filter(function(u){return u.id==uid;}):users.filter(function(u){return u.role==="employee";})) : [cu];
+  var thisMon = bwMonday(todayStr());
+  var startMon = bwAdd(thisMon, -7*weeks);
+  var lastDay = bwAdd(thisMon, -1);
+  var dayList = []; var d = startMon;
+  while(d <= lastDay){ dayList.push(d); d = bwAdd(d,1); }
+  var rows = emps.map(function(u){
+    var us = sessions.filter(function(s){return s.uid==u.id && s.duration>0;});
+    var perDay = {}; var total = 0;
+    dayList.forEach(function(dt){ var sec = us.filter(function(s){return s.date===dt;}).reduce(function(a,s){return a+s.duration;},0); perDay[dt]=sec; total+=sec; });
+    return {u:u, perDay:perDay, total:total};
+  });
+  return {rows:rows, days:dayList, startMon:startMon, lastDay:lastDay, weeks:weeks};
+}
+function bwRenderTable(data){
+  var days=data.days, rows=data.rows;
+  var head = "<th style=\"text-align:left\">Employee</th>";
+  days.forEach(function(dt){ head += "<th style=\"text-align:center;font-size:10px;white-space:nowrap\">"+bwDow(dt)+"<br><span style=\"color:var(--text2);font-weight:400\">"+dt.slice(5)+"</span></th>"; });
+  head += "<th style=\"text-align:right\">Total</th>";
+  var body = rows.map(function(r){
+    var tds = days.map(function(dt){ var sec=r.perDay[dt]; var txt = sec>0 ? (sec/3600).toFixed(1) : "\u2013"; var col = sec>0 ? "var(--text)" : "var(--text2)"; return "<td style=\"text-align:center;font-family:var(--mono);color:"+col+"\">"+txt+"</td>"; }).join("");
+    return "<tr><td style=\"font-weight:500\">"+r.u.name+"</td>"+tds+"<td style=\"text-align:right;font-weight:600;font-family:var(--mono)\">"+(r.total/3600).toFixed(1)+"h</td></tr>";
+  }).join("");
+  var grand = rows.reduce(function(a,r){return a+r.total;},0);
+  var foot = "<tr style=\"border-top:2px solid var(--border)\"><td style=\"font-weight:600\">All total</td>";
+  days.forEach(function(dt){ var sec=rows.reduce(function(a,r){return a+(r.perDay[dt]||0);},0); foot += "<td style=\"text-align:center;font-family:var(--mono);font-weight:600\">"+(sec>0?(sec/3600).toFixed(1):"\u2013")+"</td>"; });
+  foot += "<td style=\"text-align:right;font-weight:700;font-family:var(--mono)\">"+(grand/3600).toFixed(1)+"h</td></tr>";
+  return "<div class=\"table-wrap\" style=\"overflow-x:auto\"><table style=\"min-width:100%\"><thead><tr>"+head+"</tr></thead><tbody>"+body+foot+"</tbody></table></div>";
+}
+function bwWeekSummary(data){
+  var weeks=[]; for(var w=0; w<data.weeks; w++){ var ws=bwAdd(data.startMon, w*7); var we=bwAdd(ws,6); var sec=0; data.rows.forEach(function(r){ for(var i=0;i<7;i++){ sec += (r.perDay[bwAdd(ws,i)]||0); } }); weeks.push({ws:ws,we:we,sec:sec}); }
+  return "<div style=\"display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px\">"+weeks.map(function(wk){ return "<div class=\"metric\" style=\"flex:1;min-width:160px\"><div class=\"metric-label\">Week of "+wk.ws.slice(5)+" \u2013 "+wk.we.slice(5)+"</div><div class=\"metric-value\">"+(wk.sec/3600).toFixed(1)+"h</div></div>"; }).join("")+"</div>";
+}
+function runBiWeekly(){
+  var weeks = parseInt((document.getElementById("bwWeeks")||{}).value || "2", 10) || 2;
+  var data = bwBuildData(weeks);
+  window._bwData = data;
+  var html = "<div style=\"font-size:12px;color:var(--text2);margin-bottom:10px\">Period: <strong>"+data.startMon+"</strong> (Mon) to <strong>"+data.lastDay+"</strong> (Sun) \u2022 hours per day</div>";
+  html += bwWeekSummary(data);
+  html += bwRenderTable(data);
+  document.getElementById("bwReport").innerHTML = html;
+}
+function bwExportCSV(){
+  if(!window._bwData){ alert("Run the bi-weekly report first."); return; }
+  var data=window._bwData;
+  var csv = "AMC Bi-Weekly Work Hours\n"+data.startMon+" (Mon) to "+data.lastDay+" (Sun)\n\nEmployee,"+data.days.map(function(d){return bwDow(d)+" "+d;}).join(",")+",Total Hours\n";
+  data.rows.forEach(function(r){ csv += "\""+r.u.name+"\","+data.days.map(function(d){return (r.perDay[d]/3600).toFixed(2);}).join(",")+","+(r.total/3600).toFixed(2)+"\n"; });
+  var a=document.createElement("a"); a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"})); a.download="amc-biweekly-hours-"+data.startMon+"-to-"+data.lastDay+".csv"; a.click();
+}
+var BW_SCH_KEY = "amc_report_schedule";
+function loadReportSchedule(){
+  try{ return JSON.parse(localStorage.getItem(BW_SCH_KEY)) || null; }catch(e){ return null; }
+}
+function bwRefreshScheduleUI(){
+  var sch = loadReportSchedule();
+  var info = document.getElementById("bwSchInfo"); if(!info) return;
+  if(!sch || sch.freq==="off"){ if(document.getElementById("bwFreq")) document.getElementById("bwFreq").value="off"; info.textContent = "Automation is off."; return; }
+  if(document.getElementById("bwFreq")) document.getElementById("bwFreq").value = sch.freq;
+  if(document.getElementById("bwDest")) document.getElementById("bwDest").value = sch.dest;
+  var destName = sch.dest==="teams" ? "Microsoft Teams" : "n8n webhook";
+  info.innerHTML = "Sending <strong>"+sch.freq+"</strong> to <strong>"+destName+"</strong>." + (sch.lastSent ? " Last sent: "+sch.lastSent+"." : " Not sent yet.") + " Checked when you open Reports.";
+}
+function saveReportSchedule(){
+  var freq = document.getElementById("bwFreq").value;
+  var dest = document.getElementById("bwDest").value;
+  var prev = loadReportSchedule() || {};
+  var sch = { freq:freq, dest:dest, weeks: parseInt((document.getElementById("bwWeeks")||{}).value||"2",10)||2, lastSent: prev.lastSent || null };
+  localStorage.setItem(BW_SCH_KEY, JSON.stringify(sch));
+  var sp=document.getElementById("bwSchSt"); if(sp){ sp.style.display="inline-block"; sp.className="badge badge-teal"; sp.textContent = freq==="off" ? "Automation off" : "Saved"; }
+  try{ addAudit(cu.id, "Report schedule saved", "System", "Bi-weekly report "+freq+" to "+dest); }catch(e){}
+  bwRefreshScheduleUI();
+}
+function bwIsDue(sch){
+  var thisMon = bwMonday(todayStr());
+  if(!sch.lastSent) return true;
+  var lastMon = bwMonday(sch.lastSent);
+  var diffWeeks = Math.round((bwParse(thisMon)-bwParse(lastMon))/(7*86400000));
+  if(sch.freq==="weekly") return diffWeeks >= 1;
+  if(sch.freq==="biweekly") return diffWeeks >= 2;
+  return false;
+}
+async function bwSendReport(sch, silent){
+  var weeks = sch.weeks || 2;
+  var data = bwBuildData(weeks);
+  var grand = data.rows.reduce(function(a,r){return a+r.total;},0);
+  if(sch.dest==="teams"){
+    if(!teamsWebhookUrl){ if(!silent) alert("Set the Microsoft Teams webhook on the HR Alerts page first."); return false; }
+    var facts = data.rows.map(function(r){ return { name:r.u.name, value:(r.total/3600).toFixed(1)+"h" }; });
+    var card = { "@type":"MessageCard", "@context":"http://schema.org/extensions", themeColor:"2563eb", summary:"AMC Work Hours Report", title:"AMC Work Hours \u2014 "+data.startMon+" to "+data.lastDay, sections:[{ activitySubtitle:"Total "+(grand/3600).toFixed(1)+"h across "+data.rows.length+" employee(s)", facts:facts }] };
+    try{ await fetch(teamsWebhookUrl,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(card)}); }catch(e){ if(!silent) alert("Failed to send to Teams."); return false; }
+  } else {
+    if(!webhookUrl){ if(!silent) alert("Set the n8n webhook on the HR Alerts page first."); return false; }
+    var payload = { type:"work_hours_report", period:{from:data.startMon, to:data.lastDay}, totalHours:+(grand/3600).toFixed(2), employees: data.rows.map(function(r){ return { id:r.u.id, name:r.u.name, totalHours:+(r.total/3600).toFixed(2), daily: data.days.map(function(d){ return { date:d, hours:+(r.perDay[d]/3600).toFixed(2) }; }) }; }) };
+    try{ await fetch(webhookUrl,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)}); }catch(e){ if(!silent) alert("Failed to send to n8n."); return false; }
+  }
+  sch.lastSent = todayStr(); localStorage.setItem(BW_SCH_KEY, JSON.stringify(sch));
+  return true;
+}
+async function checkReportSchedule(){
+  var sch = loadReportSchedule();
+  if(!sch || sch.freq==="off") return;
+  if(bwIsDue(sch)){ var ok = await bwSendReport(sch, true); if(ok){ try{ addAudit(cu.id, "Scheduled report sent", "System", "Work hours report auto-sent to "+sch.dest); }catch(e){} } }
+  bwRefreshScheduleUI();
 }
 
 function exportCSV(){
