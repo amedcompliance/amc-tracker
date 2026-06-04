@@ -307,7 +307,8 @@
       <div style="font-size:12px;color:var(--text2);margin-bottom:10px">When due, the report is sent automatically the next time the app is opened. Configure the n8n / Microsoft Teams webhook on the HR Alerts page first.</div>
       <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end">
         <div style="min-width:150px"><label style="font-size:11px;font-weight:500;color:var(--text2);display:block;margin-bottom:5px">Frequency</label><select id="bwFreq"><option value="off">Off</option><option value="weekly">Weekly (Mon)</option><option value="biweekly">Bi-weekly (Mon)</option></select></div>
-        <div style="min-width:150px"><label style="font-size:11px;font-weight:500;color:var(--text2);display:block;margin-bottom:5px">Send to</label><select id="bwDest"><option value="n8n">n8n webhook</option><option value="teams">Microsoft Teams</option></select></div>
+        <div style="min-width:150px"><label style="font-size:11px;font-weight:500;color:var(--text2);display:block;margin-bottom:5px">Send to</label><select id="bwDest" onchange="bwToggleEmailField()"><option value="n8n">n8n webhook</option><option value="teams">Microsoft Teams</option><option value="email">Email</option></select></div>
+        <div id="bwEmailWrap" style="min-width:200px;display:none"><label style="font-size:11px;font-weight:500;color:var(--text2);display:block;margin-bottom:5px">Recipient email(s)</label><input id="bwEmailTo" type="text" placeholder="name@example.com, name2@..." style="width:100%"/></div>
         <button class="btn btn-primary" onclick="saveReportSchedule()">Save schedule</button>
         <span id="bwSchSt" class="badge" style="display:none"></span>
       </div>
@@ -2119,14 +2120,22 @@ function bwRefreshScheduleUI(){
   if(!sch || sch.freq==="off"){ if(document.getElementById("bwFreq")) document.getElementById("bwFreq").value="off"; info.textContent = "Automation is off."; return; }
   if(document.getElementById("bwFreq")) document.getElementById("bwFreq").value = sch.freq;
   if(document.getElementById("bwDest")) document.getElementById("bwDest").value = sch.dest;
-  var destName = sch.dest==="teams" ? "Microsoft Teams" : "n8n webhook";
+  if(document.getElementById("bwEmailTo")) document.getElementById("bwEmailTo").value = sch.email || "";
+  bwToggleEmailField();
+  var destName = sch.dest==="teams" ? "Microsoft Teams" : (sch.dest==="email" ? "Email" : "n8n webhook");
   info.innerHTML = "Sending <strong>"+sch.freq+"</strong> to <strong>"+destName+"</strong>." + (sch.lastSent ? " Last sent: "+sch.lastSent+"." : " Not sent yet.") + " Checked when you open Reports.";
+}
+function bwToggleEmailField(){
+  var d=(document.getElementById("bwDest")||{}).value;
+  var w=document.getElementById("bwEmailWrap");
+  if(w) w.style.display = (d==="email") ? "block" : "none";
 }
 function saveReportSchedule(){
   var freq = document.getElementById("bwFreq").value;
   var dest = document.getElementById("bwDest").value;
   var prev = loadReportSchedule() || {};
-  var sch = { freq:freq, dest:dest, weeks: parseInt((document.getElementById("bwWeeks")||{}).value||"2",10)||2, lastSent: prev.lastSent || null };
+  var emailTo = (document.getElementById("bwEmailTo")||{}).value || prev.email || "";
+  var sch = { freq:freq, dest:dest, email:emailTo, weeks: parseInt((document.getElementById("bwWeeks")||{}).value||"2",10)||2, lastSent: prev.lastSent || null };
   localStorage.setItem(BW_SCH_KEY, JSON.stringify(sch));
   var sp=document.getElementById("bwSchSt"); if(sp){ sp.style.display="inline-block"; sp.className="badge badge-teal"; sp.textContent = freq==="off" ? "Automation off" : "Saved"; }
   try{ addAudit(cu.id, "Report schedule saved", "System", "Bi-weekly report "+freq+" to "+dest); }catch(e){}
@@ -2150,6 +2159,19 @@ async function bwSendReport(sch, silent){
     var facts = data.rows.map(function(r){ return { name:r.u.name, value:(r.total/3600).toFixed(1)+"h" }; });
     var card = { "@type":"MessageCard", "@context":"http://schema.org/extensions", themeColor:"2563eb", summary:"AMC Work Hours Report", title:"AMC Work Hours \u2014 "+data.startMon+" to "+data.lastDay, sections:[{ activitySubtitle:"Total "+(grand/3600).toFixed(1)+"h across "+data.rows.length+" employee(s)", facts:facts }] };
     try{ await fetch(teamsWebhookUrl,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(card)}); }catch(e){ if(!silent) alert("Failed to send to Teams."); return false; }
+  } else if(sch.dest==="email"){
+    var recips = (sch.email||"").split(/[,;\s]+/).filter(function(x){return x.indexOf("@")>-1;});
+    if(!recips.length){ if(!silent) alert("Add at least one recipient email in the schedule."); return false; }
+    if(!(window._ejsKey && window.emailjs)){ if(!silent) alert("Email is not configured (EmailJS)."); return false; }
+    var lines = data.rows.map(function(r){ return r.u.name + ": " + (r.total/3600).toFixed(1) + "h"; }).join("\n");
+    var body = "AMC Work Hours Report\n" + data.startMon + " to " + data.lastDay + "\n\n" + lines + "\n\nTotal: " + (grand/3600).toFixed(1) + "h across " + data.rows.length + " employee(s).";
+    var subj = "AMC Work Hours Report (" + data.startMon + " to " + data.lastDay + ")";
+    var okAll = true;
+    for(var ri=0; ri<recips.length; ri++){
+      try{ await window.emailjs.send(window._ejsService, window._ejsTemplate, {to_email:recips[ri], otp_code:body, message:body, subject:subj, app_name:"AMC Time Tracker"}, {publicKey:window._ejsKey}); }
+      catch(e){ okAll=false; console.error("Report email failed:", e); }
+    }
+    if(!okAll){ if(!silent) alert("One or more report emails failed to send."); return false; }
   } else {
     if(!webhookUrl){ if(!silent) alert("Set the n8n webhook on the HR Alerts page first."); return false; }
     var payload = { type:"work_hours_report", period:{from:data.startMon, to:data.lastDay}, totalHours:+(grand/3600).toFixed(2), employees: data.rows.map(function(r){ return { id:r.u.id, name:r.u.name, totalHours:+(r.total/3600).toFixed(2), daily: data.days.map(function(d){ return { date:d, hours:+(r.perDay[d]/3600).toFixed(2) }; }) }; }) };
