@@ -297,7 +297,7 @@
     <div class="card-title">📅 Bi-Weekly Work Hours (Mon–Sun)</div>
     <div style="font-size:12px;color:var(--text2);margin-bottom:10px">Daily and total work hours across full Monday–Sunday weeks. Uses the Employee filter above (All users or a single person).</div>
     <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;margin-bottom:6px">
-      <div style="min-width:170px"><label style="font-size:11px;font-weight:500;color:var(--text2);display:block;margin-bottom:5px">Period</label><select id="bwWeeks"><option value="2" selected>Last 2 weeks</option><option value="1">Last 1 week</option><option value="4">Last 4 weeks</option></select></div>
+      <div style="min-width:170px"><label style="font-size:11px;font-weight:500;color:var(--text2);display:block;margin-bottom:5px">Period</label><select id="bwWeeks" onchange="bwToggleCustom()"><option value="2" selected>Last 2 weeks</option><option value="1">Last 1 week</option><option value="4">Last 4 weeks</option><option value="custom">Custom range…</option></select></div><div id="bwCustomFrom" style="min-width:150px;display:none"><label style="font-size:11px;font-weight:500;color:var(--text2);display:block;margin-bottom:5px">From</label><input type="date" id="bwFrom" style="width:100%"></div><div id="bwCustomTo" style="min-width:150px;display:none"><label style="font-size:11px;font-weight:500;color:var(--text2);display:block;margin-bottom:5px">To</label><input type="date" id="bwTo" style="width:100%"></div>
       <button class="btn btn-primary" onclick="runBiWeekly()">Run report</button>
       <button class="btn" onclick="bwExportCSV()">Export CSV</button>
     </div>
@@ -2059,12 +2059,17 @@ function bwParse(s){ var p=String(s).split("-"); return new Date(+p[0], +p[1]-1,
 function bwMonday(s){ var dt=bwParse(s); var day=dt.getDay()||7; dt.setDate(dt.getDate()-(day-1)); return bwFmt(dt); }
 function bwAdd(s,n){ var dt=bwParse(s); dt.setDate(dt.getDate()+n); return bwFmt(dt); }
 function bwDow(s){ return ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][bwParse(s).getDay()]; }
-function bwBuildData(weeks){
+function bwBuildData(weeks, customFrom, customTo){
   var uid = document.getElementById("rptUser") ? document.getElementById("rptUser").value : "";
   var emps = cu.role==="admin" ? (uid?users.filter(function(u){return u.id==uid;}):users.filter(function(u){return u.role!=="admin";})) : cu.role==="manager" ? (uid?users.filter(function(u){return u.id==uid;}):users.filter(function(u){return u.role==="employee";})) : [cu];
-  var thisMon = bwMonday(todayStr());
-  var startMon = bwAdd(thisMon, -7*weeks);
-  var lastDay = bwAdd(thisMon, -1);
+  var startMon, lastDay;
+  if(customFrom && customTo){
+    startMon = customFrom; lastDay = customTo;
+  } else {
+    var thisMon = bwMonday(todayStr());
+    startMon = bwAdd(thisMon, -7*weeks);
+    lastDay = bwAdd(thisMon, -1);
+  }
   var dayList = []; var d = startMon;
   while(d <= lastDay){ dayList.push(d); d = bwAdd(d,1); }
   var rows = emps.map(function(u){
@@ -2073,7 +2078,7 @@ function bwBuildData(weeks){
     dayList.forEach(function(dt){ var sec = us.filter(function(s){return s.date===dt;}).reduce(function(a,s){return a+s.duration;},0); perDay[dt]=sec; total+=sec; });
     return {u:u, perDay:perDay, total:total};
   });
-  return {rows:rows, days:dayList, startMon:startMon, lastDay:lastDay, weeks:weeks};
+  return {rows:rows, days:dayList, startMon:startMon, lastDay:lastDay, weeks:weeks, custom:!!(customFrom&&customTo)};
 }
 function bwRenderTable(data){
   var days=data.days, rows=data.rows;
@@ -2094,9 +2099,25 @@ function bwWeekSummary(data){
   var weeks=[]; for(var w=0; w<data.weeks; w++){ var ws=bwAdd(data.startMon, w*7); var we=bwAdd(ws,6); var sec=0; data.rows.forEach(function(r){ for(var i=0;i<7;i++){ sec += (r.perDay[bwAdd(ws,i)]||0); } }); weeks.push({ws:ws,we:we,sec:sec}); }
   return "<div style=\"display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px\">"+weeks.map(function(wk){ return "<div class=\"metric\" style=\"flex:1;min-width:160px\"><div class=\"metric-label\">Week of "+wk.ws.slice(5)+" \u2013 "+wk.we.slice(5)+"</div><div class=\"metric-value\">"+(wk.sec/3600).toFixed(1)+"h</div></div>"; }).join("")+"</div>";
 }
+function bwToggleCustom(){
+  var sel = (document.getElementById("bwWeeks")||{}).value;
+  var show = sel === "custom" ? "block" : "none";
+  var f = document.getElementById("bwCustomFrom"); if(f) f.style.display = show;
+  var tt = document.getElementById("bwCustomTo"); if(tt) tt.style.display = show;
+}
 function runBiWeekly(){
-  var weeks = parseInt((document.getElementById("bwWeeks")||{}).value || "2", 10) || 2;
-  var data = bwBuildData(weeks);
+  var selv = (document.getElementById("bwWeeks")||{}).value || "2";
+  var data;
+  if(selv === "custom"){
+    var fromV = (document.getElementById("bwFrom")||{}).value;
+    var toV = (document.getElementById("bwTo")||{}).value;
+    if(!fromV || !toV){ alert("Please select both From and To dates."); return; }
+    if(fromV > toV){ var tmp=fromV; fromV=toV; toV=tmp; }
+    data = bwBuildData(null, fromV, toV);
+  } else {
+    var weeks = parseInt(selv, 10) || 2;
+    data = bwBuildData(weeks);
+  }
   window._bwData = data;
   var html = "<div style=\"font-size:12px;color:var(--text2);margin-bottom:10px\">Period: <strong>"+data.startMon+"</strong> (Mon) to <strong>"+data.lastDay+"</strong> (Sun) \u2022 hours per day</div>";
   html += bwWeekSummary(data);
