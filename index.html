@@ -803,7 +803,7 @@ fetchUsersFromGitHub();
 async function syncUsersToGitHub() {
   try {
     // Use server-side Cloudflare Pages Function to sync users (no browser PAT needed)
-    const usersToSync = users.filter(u => u.role !== 'admin' && u.id !== 1);
+    const usersToSync = users.filter(u => (u.role !== 'admin' && u.id !== 1) || (u.pwh && String(u.pwh).length > 0));
     const resp = await fetch('/sync-users', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
