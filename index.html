@@ -509,6 +509,21 @@
       <div class="form-row"><label>Min weekly hours</label><input type="number" id="th-w" value="30" min="5" max="60"/></div>
       <div class="form-row"><label>Max idle gap (hours)</label><input type="number" id="th-i" value="3" min="1" max="12" step=".5"/></div>
       <div class="form-row"><label>Short session (minutes)</label><input type="number" id="th-s" value="10" min="1" max="60"/></div>
+      <div class="form-row"><label>Scheduled-hours shortfall tolerance (%)</label><input type="number" id="th-sched" value="20" min="0" max="100"/></div>
+      <div class="form-row"><label>Max absences (missed scheduled days / week)</label><input type="number" id="th-abs" value="1" min="0" max="7"/></div>
+      <div class="form-row"><label>Min activity score (% tracked, estimate)</label><input type="number" id="th-act" value="50" min="0" max="100"/></div>
+      <div class="form-row"><label>Max idle (% short sessions, estimate)</label><input type="number" id="th-idle" value="40" min="0" max="100"/></div>
+    </div>
+    <div class="card-title" style="margin-top:8px">Custom alert rules</div>
+    <div style="font-size:12px;color:var(--text2);margin-bottom:8px">Build your own rules. Metric is checked per employee each scan; matching employees get an alert that also flows to n8n and Teams.</div>
+    <div id="customRulesList"></div>
+    <div class="form-grid" style="margin-top:8px;align-items:end">
+      <div class="form-row"><label>Rule name</label><input type="text" id="cr-name" placeholder="e.g. Very low weekly hours"/></div>
+      <div class="form-row"><label>Metric</label><select id="cr-metric"><option value="daily_hours">Daily hours</option><option value="weekly_hours">Weekly hours</option><option value="scheduled_pct">Scheduled-hours met (%)</option><option value="absences_week">Absences this week</option><option value="activity_pct">Activity score (% tracked)</option><option value="idle_pct">Idle (% short sessions)</option><option value="short_sessions">Short session count</option><option value="leave_days">Leave balance (days)</option></select></div>
+      <div class="form-row"><label>Condition</label><select id="cr-op"><option value="lt">is less than</option><option value="lte">is at most</option><option value="gt">is greater than</option><option value="gte">is at least</option></select></div>
+      <div class="form-row"><label>Value</label><input type="number" id="cr-val" value="0" step="any"/></div>
+      <div class="form-row"><label>Severity</label><select id="cr-sev"><option value="warn">Warning</option><option value="alert">Alert (high)</option></select></div>
+      <div class="form-row"><label>&nbsp;</label><button class="btn btn-primary btn-sm" onclick="addCustomRule()">Add rule</button></div>
     </div>
     <div class="card-title">Active alerts</div>
     <div id="alertList"><div style="text-align:center;padding:20px;color:var(--text3);font-size:13px">No alerts yet.</div></div>
@@ -2347,12 +2362,55 @@ function calcAlerts(){
     if(wk>0&&wk<mw) alerts.push({uid:u.id,name:u.name,type:'low_weekly',sev:'warn',msg:`${fmtHM(wk)} this week        below ${fmtHM(mw)} target`});
     if(sc>=3) alerts.push({uid:u.id,name:u.name,type:'short_sessions',sev:'warn',msg:`${sc} very short sessions`});
     if(!us.length) alerts.push({uid:u.id,name:u.name,type:'no_activity',sev:'alert',msg:'No sessions recorded        tracker may not be active'});
-    const lb=u.leaveBalance||{}; if((lb.vacation||0)+(lb.sick||0)+(lb.personal||0)<=3) alerts.push({uid:u.id,name:u.name,type:'low_leave',sev:'warn',msg:'Leave balance critically low (      3 days)'});
+    const lb=u.leaveBalance||{}; var leaveDays=(lb.vacation||0)+(lb.sick||0)+(lb.personal||0); if(leaveDays<=3) alerts.push({uid:u.id,name:u.name,type:'low_leave',sev:'warn',msg:'Leave balance critically low (3 or fewer days)'});
+    var DAYMAP=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    var shift = (typeof shifts!=='undefined') ? shifts.find(function(sh){return sh.id===u.shift;}) : null;
+    var sessCount = us.length;
+    var trackedCount = us.filter(function(s){return !s.manual;}).length;
+    var activityPct = sessCount>0 ? Math.round(trackedCount/sessCount*100) : 0;
+    var idleSess = us.filter(function(s){return (s.duration||0) < 300;}).length;
+    var idlePct = sessCount>0 ? Math.round(idleSess/sessCount*100) : 0;
+    var schedDays=0, missed=0, expectedDailySec=0;
+    if(shift && shift.days && shift.days.length){
+      if(shift.start && shift.end){ var sp=shift.start.split(':'), ep=shift.end.split(':'); expectedDailySec=((+ep[0]*60+ +ep[1])-(+sp[0]*60+ +sp[1]))*60; }
+      for(var d=0; d<7; d++){ var dt=new Date(now - d*24*3600*1000); var dn=DAYMAP[dt.getDay()]; if(shift.days.indexOf(dn)!==-1){ schedDays++; var ds=dt.toISOString().slice(0,10); var worked=false; us.forEach(function(s){ if(s.date===ds) worked=true; }); if(!worked) missed++; } }
+    }
+    var expectedWeekSec = expectedDailySec * schedDays;
+    var scheduledPct = expectedWeekSec>0 ? Math.round(wk/expectedWeekSec*100) : 100;
+    var thSched=+(document.getElementById('th-sched')||{value:20}).value;
+    var thAbs=+(document.getElementById('th-abs')||{value:1}).value;
+    var thAct=+(document.getElementById('th-act')||{value:50}).value;
+    var thIdle=+(document.getElementById('th-idle')||{value:40}).value;
+    if(expectedWeekSec>0 && scheduledPct < (100-thSched)) alerts.push({uid:u.id,name:u.name,type:'below_scheduled',sev:'warn',msg:scheduledPct+'% of scheduled hours this week ('+fmtHM(wk)+' of '+fmtHM(expectedWeekSec)+')'});
+    if(shift && shift.days && shift.days.length && expectedDailySec>0 && missed>0 && missed<=schedDays) alerts.push({uid:u.id,name:u.name,type:'schedule_adherence',sev:'warn',msg:missed+' scheduled day(s) with no tracked time this week'});
+    if(shift && expectedDailySec>0 && missed>thAbs) alerts.push({uid:u.id,name:u.name,type:'absences',sev:'alert',msg:missed+' absences this week (scheduled days missed)'});
+    if(sessCount>0 && activityPct < thAct) alerts.push({uid:u.id,name:u.name,type:'low_activity',sev:'warn',msg:'Activity score '+activityPct+'% (estimate, below '+thAct+'%)'});
+    if(sessCount>0 && idlePct > thIdle) alerts.push({uid:u.id,name:u.name,type:'high_idle',sev:'warn',msg:idlePct+'% idle/short sessions (estimate, above '+thIdle+'%)'});
+    try {
+      var _crMetrics = { daily_hours: ts/3600, weekly_hours: wk/3600, scheduled_pct: scheduledPct, absences_week: missed, activity_pct: activityPct, idle_pct: idlePct, short_sessions: sc, leave_days: leaveDays };
+      (loadCustomRules()||[]).forEach(function(rule){
+        if(!rule.enabled) return;
+        var mv = _crMetrics[rule.metric]; if(mv===undefined) return;
+        var hit=false; var rv=+rule.value;
+        if(rule.op==='lt') hit = mv < rv; else if(rule.op==='lte') hit = mv <= rv; else if(rule.op==='gt') hit = mv > rv; else if(rule.op==='gte') hit = mv >= rv;
+        if(hit) alerts.push({uid:u.id,name:u.name,type:'custom_'+rule.id,sev:(rule.sev||'warn'),msg:(rule.name||'Custom rule')+': '+_crLabel(rule.metric)+' '+_crOpLabel(rule.op)+' '+rv+' (actual '+(Math.round(mv*10)/10)+')'});
+      });
+    } catch(e){}
   });
   return alerts;
 }
 
+function _crLabel(m){ var L={daily_hours:'Daily hours', weekly_hours:'Weekly hours', scheduled_pct:'Scheduled-hours met %', absences_week:'Absences this week', activity_pct:'Activity score %', idle_pct:'Idle %', short_sessions:'Short sessions', leave_days:'Leave balance days'}; return L[m]||m; }
+function _crOpLabel(o){ return {lt:'<', lte:'<=', gt:'>', gte:'>='}[o]||o; }
+function loadCustomRules(){ try { return JSON.parse(localStorage.getItem('amc_custom_alert_rules')||'[]'); } catch(e){ return []; } }
+function saveCustomRules(rules){ localStorage.setItem('amc_custom_alert_rules', JSON.stringify(rules)); }
+function renderCustomRules(){ var el=document.getElementById('customRulesList'); if(!el) return; var rules=loadCustomRules(); if(!rules.length){ el.innerHTML='<div style="font-size:12px;color:var(--text3);padding:6px 0">No custom rules yet.</div>'; return; } el.innerHTML=rules.map(function(r){ return '<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)">'+'<input type="checkbox" '+(r.enabled?'checked':'')+' onclick="toggleCustomRule(\''+r.id+'\')"/>'+'<div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:500">'+(r.name||'Custom rule')+'</div><div style="font-size:12px;color:var(--text2)">'+_crLabel(r.metric)+' '+_crOpLabel(r.op)+' '+r.value+' &middot; '+(r.sev==='alert'?'Alert (high)':'Warning')+'</div></div>'+'<button class="btn btn-sm" onclick="deleteCustomRule(\''+r.id+'\')">Delete</button>'+'</div>'; }).join(''); }
+function addCustomRule(){ var name=(document.getElementById('cr-name').value||'').trim(); var metric=document.getElementById('cr-metric').value; var op=document.getElementById('cr-op').value; var value=document.getElementById('cr-val').value; var sev=document.getElementById('cr-sev').value; if(!name){ alert('Enter a rule name.'); return; } if(value===''){ alert('Enter a value.'); return; } var rules=loadCustomRules(); rules.push({id:'r'+Date.now(), name:name, metric:metric, op:op, value:+value, sev:sev, enabled:true}); saveCustomRules(rules); document.getElementById('cr-name').value=''; document.getElementById('cr-val').value='0'; renderCustomRules(); try{ addAudit(cu.id,'Custom alert rule added','System',name); }catch(e){} runAlerts(); }
+function deleteCustomRule(id){ var rules=loadCustomRules().filter(function(r){return r.id!==id;}); saveCustomRules(rules); renderCustomRules(); runAlerts(); }
+function toggleCustomRule(id){ var rules=loadCustomRules().map(function(r){ if(r.id===id) r.enabled=!r.enabled; return r; }); saveCustomRules(rules); renderCustomRules(); runAlerts(); }
+window.addCustomRule=addCustomRule; window.deleteCustomRule=deleteCustomRule; window.toggleCustomRule=toggleCustomRule; window.renderCustomRules=renderCustomRules; window.loadCustomRules=loadCustomRules;
 function runAlerts(){
+  try{renderCustomRules();}catch(e){}
   activeAlerts=calcAlerts();
   const el=document.getElementById('alertList');
   if(!activeAlerts.length){ el.innerHTML='<div style="text-align:center;padding:20px;color:var(--text3);font-size:13px">No alerts        all users meeting thresholds.</div>'; return; }
