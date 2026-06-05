@@ -1532,7 +1532,7 @@ function syncSessionsToGitHub(){
       _seenKeys[_k]=true; return true;
     });
     var encoded=btoa(unescape(encodeURIComponent(JSON.stringify(merged,null,2))));
-    var body={message:'Update sessions for uid '+cu.id,content:encoded};
+    var body={message:'Update sessions for uid '+cu.id+' [skip ci]',content:encoded};
     if(data.sha) body.sha=data.sha;
     return fetch('https://api.github.com/repos/'+owner+'/'+repo+'/contents/'+path,{
       method:'PUT',
