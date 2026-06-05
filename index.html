@@ -59,6 +59,97 @@
     })();
   </script>
   </script>
+  <!-- AMC: Payroll report feature -->
+  <script>
+    (function(){
+        function injectStyle(){
+              if(document.getElementById('payrollStyle')) return;
+              var css=".pr-table{width:100%;border-collapse:collapse;font-size:12px;}"
+              +"#page-payroll .pr-table th,#page-payroll .pr-table td{border:1px solid rgba(0,0,0,.12);padding:6px 8px;text-align:left;white-space:nowrap;}"
+              +"#page-payroll .pr-table thead th{background:#2c4a6b;color:#fff;font-weight:600;font-size:11px;}"
+              +"#page-payroll .pr-table tr.pr-reqrow th{background:#fde68a;color:#7c5e10;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;}"
+              +"#page-payroll .pr-table tr.pr-reqrow th.opt{background:#e5e7eb;color:#6b7280;}"
+              +"#page-payroll .pr-table tbody tr:nth-child(even){background:#f9fafb;}"
+              +"#page-payroll .pr-table input{width:100%;border:1px solid transparent;background:transparent;font-size:12px;padding:2px 4px;border-radius:4px;box-sizing:border-box;}"
+              +"#page-payroll .pr-table input:hover{border-color:rgba(0,0,0,.15);}"
+              +"#page-payroll .pr-table input:focus{border-color:#3d7ab0;outline:none;background:#fff;}"
+              +"#page-payroll .pr-num{text-align:right;}#page-payroll .pr-calc{font-weight:600;}"
+              +"#page-payroll .pr-wrap{overflow-x:auto;}";
+              var st=document.createElement('style');st.id='payrollStyle';st.textContent=css;document.head.appendChild(st);
+        }
+        function loadUsers(){try{return JSON.parse(localStorage.getItem('amc_users_extra'))||[];}catch(e){return [];}}
+        function loadSessions(){var out=[];['amc_sessions','amc_sessions_1'].forEach(function(k){try{var d=JSON.parse(localStorage.getItem(k));var arr=Array.isArray(d)?d:(d&&d.sessions)||[];out=out.concat(arr);}catch(e){}});return out;}
+        function hoursFor(uid,start,end){var s=loadSessions(),total=0;var sd=start?new Date(start):null,ed=end?new Date(end+'T23:59:59'):null;s.forEach(function(x){if(String(x.uid)!==String(uid))return;var d=new Date(x.date);if(sd&&d<sd)return;if(ed&&d>ed)return;total+=(Number(x.duration)||0);});return total/3600;}
+        function money(n){return '$'+(Number(n)||0).toFixed(2);}
+        function fmtD(iso){if(!iso)return '';var p=iso.split('-');if(p.length===3)return p[1]+'/'+p[2]+'/'+p[0];return iso;}
+        function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+        function renderPayroll(){
+              var ps=document.getElementById('pr-periodStart').value;
+              var pe=document.getElementById('pr-periodEnd').value;
+              var pd=document.getElementById('pr-payDate').value;
+              var users=loadUsers();var tb=document.getElementById('pr-tbody');tb.innerHTML='';
+              users.forEach(function(u){
+                      var nm=(u.name||'').trim().split(/\s+/);var first,last;
+                      if(nm.length>1){first=nm.slice(0,nm.length-1).join(' ');last=nm[nm.length-1];}else{first=nm[0]||'';last='';}
+                      var hrs=hoursFor(u.id,ps,pe);var tr=document.createElement('tr');
+                      tr.innerHTML='<td><input value="'+esc(first)+'"></td><td><input value="'+esc(last)+'"></td>'
+                      +'<td><input value="'+esc(u.id!=null?u.id:'')+'"></td><td><input value="'+esc(u.email||'')+'"></td>'
+                      +'<td><input value="'+esc(fmtD(ps))+'"></td><td><input value="'+esc(fmtD(pe))+'"></td><td><input value="'+esc(fmtD(pd))+'"></td>'
+                      +'<td><input class="pr-num pr-hrs" value="'+hrs.toFixed(2)+'"></td>'
+                      +'<td><input class="pr-num pr-rate" value="0.00"></td>'
+                      +'<td class="pr-num pr-calc pr-wage">$0.00</td>'
+                      +'<td><input class="pr-num pr-bonus" value="0.00"></td>'
+                      +'<td><input class="pr-num pr-reimb" value="0.00"></td>'
+                      +'<td class="pr-num pr-calc pr-total">$0.00</td>'
+                      +'<td><input value="'+esc(u.jobTitle||'')+'"></td>';
+                      tb.appendChild(tr);
+                      function recalc(){var h=parseFloat(tr.querySelector('.pr-hrs').value)||0;var r=parseFloat(tr.querySelector('.pr-rate').value)||0;var b=parseFloat(tr.querySelector('.pr-bonus').value)||0;var rm=parseFloat(tr.querySelector('.pr-reimb').value)||0;var w=h*r;tr.querySelector('.pr-wage').textContent=money(w);tr.querySelector('.pr-total').textContent=money(w+b+rm);}
+                      ['.pr-hrs','.pr-rate','.pr-bonus','.pr-reimb'].forEach(function(sel){tr.querySelector(sel).addEventListener('input',recalc);});
+                      recalc();
+              });
+        }
+        function exportCSV(){
+              var head=['Contractor First Name','Contractor Last Name','Contractor ID','Email','Pay Period Start (MM/DD/YYYY)','Pay Period End (MM/DD/YYYY)','Payment Date (MM/DD/YYYY)','Hours Worked','Hourly Rate ($)','Wage Earnings ($)','Bonus ($)','Reimbursement ($)','Total Payment ($)','Memo / Notes'];
+              var rows=[head];
+              Array.prototype.forEach.call(document.querySelectorAll('#pr-tbody tr'),function(tr){
+                      var c=tr.children;function v(i){var el=c[i].querySelector('input');return el?el.value:c[i].textContent.replace('$','');}
+                      rows.push([v(0),v(1),v(2),v(3),v(4),v(5),v(6),v(7),v(8),c[9].textContent.replace('$',''),v(10),v(11),c[12].textContent.replace('$',''),v(13)]);
+              });
+              var csv=rows.map(function(r){return r.map(function(x){return '"'+String(x).replace(/"/g,'""')+'"';}).join(',');}).join('\n');
+              var bl=new Blob([csv],{type:'text/csv'});var a=document.createElement('a');a.href=URL.createObjectURL(bl);a.download='payroll.csv';a.click();
+        }
+        function build(){
+              var nav=document.querySelector('.sidebar-nav');if(!nav||document.getElementById('navPayroll'))return;
+              var thBtn=Array.prototype.find.call(nav.querySelectorAll('button.nav-item'),function(b){return /titles\s*&\s*holidays/i.test(b.textContent);});
+              var btn=document.createElement('button');btn.id='navPayroll';btn.className='nav-item admin-only';btn.textContent='Payroll';btn.setAttribute('onclick',"goTo('payroll')");
+              if(thBtn&&thBtn.nextSibling)nav.insertBefore(btn,thBtn.nextSibling);else nav.appendChild(btn);
+              injectStyle();
+              var anyPage=document.querySelector('.page');if(!anyPage)return;
+              var page=document.createElement(anyPage.tagName);page.id='page-payroll';page.className='page';
+              var REQ=['Contractor First Name','Contractor Last Name','Contractor ID','Email','Pay Period Start (MM/DD/YYYY)','Pay Period End (MM/DD/YYYY)','Payment Date (MM/DD/YYYY)','Hours Worked','Hourly Rate ($)','Wage Earnings ($)','Bonus ($)','Reimbursement ($)','Total Payment ($)','Memo / Notes'];
+              var FLAG=['REQUIRED','REQUIRED','Optional','Optional','REQUIRED','REQUIRED','REQUIRED','REQUIRED','REQUIRED','REQUIRED','Optional','Optional','REQUIRED','Optional'];
+              var ths=REQ.map(function(h){return '<th>'+h+'</th>';}).join('');
+              var reqs=FLAG.map(function(f){return '<th class="'+(f==='Optional'?'opt':'')+'">'+f+'</th>';}).join('');
+              var fld='padding:8px 10px;border:1px solid rgba(0,0,0,.15);border-radius:6px;';
+              var lbl='font-size:12px;font-weight:600;color:#5a607f;display:block;margin-bottom:4px;';
+              page.innerHTML='<div class="page-header"><div class="page-title">Payroll</div><div class="page-sub">Contractor payroll report</div></div>'
+              +'<div class="card"><div class="card-title">Pay period</div><div style="display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end;">'
+              +'<div><label style="'+lbl+'">Period start</label><input type="date" id="pr-periodStart" style="'+fld+'"></div>'
+              +'<div><label style="'+lbl+'">Period end</label><input type="date" id="pr-periodEnd" style="'+fld+'"></div>'
+              +'<div><label style="'+lbl+'">Payment date</label><input type="date" id="pr-payDate" style="'+fld+'"></div>'
+              +'<button class="btn btn-primary" id="pr-gen">Generate</button>'
+              +'<button class="btn btn-secondary" id="pr-csv">Export CSV</button></div></div>'
+              +'<div class="card"><div class="pr-wrap"><table class="pr-table"><thead><tr>'+ths+'</tr><tr class="pr-reqrow">'+reqs+'</tr></thead><tbody id="pr-tbody"></tbody></table></div></div>';
+              anyPage.parentElement.appendChild(page);
+              document.getElementById('pr-gen').addEventListener('click',renderPayroll);
+              document.getElementById('pr-csv').addEventListener('click',exportCSV);
+              if(window.goTo&&!window.goTo.__prWrapped){var og=window.goTo;window.goTo=function(p){var r=og.apply(this,arguments);if(p==='payroll')renderPayroll();return r;};window.goTo.__prWrapped=true;}
+        }
+        if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',build);else build();
+        setTimeout(build,1500);
+    })();
+  </script>
+  </script>
 <style>
   /* ===== AMC UI FIXES (added) ===== */
   .inner-sec{display:none;}
