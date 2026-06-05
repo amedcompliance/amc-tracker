@@ -3281,11 +3281,18 @@
     "project": "AMC Project",
     "category": "Work",
     "start": "2026-06-05T17:26:49.638Z",
-    "duration": 0,
+    "duration": 15,
     "date": "2026-06-05",
     "type": "tracked",
     "manual": false,
-    "screenshots": [],
+    "screenshots": [
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_1/109_1780680416159.jpg",
+        "time": "2026-06-05T17:26:56.159Z",
+        "mouse": 365,
+        "keys": 2
+      }
+    ],
     "url": null
   }
 ]
