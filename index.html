@@ -84,6 +84,14 @@
         function fmtD(iso){if(!iso)return '';var p=iso.split('-');if(p.length===3)return p[1]+'/'+p[2]+'/'+p[0];return iso;}
         function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
         function renderPayroll(){
+  (function(){
+    var anchor=new Date('2026-06-01'),today=new Date();
+    var diff=Math.max(0,Math.floor((today-anchor)/(14*86400000)));
+    var ps=new Date(anchor.getTime()+diff*14*86400000),pe=new Date(ps.getTime()+13*86400000),pd=new Date(pe.getTime()+3*86400000);
+    var fmt=function(d){return d.toISOString().split('T')[0];};
+    var si=document.getElementById('pr-periodStart'),ei=document.getElementById('pr-periodEnd'),pi=document.getElementById('pr-payDate');
+    if(si&&!si.value)si.value=fmt(ps);if(ei&&!ei.value)ei.value=fmt(pe);if(pi&&!pi.value)pi.value=fmt(pd);
+  })();
               var ps=document.getElementById('pr-periodStart').value;
               var pe=document.getElementById('pr-periodEnd').value;
               var pd=document.getElementById('pr-payDate').value;
@@ -139,6 +147,7 @@
               +'<div><label style="'+lbl+'">Payment date</label><input type="date" id="pr-payDate" style="'+fld+'"></div>'
               +'<button class="btn btn-primary" id="pr-gen">Generate</button>'
               +'<button class="btn btn-secondary" id="pr-csv">Export CSV</button></div></div>'
+        <button onclick="emailPayroll()" class="btn btn-secondary btn-sm" style="margin-left:8px">&#128231; Email Payroll</button>
               +'<div class="card"><div class="pr-wrap"><table class="pr-table"><thead><tr>'+ths+'</tr><tr class="pr-reqrow">'+reqs+'</tr></thead><tbody id="pr-tbody"></tbody></table></div></div>';
               anyPage.parentElement.appendChild(page);
               document.getElementById('pr-gen').addEventListener('click',renderPayroll);
@@ -153,8 +162,8 @@
 <style>
   /* ===== AMC UI FIXES (added) ===== */
   .inner-sec{display:none;}
-  .btn-warning{background:var(--amber);color:#fff;box-shadow:0 1px 4px rgba(245,158,11,.3);}
-  .btn-warning:hover{background:#d97706;box-shadow:0 2px 8px rgba(245,158,11,.4);}
+  .btn-warning{background:#ef4444;color:#fff;box-shadow:0 1px 4px rgba(239,68,68,.3);}
+  .btn-warning:hover{background:#dc2626;box-shadow:0 2px 8px rgba(239,68,68,.4);}
   .inner-sec.active{display:block;}
   .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
   .table-wrap table{min-width:760px;}
@@ -341,6 +350,9 @@
         </button>
         <button class="nav-item nav-sub-item" onclick="goTo('admin');showInner('admin','teams');renderTeams()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Teams
+        </button>
+        <button class="nav-item nav-sub-item" onclick="goTo('integrations')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>Integrations
         </button>
       </div>
     </div>
@@ -1130,10 +1142,14 @@ function doLogin(){
     }, 30000);
   }
   // Trigger screen share on login so user sees Entire Screen prompt
-  if(!screenOk){
+  if(!screenOk&&!localStorage.getItem('amc_screen_granted')){
     var _ssOv=document.getElementById('ssInstructOverlay');
     if(_ssOv)_ssOv.style.display='flex';
     navigator.mediaDevices.getDisplayMedia({preferCurrentTab:false,video:{displaySurface:'monitor'},audio:false}).then(function(str){
+      stream=str;screenOk=true;localStorage.setItem('amc_screen_granted','1');
+      if(_ssOv)_ssOv.style.display='none';schedTS();
+    }).catch(function(){if(_ssOv)_ssOv.style.display='none';});
+  } else if(!screenOk&&localStorage.getItem('amc_screen_granted')){screenOk=true;}
       stream=str; screenOk=true;
       if(_ssOv)_ssOv.style.display='none';
       schedSS();
@@ -1281,6 +1297,7 @@ function goTo(name){
   if(name==='alerts') runAlerts();
   if(name==='audit'){ buildAuditFilters(); renderAudit(); }  if(name==='screenshots'){ fetchAndCacheGHSessions(function(){renderScreenshots();}); }
   if(name==='urlactivity'){ fetchAndCacheGHSessions(function(){renderUrlActivity();}); }
+  if(page==='integrations'&&typeof renderIntegrations==='function'){renderIntegrations();}
 
 }
 
@@ -1313,7 +1330,7 @@ async function startTimer(){
   var _urlVal=document.getElementById('urlInput')?document.getElementById('urlInput').value.trim():''; var _urlHost=''; if(_urlVal){try{_urlHost=new URL(_urlVal.indexOf('://')!==-1?_urlVal:'https://'+_urlVal).hostname;}catch(e){_urlHost=_urlVal;}} curSess = {id:nsid++,uid:cu.id,project:proj,category:cat,start:new Date(),duration:0,screenshots:[],date:todayStr(),type:'tracked',url:_urlHost||null};
   sessions.push(curSess); setTimeout(syncSessionsToGitHub, 2000);
   saveSessions(); // sync online status immediately
-  document.getElementById('startBtn').disabled=true;
+  document.getElementById('startBtn').disabled=false;
   document.getElementById('stopBtn').disabled=false;
   document.getElementById('timerDisp').classList.add('running');
   document.getElementById('statusDot').classList.add('live');
@@ -3834,6 +3851,72 @@ function renderDashboardCharts() {
     </div>
   </div>
 </div>
+
+<!-- INTEGRATIONS PAGE -->
+<div id="page-integrations" class="page">
+  <div class="page-header"><div><div class="page-title">Integrations</div><div class="page-sub">Connect AMC Tracker with your tools</div></div></div>
+  <div class="content" style="padding:24px">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:900px;margin-top:8px">
+      <div class="card" style="padding:24px;text-align:center">
+        <div style="width:56px;height:56px;border-radius:12px;background:#f0fdf4;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:28px">&#128188;</div>
+        <div style="font-size:15px;font-weight:700;color:#2c3347;margin-bottom:6px">Gusto</div>
+        <div style="font-size:12px;color:#8a93b0;margin-bottom:12px">Sync employee hours and payroll data automatically</div>
+        <div id="gusto-int-status" style="font-size:12px;margin-bottom:12px"></div>
+        <button class="btn btn-primary btn-sm" style="width:100%" onclick="goTo('admin')">Configure in Admin</button>
+      </div>
+      <div class="card" style="padding:24px;text-align:center">
+        <div style="width:56px;height:56px;border-radius:12px;background:#fff4ed;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:28px">&#9889;</div>
+        <div style="font-size:15px;font-weight:700;color:#2c3347;margin-bottom:6px">N8N</div>
+        <div style="font-size:12px;color:#8a93b0;margin-bottom:12px">Automate workflows, alerts and reports via webhooks</div>
+        <div id="n8n-int-status" style="font-size:12px;margin-bottom:12px"></div>
+        <button class="btn btn-primary btn-sm" style="width:100%" onclick="document.getElementById('n8nPanel').style.display=document.getElementById('n8nPanel').style.display==='block'?'none':'block'">Configure Webhook</button>
+      </div>
+      <div class="card" style="padding:24px;text-align:center">
+        <div style="width:56px;height:56px;border-radius:12px;background:#eff6ff;display:flex;align-items:center;justify-content:center;margin:0 auto 16px"><svg width="28" height="28" viewBox="0 0 21 21" fill="none"><rect x="1" y="1" width="9" height="9" fill="#F25022"/><rect x="11" y="1" width="9" height="9" fill="#7FBA00"/><rect x="1" y="11" width="9" height="9" fill="#00A4EF"/><rect x="11" y="11" width="9" height="9" fill="#FFB900"/></svg></div>
+        <div style="font-size:15px;font-weight:700;color:#2c3347;margin-bottom:6px">MS Teams</div>
+        <div style="font-size:12px;color:#8a93b0;margin-bottom:12px">Send time summaries and alerts to Teams channels</div>
+        <div id="teams-int-status" style="font-size:12px;margin-bottom:12px"></div>
+        <button class="btn btn-primary btn-sm" style="width:100%" onclick="connectMS365()">Connect Microsoft</button>
+      </div>
+    </div>
+    <div id="n8nPanel" style="display:none;margin-top:28px;max-width:500px">
+      <div class="card" style="padding:24px">
+        <div style="font-size:14px;font-weight:700;margin-bottom:16px">N8N Webhook Configuration</div>
+        <div class="form-group"><label class="form-label">Webhook URL</label><input type="text" id="n8nWebhookUrl" placeholder="https://your-n8n.com/webhook/xxx" style="width:100%"></div>
+        <div class="form-group"><label class="form-label">Trigger Events</label>
+          <label style="display:flex;align-items:center;gap:8px;font-size:13px;margin-bottom:6px"><input type="checkbox" id="n8nOnStart" checked> Session started</label>
+          <label style="display:flex;align-items:center;gap:8px;font-size:13px;margin-bottom:6px"><input type="checkbox" id="n8nOnStop" checked> Session stopped</label>
+          <label style="display:flex;align-items:center;gap:8px;font-size:13px"><input type="checkbox" id="n8nOnPayroll"> Payroll generated</label>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="saveN8NSettings()">Save</button>
+        <button class="btn btn-secondary btn-sm" style="margin-left:8px" onclick="document.getElementById('n8nPanel').style.display='none'">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+function renderIntegrations(){
+  var gs=document.getElementById('gusto-int-status'),ts=document.getElementById('teams-int-status'),ns=document.getElementById('n8n-int-status');
+  if(gs){var gt=localStorage.getItem('amc_gusto_token');gs.innerHTML=gt?'<span style="color:#22c55e;font-weight:600">&#10003; Connected</span>':'<span style="color:#8a93b0">Not connected</span>';}
+  if(ts){var mt=localStorage.getItem('amc_ms_connected')||localStorage.getItem('ms365_auth_pending');ts.innerHTML=mt?'<span style="color:#22c55e;font-weight:600">&#10003; Connected</span>':'<span style="color:#8a93b0">Not connected</span>';}
+  if(ns){var nw=localStorage.getItem('amc_n8n_webhook');ns.innerHTML=nw?'<span style="color:#22c55e;font-weight:600">&#10003; Webhook set</span>':'<span style="color:#8a93b0">Not configured</span>';var wu=document.getElementById('n8nWebhookUrl');if(wu&&nw)wu.value=nw;}
+}
+function saveN8NSettings(){
+  var el=document.getElementById('n8nWebhookUrl');if(!el||!el.value.trim()){alert('Please enter a webhook URL');return;}
+  localStorage.setItem('amc_n8n_webhook',el.value.trim());
+  document.getElementById('n8nPanel').style.display='none';
+  renderIntegrations();alert('N8N webhook saved!');
+}
+function emailPayroll(){
+  var ps=document.getElementById('pr-periodStart'),pe=document.getElementById('pr-periodEnd'),tb=document.getElementById('pr-tbody');
+  if(!tb){alert('Please generate payroll first.');return;}
+  var rows=[].slice.call(tb.querySelectorAll('tr')).map(function(r){return [].slice.call(r.querySelectorAll('td')).map(function(c){return c.textContent.trim();}).join(' | ');}).join('\n');
+  var sub='AMC Payroll '+(ps&&ps.value?ps.value:'')+(pe&&pe.value?' to '+pe.value:'');
+  var bod='Payroll Report\nPeriod: '+(ps&&ps.value?ps.value:'')+' to '+(pe&&pe.value?pe.value:'')+'\n\n'+rows;
+  if(window.emailjs&&window._ejsService&&window._ejsTemplate){window.emailjs.send(window._ejsService,window._ejsTemplate,{subject:sub,message:bod}).then(function(){alert('Payroll emailed successfully!');}).catch(function(e){alert('Email failed: '+(e&&e.text?e.text:e));});}
+  else{window.location.href='mailto:?subject='+encodeURIComponent(sub)+'&body='+encodeURIComponent(bod);}
+}
+</script>
 </body>
 </html>
  
