@@ -3230,6 +3230,19 @@
     "url": null
   },
   {
+    "id": 108,
+    "uid": 5,
+    "project": "AMC Project",
+    "category": "Work",
+    "start": "2026-06-05T17:13:47.285Z",
+    "duration": 2,
+    "date": "2026-06-05",
+    "type": "tracked",
+    "manual": false,
+    "screenshots": [],
+    "url": null
+  },
+  {
     "id": 1,
     "uid": 5,
     "project": "Untitled",
