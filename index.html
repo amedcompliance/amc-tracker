@@ -12,9 +12,58 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <!-- AMC: Start/Pause toggle button -->
+  <script>
+    (function(){
+        function applyTrackingUI(running){
+              var sb=document.getElementById('startBtn');
+              var tb=document.getElementById('stopBtn');
+              if(!sb) return;
+              if(running){
+                      sb.textContent='Pause tracking';
+                      sb.classList.remove('btn-primary');
+                      sb.classList.add('btn-warning');
+                      sb.style.display='flex';
+                      if(tb) tb.style.display='none';
+              } else {
+                      sb.textContent='Start tracking';
+                      sb.classList.remove('btn-warning');
+                      sb.classList.add('btn-primary');
+                      sb.style.display='flex';
+                      if(tb) tb.style.display='none';
+              }
+        }
+        function wrap(){
+              if(typeof window.startTimer==='function' && !window.startTimer.__amcWrapped){
+                      var origStart=window.startTimer;
+                      window.startTimer=function(){ var r=origStart.apply(this,arguments); applyTrackingUI(true); return r; };
+                      window.startTimer.__amcWrapped=true;
+              }
+              if(typeof window.stopTimer==='function' && !window.stopTimer.__amcWrapped){
+                      var origStop=window.stopTimer;
+                      window.stopTimer=function(){ var r=origStop.apply(this,arguments); applyTrackingUI(false); return r; };
+                      window.stopTimer.__amcWrapped=true;
+              }
+              var sb=document.getElementById('startBtn');
+              if(sb){
+                      sb.onclick=function(){
+                                var running=sb.classList.contains('btn-warning');
+                                if(running){ if(window.stopTimer) window.stopTimer(); }
+                                else { if(window.startTimer) window.startTimer(); }
+                      };
+              }
+        }
+        if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',wrap);
+        else wrap();
+        setTimeout(wrap,1500);
+    })();
+  </script>
+  </script>
 <style>
   /* ===== AMC UI FIXES (added) ===== */
   .inner-sec{display:none;}
+  .btn-warning{background:var(--amber);color:#fff;box-shadow:0 1px 4px rgba(245,158,11,.3);}
+  .btn-warning:hover{background:#d97706;box-shadow:0 2px 8px rgba(245,158,11,.4);}
   .inner-sec.active{display:block;}
   .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
   .table-wrap table{min-width:760px;}
