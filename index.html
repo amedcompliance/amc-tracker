@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- AMC Tracker v20260608r11 - fix syntax error in gustoSync log + MS sign-in working: employee hours + contractor payments sync -->
+<!-- AMC Tracker v20260608r12 - fix syntax error in gustoSync log + MS sign-in working: employee hours + contractor payments sync -->
 <!-- AMC Tracker v20260521r5 - OTP Login Build -->
 <html lang="en">
 <head>
@@ -2567,7 +2567,7 @@ function notifyTeams(lid){
 function buildDeptFilter(){
   const el=document.getElementById('uDeptF'); const cv=el.value;
   el.innerHTML='<option value="">All depts</option>'+departments.map(d=>`<option value="${d.id}"${cv==d.id?' selected':''}>${d.name}</option>`).join('');
-  const el2=document.getElementById('adjUF'); el2.innerHTML='<option value="">All users</option>'+users.map(u=>`<option value="${u.id}">${u.name}</option>`).join('');
+  const el2=document.getElementById('adjUF'); if(el2)el2.innerHTML='<option value="">All users</option>'+users.map(u=>`<option value="${u.id}">${u.name}</option>`).join('');
 }
 
 function renderUsers(){
