@@ -14,17 +14,16 @@ export async function onRequestPost(context) {
                     };
 
                       try {
-                          const pat = env.GITHUB_PAT;
+                          // Parse request body first to get client-provided PAT fallback
+                                                                      const body = await request.json();
+                                                                          const { users, _clientPat } = body;
+                                                                          const pat = env.GITHUB_PAT || _clientPat || '';
                               if (!pat) {
                                     return new Response(JSON.stringify({ error: 'GITHUB_PAT not configured' }), {
                                             status: 500,
                                                     headers: { ...corsHeaders, 'Content-Type': 'application/json' },
                                                           });
                                                               }
-
-                                                                  // Parse request body
-                                                                      const body = await request.json();
-                                                                          const { users } = body;
 
                                                                               if (!users || !Array.isArray(users)) {
                                                                                     return new Response(JSON.stringify({ error: 'Invalid users data' }), {
