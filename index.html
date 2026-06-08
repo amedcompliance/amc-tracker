@@ -151,7 +151,7 @@
               anyPage.parentElement.appendChild(page);
               document.getElementById('pr-gen').addEventListener('click',renderPayroll);
               document.getElementById('pr-csv').addEventListener('click',exportCSV);
-              if(window.goTo&&!window.goTo.__prWrapped){var og=window.goTo;window.goTo=function(p){var r=og.apply(this,arguments);if(p==='payroll')renderPayroll();return r;};window.goTo.__prWrapped=true;}
+              if(window.goTo&&!window.goTo.__prWrapped){var og=window.goTo;window.goTo=function(p){var r=og.apply(this,arguments);if(p==='payroll')renderPayroll();if(p==='timeAdjPage')renderTimeAdjPage();return r;};window.goTo.__prWrapped=true;}
         }
         if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',build);else build();
         setTimeout(build,1500);
@@ -2735,6 +2735,7 @@ function renderAdj(){
 }
 
 // TIME ADJUSTMENTS PAGE
+window.taClearDate=taClearDate;window.renderTimeAdjPage=renderTimeAdjPage;window.taBarClick=taBarClick;window.taEditBlock=taEditBlock;window.taUpdateDurInput=taUpdateDurInput;window.taDeleteBtn=taDeleteBtn;window.taAddBtn=taAddBtn;window.taAddManual=taAddManual;
 function taClearDate(){
   var d=new Date(); var mm=String(d.getMonth()+1).padStart(2,'0'); var dd=String(d.getDate()).padStart(2,'0');
   document.getElementById('taDateSel').value=d.getFullYear()+'-'+mm+'-'+dd;
