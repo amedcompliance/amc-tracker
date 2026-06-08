@@ -3076,6 +3076,38 @@
     "url": null
   },
   {
+    "id": 126,
+    "uid": 13,
+    "project": "AMC Project",
+    "category": "Work",
+    "start": "2026-06-08T19:24:22.267Z",
+    "duration": 2655,
+    "date": "2026-06-08",
+    "type": "tracked",
+    "manual": false,
+    "screenshots": [
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_13/126_1780946672466.jpg",
+        "time": "2026-06-08T19:24:32.466Z",
+        "mouse": 989,
+        "keys": 68
+      },
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_13/126_1780947573148.jpg",
+        "time": "2026-06-08T19:39:33.148Z",
+        "mouse": 507,
+        "keys": 0
+      },
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_13/126_1780948473176.jpg",
+        "time": "2026-06-08T19:54:33.176Z",
+        "mouse": 1,
+        "keys": 0
+      }
+    ],
+    "url": null
+  },
+  {
     "id": 24,
     "uid": 9,
     "project": "Untitled",
@@ -3422,7 +3454,7 @@
     "project": "AMC Project",
     "category": "Work",
     "start": "2026-06-08T20:06:31.543Z",
-    "duration": 105,
+    "duration": 120,
     "date": "2026-06-08",
     "type": "tracked",
     "manual": false,
@@ -3432,38 +3464,6 @@
         "time": "2026-06-08T20:06:40.453Z",
         "mouse": 90,
         "keys": 2
-      }
-    ],
-    "url": null
-  },
-  {
-    "id": 126,
-    "uid": 13,
-    "project": "AMC Project",
-    "category": "Work",
-    "start": "2026-06-08T19:24:22.267Z",
-    "duration": 2655,
-    "date": "2026-06-08",
-    "type": "tracked",
-    "manual": false,
-    "screenshots": [
-      {
-        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_13/126_1780946672466.jpg",
-        "time": "2026-06-08T19:24:32.466Z",
-        "mouse": 989,
-        "keys": 68
-      },
-      {
-        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_13/126_1780947573148.jpg",
-        "time": "2026-06-08T19:39:33.148Z",
-        "mouse": 507,
-        "keys": 0
-      },
-      {
-        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_13/126_1780948473176.jpg",
-        "time": "2026-06-08T19:54:33.176Z",
-        "mouse": 1,
-        "keys": 0
       }
     ],
     "url": null
