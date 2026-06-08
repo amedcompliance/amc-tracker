@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- AMC Tracker v20260608r6b - fix syntax error in gustoSync log + MS sign-in working: employee hours + contractor payments sync -->
+<!-- AMC Tracker v20260608r7 - fix syntax error in gustoSync log + MS sign-in working: employee hours + contractor payments sync -->
 <!-- AMC Tracker v20260521r5 - OTP Login Build -->
 <html lang="en">
 <head>
@@ -1045,25 +1045,32 @@ fetchUsersFromGitHub();
 // so the user is hardcoded and works on ALL devices after ~30s deploy
 async function syncUsersToGitHub() {
   try {
-    // Use server-side Cloudflare Pages Function to sync users (no browser PAT needed)
-    const usersToSync = users.filter(u => (u.role !== 'admin' && u.id !== 1) || (u.pwh && String(u.pwh).length > 0));
-    const resp = await fetch('/sync-users', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ users: usersToSync, _clientPat: (localStorage.getItem('_amc_gp') ? atob(localStorage.getItem('_amc_gp')) : '') })
-    });
-    if (resp.ok) {
-      const result = await resp.json();
-      console.log('AMC: Synced ' + result.count + ' users to GitHub via server function');
-      // Remove any existing sync warning
+    const _gp = localStorage.getItem('_amc_gp');
+    if (!_gp) { console.warn('AMC: No sync token available'); return; }
+    const _pat = atob(_gp);
+    const usersToSync = users.filter(u => u.id !== 1);
+    // Get current users.json SHA from GitHub
+    const ghBase = 'https://api.github.com/repos/amedcompliance/amc-tracker/contents/users.json';
+    const ghHeaders = { 'Authorization': 'token ' + _pat, 'Accept': 'application/vnd.github.v3+json', 'User-Agent': 'AMC-Tracker', 'Content-Type': 'application/json' };
+    const getResp = await fetch(ghBase, { headers: ghHeaders });
+    if (!getResp.ok) { throw new Error('GitHub GET failed: ' + getResp.status); }
+    const fileData = await getResp.json();
+    const currentSha = fileData.sha;
+    // Build safe user list (strip pwh/password)
+    const safeUsers = usersToSync.map(u => ({ id:u.id, name:u.name, email:u.email, role:u.role||'employee', dept:u.dept, shift:u.shift, jobTitle:u.jobTitle||'', phone:u.phone||'', status:u.status||'active', startDate:u.startDate||'', invited:u.invited||false, manager:u.manager||null, leaveBalance:u.leaveBalance||{vacation:6,sick:4,personal:2}, needsSetup:u.needsSetup!==false, color:u.color||0, pin:u.pin||'0000' }));
+    const newJson = JSON.stringify({ users: safeUsers, updated: new Date().toISOString(), note: 'AMC Time Tracker user database. Managed automatically by the app.' }, null, 2);
+    const b64 = btoa(unescape(encodeURIComponent(newJson)));
+    const putResp = await fetch(ghBase, { method: 'PUT', headers: ghHeaders, body: JSON.stringify({ message: 'Sync users from AMC Tracker [skip ci]', content: b64, sha: currentSha, branch: 'main' }) });
+    if (putResp.ok) {
+      const result = await putResp.json();
+      console.log('AMC: Synced ' + safeUsers.length + ' users to GitHub directly. Commit:', result.commit && result.commit.sha ? result.commit.sha.substring(0,8) : '?');
       var wb = document.getElementById('_syncWarnBanner'); if (wb) wb.remove();
     } else {
-      const errData = await resp.json().catch(()=>({}));
-      console.warn('AMC: sync-users returned', resp.status, errData);
-      _showSyncWarning('User sync failed (HTTP ' + resp.status + '): ' + (errData.error || 'Unknown error') + '. New users may not be able to sign in on other devices. Please check the GITHUB_PAT in Cloudflare Pages settings.');
+      const errData = await putResp.json().catch(()=>({}));
+      throw new Error('GitHub PUT failed: ' + putResp.status + ' ' + (errData.message || ''));
     }
   } catch(e) {
-    console.warn('AMC: sync-users failed:', e.message);
+    console.warn('AMC: syncUsersToGitHub failed:', e.message);
     _showSyncWarning('User sync failed: ' + e.message + '. New users may not be able to sign in on other devices.');
   }
 }
