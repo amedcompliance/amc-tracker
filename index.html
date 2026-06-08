@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- AMC Tracker v20260608r8 - fix syntax error in gustoSync log + MS sign-in working: employee hours + contractor payments sync -->
+<!-- AMC Tracker v20260608r9 - fix syntax error in gustoSync log + MS sign-in working: employee hours + contractor payments sync -->
 <!-- AMC Tracker v20260521r5 - OTP Login Build -->
 <html lang="en">
 <head>
@@ -78,7 +78,7 @@
               var st=document.createElement('style');st.id='payrollStyle';st.textContent=css;document.head.appendChild(st);
         }
         function loadUsers(){try{return users.filter(function(u){return u.id>1;});}catch(e){return [];}}
-        function loadSessions(){if(window._allSessions&&window._allSessions.length>0)return window._allSessions;var out=[];['amc_sessions','amc_sessions_1'].forEach(function(k){try{var d=JSON.parse(localStorage.getItem(k));var arr=Array.isArray(d)?d:(d&&d.sessions)||[];out=out.concat(arr);}catch(e){}});return out;}
+        function loadSessions(){if(window._allSessions&&window._allSessions.length>0)return window._allSessions;var out=[];Object.keys(localStorage).filter(function(k){return k==='amc_sessions'||k.startsWith('amc_sessions_');}).forEach(function(k){try{var d=JSON.parse(localStorage.getItem(k));var arr=Array.isArray(d)?d:(d&&d.sessions)||[];out=out.concat(arr);}catch(e){}});return out;}
         function hoursFor(uid,start,end){var s=loadSessions(),total=0;var sd=start?new Date(start):null,ed=end?new Date(end+'T23:59:59'):null;s.forEach(function(x){if(String(x.uid)!==String(uid))return;var d=new Date(x.date);if(sd&&d<sd)return;if(ed&&d>ed)return;total+=(Number(x.duration)||0);});return total/3600;}
         function money(n){return '$'+(Number(n)||0).toFixed(2);}
         function fmtD(iso){if(!iso)return '';var p=iso.split('-');if(p.length===3)return p[1]+'/'+p[2]+'/'+p[0];return iso;}
@@ -1499,7 +1499,7 @@ function stopTimer(){
     _sess.url = _urlRaw;
     _urlIn.value = '';
   }
-  saveSessions();
+  saveSessions(); setTimeout(syncSessionsToGitHub,500);
   updateMetrics(); renderActivity();
 }
 
