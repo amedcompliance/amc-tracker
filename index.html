@@ -2745,81 +2745,117 @@ function renderTimeAdjPage(){
   var userSel=document.getElementById('taUserSel');
   var dateSel=document.getElementById('taDateSel');
   if(!userSel||!dateSel) return;
-  // Populate users dropdown
   var users=(window._users&&(window._users.users||window._users))||[];
-  var currentUids=Array.from(userSel.options).map(o=>o.value).filter(v=>v);
-  if(currentUids.length===0){
-    users.forEach(function(u){
-      var opt=document.createElement('option');opt.value=u.id;opt.textContent=u.name;userSel.appendChild(opt);
-    });
+  if(userSel.options.length<=1){
+    users.forEach(function(u){if(u.id===1) return; var opt=document.createElement('option');opt.value=u.id;opt.textContent=u.name;userSel.appendChild(opt);});
   }
   var selUid=userSel.value?parseInt(userSel.value):null;
   var selDate=dateSel.value;
-  // Build list of users to show
   var showUsers=selUid?users.filter(function(u){return u.id===selUid;}):users.filter(function(u){return u.id!==1;});
   var container=document.getElementById('taTimeline');
   if(!container) return;
   var html='';
   showUsers.forEach(function(u){
-    // Get sessions for this user on selected date (or today if no date)
     var targetDate=selDate||todayStr();
-    var userSessions=allSess.filter(function(s){
-      return s.uid===u.id && s.date===targetDate && s.duration>0;
-    });
-    if(userSessions.length===0 && selUid) {
-      // Still show empty timeline if specific user selected
-    } else if(userSessions.length===0) {
-      return; // Skip users with no activity on this date
-    }
-    // Calculate total hours
+    var userSessions=allSess.filter(function(s){return s.uid===u.id&&s.date===targetDate&&s.duration>0;});
+    if(userSessions.length===0&&!selUid) return;
     var totalSecs=userSessions.reduce(function(t,s){return t+(s.duration||0);},0);
-    var totalStr=fmtS(totalSecs);
     html+='<div class="ta-user-block">';
     html+='<div class="ta-user-header"><span class="ta-user-name">'+u.name+'</span>';
     html+='<span class="ta-user-date">'+targetDate+'</span>';
-    html+='<span class="ta-user-total">Total: <b>'+totalStr+'</b></span></div>';
-    // 24-hour timeline
+    html+='<span class="ta-user-total">Total: <b>'+fmtS(totalSecs)+'</b></span></div>';
     html+='<div class="ta-timeline-wrap">';
-    // Hour labels
     html+='<div class="ta-hour-labels">';
     for(var h=0;h<=24;h+=2){html+='<span style="left:'+(h/24*100)+'%">'+String(h).padStart(2,'0')+'</span>';}
     html+='</div>';
-    // Timeline bar
-    html+='<div class="ta-timeline-bar" data-uid="'+u.id+'" data-date="'+targetDate+'" onclick="taHandleClick(event,'+u.id+',''+targetDate+'')" title="Click to add manual time">';
-    // Render session blocks
+    html+='<div class="ta-timeline-bar" data-uid="'+u.id+'" data-date="'+targetDate+'" onclick="taBarClick(event)" title="Click anywhere to add time">';
     userSessions.forEach(function(s){
       var startSecs=0;
-      if(s.start){
-        var startDate=new Date(s.start);
-        startSecs=startDate.getHours()*3600+startDate.getMinutes()*60+startDate.getSeconds();
-      }
+      if(s.start){var sd=new Date(s.start);startSecs=sd.getHours()*3600+sd.getMinutes()*60+sd.getSeconds();}
       var durSecs=s.duration||0;
-      var leftPct=(startSecs/(24*3600)*100).toFixed(3);
-      var widthPct=(durSecs/(24*3600)*100).toFixed(3);
-      if(widthPct<0.1) widthPct=0.3;
-      html+='<div class="ta-session-block" title="'+fmtS(durSecs)+' ('+new Date(s.start).toLocaleTimeString('en',{hour:'2-digit',minute:'2-digit'})+')" style="left:'+leftPct+'%;width:'+widthPct+'%" onclick="taEditSession(event,'+s.id+','+u.id+',''+s.date+'')"></div>';
+      var lp=(startSecs/(86400)*100).toFixed(3);
+      var wp=(durSecs/(86400)*100).toFixed(3);
+      if(parseFloat(wp)<0.1) wp='0.3';
+      html+='<div class="ta-session-block" data-sid="'+s.id+'" data-uid="'+u.id+'" title="'+fmtS(durSecs)+'" style="left:'+lp+'%;width:'+wp+'%" onclick="event.stopPropagation();taEditBlock(this)"></div>';
     });
     html+='</div>';
-    // Session list below timeline
     html+='<div class="ta-session-list">';
     userSessions.sort(function(a,b){return new Date(a.start)-new Date(b.start);}).forEach(function(s){
-      var startTime=s.start?new Date(s.start).toLocaleTimeString('en',{hour:'2-digit',minute:'2-digit'}):'--:--';
-      html+='<div class="ta-sess-item"><span class="ta-sess-time">'+startTime+'</span>';
-      html+='<input type="number" class="ta-dur-input" value="'+Math.round((s.duration||0)/60)+'" min="0" max="480" onchange="taUpdateDur('+s.id+','+u.id+',this.value)" title="Duration in minutes">';
-      html+='<span class="ta-sess-label">min &nbsp;'+s.project+'</span>';
-      html+='<button class="ta-del-btn" onclick="taDeleteSess('+s.id+','+u.id+',''+targetDate+'')" title="Delete session">✕</button></div>';
+      var t=s.start?new Date(s.start).toLocaleTimeString('en',{hour:'2-digit',minute:'2-digit'}):'--:--';
+      html+='<div class="ta-sess-item">';
+      html+='<span class="ta-sess-time">'+t+'</span>';
+      html+='<input type="number" class="ta-dur-input" value="'+Math.round((s.duration||0)/60)+'" min="0" max="480" data-sid="'+s.id+'" data-uid="'+u.id+'" onchange="taUpdateDurInput(this)" title="Duration (minutes)">';
+      html+='<span class="ta-sess-label">min '+s.project+'</span>';
+      html+='<button class="ta-del-btn" data-sid="'+s.id+'" data-uid="'+u.id+'" onclick="taDeleteBtn(this)" title="Delete">&#10005;</button>';
+      html+='</div>';
     });
-    html+='<button class="ta-add-btn" onclick="taAddManual('+u.id+',''+targetDate+'')">+ Add manual time</button>';
+    html+='<button class="ta-add-btn" data-uid="'+u.id+'" data-date="'+targetDate+'" onclick="taAddBtn(this)">+ Add manual time</button>';
     html+='</div>';
     html+='</div></div>';
   });
-  if(!html) html='<div style="text-align:center;padding:48px;color:var(--text3)">No tracked sessions found for this date. Select a user and date to see or edit their time.</div>';
+  if(!html) html='<div style="text-align:center;padding:48px;color:var(--text3)">No sessions found for this date. Select a user and date to view or edit their time.</div>';
   container.innerHTML=html;
 }
-function taHandleClick(e,uid,date){
-  if(e.target.classList.contains('ta-session-block')) return;
+function taBarClick(e){
+  var bar=e.currentTarget;
+  var uid=parseInt(bar.dataset.uid);
+  var date=bar.dataset.date;
   taAddManual(uid,date);
 }
+function taEditBlock(el){
+  var sid=parseInt(el.dataset.sid);
+  var uid=parseInt(el.dataset.uid);
+  var allSess=window._allSessions||[];
+  var s=allSess.find(function(x){return x.id===sid;});
+  if(!s) return;
+  var mins=prompt('Edit duration (minutes):',Math.round((s.duration||0)/60));
+  if(mins===null) return;
+  s.duration=Math.max(0,parseInt(mins)||0)*60;
+  s.type='manual-edit';
+  taCommitChanges(uid);
+}
+function taUpdateDurInput(el){
+  var sid=parseInt(el.dataset.sid);
+  var uid=parseInt(el.dataset.uid);
+  var allSess=window._allSessions||[];
+  var s=allSess.find(function(x){return x.id===sid;});
+  if(!s) return;
+  s.duration=Math.max(0,parseInt(el.value)||0)*60;
+  s.type='manual-edit';
+  taCommitChanges(uid);
+}
+function taDeleteBtn(el){
+  if(!confirm('Delete this session?')) return;
+  var sid=parseInt(el.dataset.sid);
+  var uid=parseInt(el.dataset.uid);
+  window._allSessions=(window._allSessions||[]).filter(function(s){return s.id!==sid;});
+  taCommitChanges(uid);
+}
+function taAddBtn(el){
+  var uid=parseInt(el.dataset.uid);
+  var date=el.dataset.date;
+  taAddManual(uid,date);
+}
+function taAddManual(uid,date){
+  var startTime=prompt('Start time (HH:MM):','09:00');
+  if(!startTime) return;
+  var mins=parseInt(prompt('Duration (minutes):','60'));
+  if(!mins||mins<=0) return;
+  var parts=startTime.split(':');
+  var h=parseInt(parts[0])||0; var m=parseInt(parts[1])||0;
+  var startISO=date+'T'+String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':00.000Z';
+  var newSess={id:Date.now(),uid:uid,project:'Manual',category:'Work',start:startISO,duration:mins*60,date:date,type:'manual',manual:true,screenshots:[]};
+  if(!window._allSessions) window._allSessions=[];
+  window._allSessions.push(newSess);
+  taCommitChanges(uid);
+}
+function taCommitChanges(uid){
+  var userSess=(window._allSessions||[]).filter(function(s){return s.uid===uid;});
+  try{localStorage.setItem('amc_sessions_'+uid,JSON.stringify(userSess));}catch(e){}
+  setTimeout(syncSessionsToGitHub,300);
+  renderTimeAdjPage();
+}
+
 function taEditSession(e,sessId,uid,date){
   e.stopPropagation();
   var allSess=window._allSessions||[];
