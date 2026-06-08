@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- AMC Tracker v20260608r12 - fix syntax error in gustoSync log + MS sign-in working: employee hours + contractor payments sync -->
+<!-- AMC Tracker v20260608r13 - fix syntax error in gustoSync log + MS sign-in working: employee hours + contractor payments sync -->
 <!-- AMC Tracker v20260521r5 - OTP Login Build -->
 <html lang="en">
 <head>
@@ -1069,7 +1069,7 @@ let users = [
 (function(){
   const _deleted = JSON.parse(localStorage.getItem('amc_deleted_users')||'[]');
   if(_deleted.length) users = users.filter(function(u){return !_deleted.includes(u.id);});
-  const _extra = JSON.parse(localStorage.getItem('amc_users_extra')||'[]');const _defRates={6:4.5,8:6.75,9:6.5};_extra.forEach(function(u){if(!u.hourlyRate&&_defRates[u.id])u.hourlyRate=_defRates[u.id];});localStorage.setItem('amc_users_extra',JSON.stringify(_extra));
+  const _extraRaw = JSON.parse(localStorage.getItem('amc_users_extra')||'[]');const _extra = Array.isArray(_extraRaw)?_extraRaw:(_extraRaw.users||[]);const _defRates={6:4.5,8:6.75,9:6.5};_extra.forEach(function(u){if(!u.hourlyRate&&_defRates[u.id])u.hourlyRate=_defRates[u.id];});localStorage.setItem('amc_users_extra',JSON.stringify(_extra));
   _extra.forEach(function(u){ if(!users.find(function(x){return x.id===u.id;})) users.push(u); });
   // Fetch users from GitHub on startup
 fetchUsersFromGitHub();
