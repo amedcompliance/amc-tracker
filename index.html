@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- AMC Tracker v20260609r15c - Fix double brace syntax error in addLeave block -->
+<!-- AMC Tracker v20260609r15d - Fix addLeave modal: use correct body string + add doModal case -->
 <!-- AMC Tracker v20260521r5 - OTP Login Build -->
 <html lang="en">
 <head>
@@ -3444,29 +3444,12 @@ function openModal(mode,id){
   } else if(mode==='addLeave'){
     const emps = _currentUser&&_currentUser.role==='admin' ? users.filter(u=>u.role!=='admin') : [_currentUser].filter(Boolean);
     const empOptions = emps.map(u=>'<option value="'+u.id+'">'+u.name+'</option>').join('');
-    body.innerHTML = `
-      <div class="form-group"><label class="form-label">Employee</label>
-        <select id="lv-emp" class="form-control">` + empOptions + `</select>
-      </div>
-      <div class="form-group"><label class="form-label">Leave Type</label>
-        <select id="lv-type" class="form-control">
-          <option value="vacation">Vacation</option>
-          <option value="sick">Sick Leave</option>
-          <option value="personal">Personal</option>
-        </select>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-        <div class="form-group"><label class="form-label">From</label><input type="date" id="lv-from" class="form-control" oninput="calcLeaveDays()"></div>
-        <div class="form-group"><label class="form-label">To</label><input type="date" id="lv-to" class="form-control" oninput="calcLeaveDays()"></div>
-      </div>
-      <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:10px 14px;display:flex;align-items:center;gap:10px">
-        <span style="font-size:20px">📅</span>
-        <div><div id="lv-days-display" style="font-size:16px;font-weight:700;color:#22c55e">Select dates above</div><div style="font-size:11px;color:#6b7280">Working days (Mon–Fri, excluding weekends)</div></div>
-      </div>
-      <div class="form-group"><label class="form-label">Notes (optional)</label><textarea id="lv-notes" class="form-control" style="min-height:70px;resize:vertical" placeholder="Reason or additional details..."></textarea></div>
-    `;
-    footer.innerHTML = '<button class="btn btn-secondary btn-sm" onclick="closeModal()">Cancel</button> <button class="btn btn-primary btn-sm" onclick="submitLeaveRequest()">Submit Request</button>';
-  } else if(mode==='addTitle'){
+    body = '<div class="form-group"><label class="form-label">Employee</label><select id="lv-emp" class="form-control">'+empOptions+'</select></div>'
+      + '<div class="form-group"><label class="form-label">Leave Type</label><select id="lv-type" class="form-control"><option value="vacation">Vacation</option><option value="sick">Sick Leave</option><option value="personal">Personal</option></select></div>'
+      + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><div class="form-group"><label class="form-label">From</label><input type="date" id="lv-from" class="form-control" oninput="calcLeaveDays()"></div><div class="form-group"><label class="form-label">To</label><input type="date" id="lv-to" class="form-control" oninput="calcLeaveDays()"></div></div>'
+      + '<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:10px 14px;display:flex;align-items:center;gap:10px"><span style="font-size:18px">📅</span><div><div id="lv-days-display" style="font-size:15px;font-weight:700;color:#22c55e">Select dates above</div><div style="font-size:11px;color:#6b7280">Working days (Mon–Fri)</div></div></div>'
+      + '<div class="form-group"><label class="form-label">Notes (optional)</label><textarea id="lv-notes" class="form-control" style="min-height:60px;resize:vertical" placeholder="Reason or additional details..."></textarea></div>';
+  }} else if(mode==='addTitle'){
     body=`<div class="form-row"><label>Job title</label><input type="text" id="f-t" placeholder="e.g. Senior Content Developer"/></div>`;
   } else if(mode==='bulkTitles'){
     body=`<div class="form-row"><label>Paste titles        one per line</label><textarea id="f-bulk" rows="8" placeholder="Senior Developer&#10;Content Manager&#10;..." style="resize:vertical"></textarea></div><div style="font-size:12px;color:var(--text2)">Duplicates are ignored automatically.</div>`;
@@ -3608,6 +3591,9 @@ function doModal(){
     addAudit(cu.id,'Holiday edited','System',`Updated: ${h.name}`);
     closeModal(); renderHolidays(); renderLeavePolicy();
   }
+
+  } else if(mmode==='addLeave'){
+    submitLeaveRequest();
 }
 
 //              INIT                                                                                                                                                                                                                                                                                                                                                                                                                                     
