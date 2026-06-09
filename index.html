@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- AMC Tracker v20260609r14b - fix syntax error in gustoSync log + MS sign-in working: employee hours + contractor payments sync -->
+<!-- AMC Tracker v20260609r15 - Redesigned Leave Management: editable balances, progress bars, approve/reject workflow, delete requests -->
 <!-- AMC Tracker v20260521r5 - OTP Login Build -->
 <html lang="en">
 <head>
@@ -546,32 +546,53 @@
 <!-- LEAVES PAGE -->
 <div class="page" id="page-leaves">
   <div class="page-header">
-    <div style="display:flex;align-items:center;justify-content:space-between">
-      <div><div class="page-title">Leave management</div><div class="page-sub">Track leave balances and requests</div></div>
-
-  <div id="adminViewBar_leaves" style="margin-bottom:12px;display:none;align-items:center;gap:10px">
-    <label style="font-size:13px;font-weight:500;white-space:nowrap">Viewing:</label>
-    <select id="adminViewUser_leaves" onchange="renderLeaves()" style="padding:6px 10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:13px;max-width:260px"></select>
-  </div>      <button class="btn btn-success" onclick="openModal('addLeave')">+ Log leave</button>
+    <div>
+      <div class="page-title">Leave Management</div>
+      <div class="page-sub">Manage employee leave balances and requests</div>
     </div>
+    <button class="btn btn-primary btn-sm" onclick="openModal('addLeave')">+ Request Leave</button>
   </div>
-  <div class="card"><div class="card-title">Leave balances</div><div id="leaveBalances"></div></div>
-  <div class="card">
-    <div class="card-title">Leave log
-      <div class="btn-group">
-        <select id="lvUFilt" style="font-size:12px;padding:5px 24px 5px 9px" onchange="renderLeaveLog()"><option value="">All users</option></select>
-        <select id="lvTFilt" style="font-size:12px;padding:5px 24px 5px 9px" onchange="renderLeaveLog()"><option value="">All types</option><option>Vacation</option><option>Sick</option><option>Personal</option><option>Unpaid</option></select>
+  <div class="content" style="padding:20px 24px;display:flex;flex-direction:column;gap:24px">
+
+    <!-- Stats summary row -->
+    <div id="leave-stats-row" style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px"></div>
+
+    <!-- Leave Balances Section -->
+    <div>
+      <div style="font-size:15px;font-weight:700;color:#2c3347;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between">
+        <span>Leave Balances</span>
+        <span style="font-size:12px;font-weight:400;color:#8a93b0">Click a balance number to edit (admin only)</span>
       </div>
+      <div id="leave-balances-grid" style="display:flex;flex-direction:column;gap:10px"></div>
     </div>
-    <div class="table-wrap"><table>
-      <thead><tr><th>Employee</th><th>Type</th><th>From</th><th>To</th><th>Days</th><th>Status</th><th>Teams</th></tr></thead>
-      <tbody id="lvTable"></tbody>
-    </table></div>
+
+    <!-- Leave Requests Section -->
+    <div>
+      <div style="font-size:15px;font-weight:700;color:#2c3347;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between">
+        <span>Leave Requests</span>
+        <div style="display:flex;gap:8px;align-items:center">
+          <select id="lv-filter-user" onchange="renderLeave()" style="font-size:12px;padding:5px 10px;border:1px solid #e2e8f0;border-radius:6px;color:#4a5568">
+            <option value="">All employees</option>
+          </select>
+          <select id="lv-filter-status" onchange="renderLeave()" style="font-size:12px;padding:5px 10px;border:1px solid #e2e8f0;border-radius:6px;color:#4a5568">
+            <option value="">All statuses</option>
+            <option value="pending">Pending</option>
+            <option value="approved">Approved</option>
+            <option value="rejected">Rejected</option>
+          </select>
+          <select id="lv-filter-type" onchange="renderLeave()" style="font-size:12px;padding:5px 10px;border:1px solid #e2e8f0;border-radius:6px;color:#4a5568">
+            <option value="">All types</option>
+            <option value="vacation">Vacation</option>
+            <option value="sick">Sick</option>
+            <option value="personal">Personal</option>
+          </select>
+        </div>
+      </div>
+      <div id="leave-requests-container"></div>
+    </div>
   </div>
 </div>
 
-
-<!-- SCREENSHOTS PAGE -->
 <div class="page" id="page-screenshots">
   <div class="page-header"><div class="page-title">Screenshots</div></div>
   <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px;">
@@ -2512,49 +2533,282 @@ function exportCSV(){
 }
 
 //              LEAVES                                                                                                                                                                                                                                                                                                                                                                                                                         
-function populateLvFilter(){
-  const el=document.getElementById('lvUFilt'); const cv=el.value;
-  const emps=cu.role==='admin'?users:(isTeamLead()?users.filter(function(u){return getMyTeamMemberIds().indexOf(u.id)!==-1;}):users.filter(u=>u.id===cu.id));
-  el.innerHTML='<option value="">All users</option>'+emps.map(u=>`<option value="${u.id}"${cv==u.id?' selected':''}>${u.name}</option>`).join('');
+function populateLvFilter() { renderLeave(); }
+
+
+function editLeaveBalance(uid, type, currentVal) {
+  if (!_currentUser || _currentUser.role !== 'admin') return;
+  const newVal = prompt('Edit ' + type + ' balance for this user (days):', currentVal);
+  if (newVal === null) return;
+  const parsed = parseInt(newVal);
+  if (isNaN(parsed) || parsed < 0) { alert('Please enter a valid number of days.'); return; }
+  const u = users.find(x => x.id === uid);
+  if (!u) return;
+  if (!u.leaveBalance) u.leaveBalance = {vacation:0,sick:0,personal:0};
+  u.leaveBalance[type] = parsed;
+  // Save to localStorage and sync to GitHub
+  const extra = JSON.parse(localStorage.getItem('amc_users_extra')||'{"users":[]}');
+  const extraUsers = Array.isArray(extra) ? extra : (extra.users || []);
+  const idx = extraUsers.findIndex(x => x.id === uid);
+  if (idx >= 0) {
+    extraUsers[idx] = u;
+  } else {
+    extraUsers.push(u);
+  }
+  const saveObj = Array.isArray(extra) ? extraUsers : {users: extraUsers};
+  localStorage.setItem('amc_users_extra', JSON.stringify(saveObj));
+  syncUsersToGitHub && syncUsersToGitHub();
+  renderLeave();
 }
 
-function renderLeaveBalances(){
-  const emps=cu.role==='admin'?users:users.filter(u=>u.id===cu.id);
-  document.getElementById('leaveBalances').innerHTML=emps.map(u=>{
-    const lb=u.leaveBalance||{}; const total=(lb.vacation||0)+(lb.sick||0)+(lb.personal||0);
-    const taken=leaves.filter(l=>l.uid===u.id&&l.status==='approved').reduce((a,l)=>a+l.days,0);
-    const pct=Math.min(Math.round(total/12*100),100);
-    return `<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)">
-      <div class="av av-sm" style="${avStyle(u.color)}">${ini(u.name)}</div>
-      <div style="flex:1;min-width:0">
-        <div style="font-size:13px;font-weight:500;margin-bottom:5px">${u.name}</div>
-        <div style="display:flex;gap:12px;font-size:11px;color:var(--text2);flex-wrap:wrap">
-          <span>Vacation <strong style="color:var(--text)">${lb.vacation||0}d</strong></span>
-          <span>Sick <strong style="color:var(--text)">${lb.sick||0}d</strong></span>
-          <span>Personal <strong style="color:var(--text)">${lb.personal||0}d</strong></span>
-          <span>Taken <strong style="color:var(--text)">${taken}d</strong></span>
+function saveLeaveRequest(req) {
+  const reqs = JSON.parse(localStorage.getItem('amc_leave_requests')||'[]');
+  req.id = req.id || ('lr_' + Date.now());
+  req.status = req.status || 'pending';
+  req.created = req.created || new Date().toISOString();
+  reqs.push(req);
+  localStorage.setItem('amc_leave_requests', JSON.stringify(reqs));
+  renderLeave();
+}
+
+function approveLeaveReq(id) {
+  const reqs = JSON.parse(localStorage.getItem('amc_leave_requests')||'[]');
+  const req = reqs.find(r => r.id === id);
+  if (!req) return;
+  req.status = 'approved';
+  req.approvedBy = _currentUser ? _currentUser.id : 1;
+  req.approvedAt = new Date().toISOString();
+  localStorage.setItem('amc_leave_requests', JSON.stringify(reqs));
+  renderLeave();
+}
+
+function rejectLeaveReq(id) {
+  const reqs = JSON.parse(localStorage.getItem('amc_leave_requests')||'[]');
+  const req = reqs.find(r => r.id === id);
+  if (!req) return;
+  req.status = 'rejected';
+  req.rejectedAt = new Date().toISOString();
+  localStorage.setItem('amc_leave_requests', JSON.stringify(reqs));
+  renderLeave();
+}
+
+function resetLeaveReq(id) {
+  const reqs = JSON.parse(localStorage.getItem('amc_leave_requests')||'[]');
+  const req = reqs.find(r => r.id === id);
+  if (!req) return;
+  req.status = 'pending';
+  delete req.approvedBy; delete req.approvedAt; delete req.rejectedAt;
+  localStorage.setItem('amc_leave_requests', JSON.stringify(reqs));
+  renderLeave();
+}
+
+function deleteLeaveReq(id) {
+  if (!confirm('Delete this leave request?')) return;
+  const reqs = JSON.parse(localStorage.getItem('amc_leave_requests')||'[]');
+  localStorage.setItem('amc_leave_requests', JSON.stringify(reqs.filter(r => r.id !== id)));
+  renderLeave();
+}
+
+
+function calcLeaveDays() {
+  const from = document.getElementById('lv-from');
+  const to = document.getElementById('lv-to');
+  const disp = document.getElementById('lv-days-display');
+  if (!from || !to || !disp) return 0;
+  if (!from.value || !to.value) { disp.textContent = 'Select dates above'; disp.style.color='#6b7280'; return 0; }
+  const d1 = new Date(from.value+'T12:00:00'), d2 = new Date(to.value+'T12:00:00');
+  if (d2 < d1) { disp.textContent = 'End must be after start'; disp.style.color='#ef4444'; return 0; }
+  let count = 0;
+  const cur = new Date(d1);
+  while (cur <= d2) { const dow = cur.getDay(); if (dow >= 1 && dow <= 5) count++; cur.setDate(cur.getDate()+1); }
+  disp.textContent = count + ' working day' + (count !== 1 ? 's' : '');
+  disp.style.color = '#22c55e';
+  return count;
+}
+
+function submitLeaveRequest() {
+  const empEl = document.getElementById('lv-emp');
+  const typeEl = document.getElementById('lv-type');
+  const fromEl = document.getElementById('lv-from');
+  const toEl = document.getElementById('lv-to');
+  const notesEl = document.getElementById('lv-notes');
+  if (!empEl || !typeEl || !fromEl || !toEl) return;
+  if (!fromEl.value || !toEl.value) { alert('Please select start and end dates.'); return; }
+  const days = calcLeaveDays();
+  if (!days || days <= 0) { alert('Invalid date range. Please check dates.'); return; }
+  const uid = parseInt(empEl.value);
+  const req = {
+    id: 'lr_' + Date.now(),
+    uid,
+    type: typeEl.value,
+    from: fromEl.value,
+    to: toEl.value,
+    days,
+    notes: (notesEl ? notesEl.value.trim() : ''),
+    status: 'pending',
+    created: new Date().toISOString()
+  };
+  saveLeaveRequest(req);
+  closeModal();
+  renderLeave();
+  alert('Leave request submitted!');
+}
+
+
+
+function renderLeaveBalances() {
+  // Stats
+  const leaveReqs = JSON.parse(localStorage.getItem('amc_leave_requests')||'[]');
+  const pending = leaveReqs.filter(r=>r.status==='pending').length;
+  const approvedThisMonth = leaveReqs.filter(r=>r.status==='approved' && r.from && r.from.startsWith(new Date().toISOString().substring(0,7))).length;
+  const totalEmp = users.filter(u=>u.role!=='admin').length;
+  const statsEl = document.getElementById('leave-stats-row');
+  if (statsEl) {
+    const stats = [
+      {label:'Pending Requests', val:pending, color:'#f59e0b', bg:'#fffbeb', icon:'⏳'},
+      {label:'Approved This Month', val:approvedThisMonth, color:'#22c55e', bg:'#f0fdf4', icon:'✅'},
+      {label:'Total Employees', val:totalEmp, color:'#3b82f6', bg:'#eff6ff', icon:'👥'},
+      {label:'Leave Types', val:'Vac · Sick · Personal', color:'#8b5cf6', bg:'#f5f3ff', icon:'📋'}
+    ];
+    statsEl.innerHTML = stats.map(s=>`<div style="background:${s.bg};border:1px solid ${s.color}22;border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:14px">
+      <div style="font-size:28px">${s.icon}</div>
+      <div><div style="font-size:22px;font-weight:700;color:${s.color}">${s.val}</div><div style="font-size:12px;color:#6b7280;margin-top:2px">${s.label}</div></div>
+    </div>`).join('');
+  }
+
+  // Balances
+  const isAdmin = _currentUser && _currentUser.role === 'admin';
+  const balGrid = document.getElementById('leave-balances-grid');
+  if (balGrid) {
+    const displayUsers = isAdmin ? users.filter(u=>u.id>1) : users.filter(u=>u.id===(_currentUser&&_currentUser.id));
+    balGrid.innerHTML = displayUsers.map(u => {
+      const lb = u.leaveBalance || {vacation:0,sick:0,personal:0};
+      const taken = leaveReqs.filter(r=>r.uid===u.id&&r.status==='approved').reduce((acc,r)=>acc+(Number(r.days)||0),0);
+      const total = (lb.vacation||0)+(lb.sick||0)+(lb.personal||0);
+      const remaining = total - taken;
+      const pct = total > 0 ? Math.round((remaining/total)*100) : 0;
+      const typeRows = [
+        {k:'vacation',label:'Vacation',color:'#3b82f6',used:leaveReqs.filter(r=>r.uid===u.id&&r.status==='approved'&&r.type==='vacation').reduce((a,r)=>a+(Number(r.days)||0),0)},
+        {k:'sick',label:'Sick',color:'#ef4444',used:leaveReqs.filter(r=>r.uid===u.id&&r.status==='approved'&&r.type==='sick').reduce((a,r)=>a+(Number(r.days)||0),0)},
+        {k:'personal',label:'Personal',color:'#8b5cf6',used:leaveReqs.filter(r=>r.uid===u.id&&r.status==='approved'&&r.type==='personal').reduce((a,r)=>a+(Number(r.days)||0),0)}
+      ];
+      return `<div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px 20px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:36px;height:36px;border-radius:50%;background:#e8f0fb;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#3d7ab0">${(u.name||'?').split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase()}</div>
+            <div><div style="font-size:14px;font-weight:600;color:#2c3347">${u.name}</div><div style="font-size:11px;color:#8a93b0">${u.jobTitle||u.role||''}</div></div>
+          </div>
+          <div style="text-align:right"><div style="font-size:18px;font-weight:700;color:${remaining>5?'#22c55e':remaining>2?'#f59e0b':'#ef4444'}">${remaining}d left</div><div style="font-size:11px;color:#8a93b0">${taken}d taken of ${total}d</div></div>
         </div>
-        <div class="prog-wrap" style="margin-top:6px"><div class="prog-fill" style="width:${pct}%;background:var(--primary)"></div></div>
-      </div>
-      <div style="font-size:18px;font-weight:600;min-width:36px;text-align:right">${total}d</div>
-    </div>`;
-  }).join('');
-}
+        <div style="background:#f1f5f9;border-radius:99px;height:6px;margin-bottom:14px;overflow:hidden"><div style="height:100%;background:${pct>50?'#22c55e':pct>25?'#f59e0b':'#ef4444'};width:${pct}%;border-radius:99px;transition:width 0.4s"></div></div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+          ${typeRows.map(t=>{
+            const bal = lb[t.k]||0;
+            const used = t.used;
+            const avail = Math.max(0,bal-used);
+            const tp = bal>0?Math.round((avail/bal)*100):0;
+            return `<div style="background:#f8fafc;border-radius:8px;padding:10px;border:1px solid #e2e8f0">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+                <span style="font-size:11px;font-weight:600;color:${t.color};text-transform:uppercase;letter-spacing:.04em">${t.label}</span>
+                ${isAdmin?'<span onclick="editLeaveBalance('+u.id+',\''+t.k+'\','+bal+')" title="Edit balance" style="cursor:pointer;font-size:10px;color:#8a93b0;padding:2px 5px;border-radius:4px;border:1px solid #e2e8f0;background:#fff;hover:background:#f1f5f9">✏️ '+bal+'d</span>':'<span style="font-size:11px;font-weight:600;color:#2c3347">'+bal+'d</span>'}
+              </div>
+              <div style="background:#e2e8f0;border-radius:99px;height:4px;overflow:hidden"><div style="height:100%;background:${t.color};width:${tp}%;border-radius:99px"></div></div>
+              <div style="font-size:11px;color:#6b7280;margin-top:4px">${avail}d avail · ${used}d used</div>
+            </div>`;
+          }).join('')}
+        </div>
+      </div>`;
+    }).join('');
+  }
 
-function renderLeaveLog(){
-  const uf=document.getElementById('lvUFilt').value; const tf=document.getElementById('lvTFilt').value;
-  var _isTLLL = isTeamLead();
-  var _tlMemberIdsLL = _isTLLL ? getMyTeamMemberIds() : null;
-  const filtered=leaves.filter(l=>(_isTLLL?(_tlMemberIdsLL.indexOf(+l.uid)!==-1):true)&&(!uf||l.uid==uf)&&(!tf||l.type===tf));
-  const el=document.getElementById('lvTable');
-  if(!filtered.length){ el.innerHTML='<tr><td colspan="7" style="text-align:center;padding:20px;color:var(--text3)">No leave records.</td></tr>'; return; }
-  el.innerHTML=[...filtered].reverse().map(l=>{
-    const u=users.find(x=>x.id===l.uid);
-    const stB={approved:'badge-teal',pending:'badge-amber',rejected:'badge-red'}[l.status];
-    const teams=l.teamsNotified?'<span class="badge badge-green">sent</span>':`<button class="btn btn-sm" onclick="notifyTeams(${l.id})">Notify</button>`;
-    return `<tr><td>${u?u.name:'?'}</td><td><span class="badge ${l.type==='Sick'?'badge-red':l.type==='Vacation'?'badge-teal':'badge-amber'}">${l.type}</span></td><td>${l.from}</td><td>${l.to}</td><td>${l.days}d</td><td><span class="badge ${stB}">${l.status}</span></td><td>${teams}</td></tr>`;
-  }).join('');
+  // Leave Requests Table
+  const userFilter = (document.getElementById('lv-filter-user')||{}).value||'';
+  const statusFilter = (document.getElementById('lv-filter-status')||{}).value||'';
+  const typeFilter = (document.getElementById('lv-filter-type')||{}).value||'';
+
+  // Populate user filter
+  const userSel = document.getElementById('lv-filter-user');
+  if (userSel && userSel.options.length <= 1) {
+    users.filter(u=>u.id>1).forEach(u=>{
+      const opt = document.createElement('option');
+      opt.value = u.id;
+      opt.textContent = u.name;
+      userSel.appendChild(opt);
+    });
+  }
+
+  let filtered = leaveReqs;
+  if (userFilter) filtered = filtered.filter(r=>String(r.uid)===String(userFilter));
+  if (statusFilter) filtered = filtered.filter(r=>r.status===statusFilter);
+  if (typeFilter) filtered = filtered.filter(r=>r.type===typeFilter);
+
+  filtered = filtered.slice().sort((a,b)=>new Date(b.created||b.from||0)-new Date(a.created||a.from||0));
+
+  const container = document.getElementById('leave-requests-container');
+  if (!container) return;
+
+  if (!filtered.length) {
+    container.innerHTML = `<div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:40px;text-align:center;color:#8a93b0">
+      <div style="font-size:32px;margin-bottom:8px">📋</div>
+      <div style="font-size:14px;font-weight:600">No leave requests found</div>
+      <div style="font-size:12px;margin-top:4px">Requests will appear here once submitted</div>
+    </div>`;
+    return;
+  }
+
+  const statusColor = {pending:'#f59e0b',approved:'#22c55e',rejected:'#ef4444'};
+  const statusBg = {pending:'#fffbeb',approved:'#f0fdf4',rejected:'#fef2f2'};
+  const typeColor = {vacation:'#3b82f6',sick:'#ef4444',personal:'#8b5cf6'};
+
+  container.innerHTML = `<div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden">
+    <table style="width:100%;border-collapse:collapse;font-size:13px">
+      <thead><tr style="background:#f8fafc;border-bottom:1px solid #e2e8f0">
+        <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.05em">Employee</th>
+        <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.05em">Type</th>
+        <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.05em">From</th>
+        <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.05em">To</th>
+        <th style="padding:12px 16px;text-align:center;font-size:11px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.05em">Days</th>
+        <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.05em">Notes</th>
+        <th style="padding:12px 16px;text-align:center;font-size:11px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.05em">Status</th>
+        ${isAdmin?'<th style="padding:12px 16px;text-align:center;font-size:11px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.05em">Actions</th>':''}
+      </tr></thead>
+      <tbody>${filtered.map((r,i)=>{
+        const emp = users.find(u=>u.id===r.uid)||(r.uid?{name:'User #'+r.uid}:{name:r.employeeName||'Unknown'});
+        const initials = (emp.name||'?').split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
+        const sc = statusColor[r.status]||'#8a93b0';
+        const sb = statusBg[r.status]||'#f8fafc';
+        const tc = typeColor[r.type]||'#8a93b0';
+        const fmtDate = d => { try { return d ? new Date(d+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '-'; } catch(e){return d||'-';} };
+        return `<tr style="border-bottom:1px solid #f1f5f9;${i%2===1?'background:#fafbfc':''}">
+          <td style="padding:12px 16px">
+            <div style="display:flex;align-items:center;gap:8px">
+              <div style="width:28px;height:28px;border-radius:50%;background:#e8f0fb;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#3d7ab0;flex-shrink:0">${initials}</div>
+              <span style="font-weight:500;color:#2c3347">${emp.name}</span>
+            </div>
+          </td>
+          <td style="padding:12px 16px"><span style="background:${tc}18;color:${tc};font-size:11px;font-weight:600;padding:3px 8px;border-radius:5px;text-transform:capitalize">${r.type||'—'}</span></td>
+          <td style="padding:12px 16px;color:#4a5568">${fmtDate(r.from)}</td>
+          <td style="padding:12px 16px;color:#4a5568">${fmtDate(r.to)}</td>
+          <td style="padding:12px 16px;text-align:center;font-weight:600;color:#2c3347">${r.days||'—'}</td>
+          <td style="padding:12px 16px;color:#6b7280;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${r.notes||''}">${r.notes||'—'}</td>
+          <td style="padding:12px 16px;text-align:center"><span style="background:${sb};color:${sc};font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;text-transform:capitalize;border:1px solid ${sc}33">${r.status||'pending'}</span></td>
+          ${isAdmin?`<td style="padding:12px 16px;text-align:center">
+            <div style="display:flex;gap:6px;justify-content:center;align-items:center">
+              ${r.status==='pending'?`
+                <button onclick="approveLeaveReq('${r.id}')" title="Approve" style="background:#f0fdf4;color:#22c55e;border:1px solid #bbf7d0;border-radius:6px;padding:4px 10px;font-size:11px;font-weight:600;cursor:pointer">✓ Approve</button>
+                <button onclick="rejectLeaveReq('${r.id}')" title="Reject" style="background:#fef2f2;color:#ef4444;border:1px solid #fecaca;border-radius:6px;padding:4px 10px;font-size:11px;font-weight:600;cursor:pointer">✗ Reject</button>
+              `:`<button onclick="resetLeaveReq('${r.id}')" title="Reset to pending" style="background:#f8fafc;color:#8a93b0;border:1px solid #e2e8f0;border-radius:6px;padding:4px 10px;font-size:11px;cursor:pointer">↺ Reset</button>`}
+              <button onclick="deleteLeaveReq('${r.id}')" title="Delete" style="background:#fff5f5;color:#ef4444;border:1px solid #fed7d7;border-radius:6px;padding:4px 8px;font-size:11px;cursor:pointer">🗑</button>
+            </div>
+          </td>`:''}
+        </tr>`;
+      }).join('')}</tbody>
+    </table>
+  </div>`;
 }
+function renderLeave() { renderLeaveBalances(); }
+
+function renderLeaveLog() { renderLeaveBalances(); }
 
 function notifyTeams(lid){
   const l=leaves.find(x=>x.id===lid); if(!l)return;
@@ -3188,16 +3442,30 @@ function openModal(mode,id){
     <div class="form-row"><label>Duration (hh:mm:ss)</label><input type="text" id="f-dur" placeholder="01:30:00"/></div>`;
 
   } else if(mode==='addLeave'){
-    const emps=cu.role==='admin'?users:users.filter(u=>u.id===cu.id);
-    body=`<div class="form-row"><label>Employee</label><select id="f-uid">${emps.map(u=>`<option value="${u.id}">${u.name}</option>`).join('')}</select></div>
-    <div class="form-grid">
-      <div class="form-row"><label>Leave type</label><select id="f-ltype"><option>Vacation</option><option>Sick</option><option>Personal</option><option>Unpaid</option></select></div>
-      <div class="form-row"><label>Status</label><select id="f-lst"><option value="approved">Approved</option><option value="pending">Pending</option></select></div>
-      <div class="form-row"><label>From date</label><input type="date" id="f-lf" value="${todayStr()}"/></div>
-      <div class="form-row"><label>To date</label><input type="date" id="f-lt" value="${todayStr()}"/></div>
-    </div>
-    <div class="form-row"><label>Notes (optional)</label><input type="text" id="f-lnotes" placeholder="Reason..."/></div>`;
-
+    const emps = _currentUser&&_currentUser.role==='admin' ? users.filter(u=>u.role!=='admin') : [_currentUser].filter(Boolean);
+    body.innerHTML = `
+      <div class="form-group"><label class="form-label">Employee</label>
+        <select id="lv-emp" class="form-control" ${_currentUser&&_currentUser.role!=='admin'?'disabled':''}>${emps.map(u=>`<option value="${u.id}" ${_currentUser&&_currentUser.role!=='admin'?'selected':''>${u.name}</option>`).join('')}</select>
+      </div>
+      <div class="form-group"><label class="form-label">Leave Type</label>
+        <select id="lv-type" class="form-control">
+          <option value="vacation">🌴 Vacation</option>
+          <option value="sick">🤒 Sick</option>
+          <option value="personal">🏠 Personal</option>
+        </select>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="form-group"><label class="form-label">From</label><input type="date" id="lv-from" class="form-control" oninput="calcLeaveDays()" required></div>
+        <div class="form-group"><label class="form-label">To</label><input type="date" id="lv-to" class="form-control" oninput="calcLeaveDays()" required></div>
+      </div>
+      <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:10px 14px;display:flex;align-items:center;gap:10px">
+        <span style="font-size:20px">📅</span>
+        <div><div id="lv-days-display" style="font-size:16px;font-weight:700;color:#22c55e">Select dates above</div><div style="font-size:11px;color:#6b7280">Working days (Mon–Fri)</div></div>
+      </div>
+      <div class="form-group"><label class="form-label">Notes (optional)</label><textarea id="lv-notes" class="form-control" style="min-height:70px;resize:vertical" placeholder="Reason or additional details..."></textarea></div>
+    `;
+    footer.innerHTML = `<button class="btn btn-secondary btn-sm" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary btn-sm" onclick="submitLeaveRequest()">Submit Request</button>`;
   } else if(mode==='addTitle'){
     body=`<div class="form-row"><label>Job title</label><input type="text" id="f-t" placeholder="e.g. Senior Content Developer"/></div>`;
   } else if(mode==='bulkTitles'){
