@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- AMC Tracker v20260609r15e - Fix double-brace in addLeave; use correct body string pattern -->
+<!-- AMC Tracker v20260609r15f - Fix missing closing brace in doModal addLeave case -->
 <!-- AMC Tracker v20260521r5 - OTP Login Build -->
 <html lang="en">
 <head>
@@ -3594,6 +3594,7 @@ function doModal(){
 
   } else if(mmode==='addLeave'){
     submitLeaveRequest();
+  }
 }
 
 //              INIT                                                                                                                                                                                                                                                                                                                                                                                                                                     
