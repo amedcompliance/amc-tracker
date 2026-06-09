@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- AMC Tracker v20260609r15j - Fix missing closing brace in doModal function -->
+<!-- AMC Tracker v20260609r15k - Replace blocking alert with toast notification in leave submit -->
 <!-- AMC Tracker v20260521r5 - OTP Login Build -->
 <html lang="en">
 <head>
@@ -2650,8 +2650,12 @@ function submitLeaveRequest() {
   };
   saveLeaveRequest(req);
   closeModal();
-  renderLeave();
-  alert('Leave request submitted!');
+  renderLeaveBalances();
+  const _ta=document.createElement('div');
+  _ta.style='position:fixed;top:20px;right:20px;background:#22c55e;color:white;padding:12px 20px;border-radius:8px;font-size:14px;font-weight:600;z-index:9999;box-shadow:0 4px 12px rgba(0,0,0,.15);animation:fadeIn .3s';
+  _ta.textContent='\u2713 Leave request submitted!';
+  document.body.appendChild(_ta);
+  setTimeout(function(){_ta.remove();},3000);
 }
 
 
