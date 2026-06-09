@@ -4081,38 +4081,6 @@
     "url": null
   },
   {
-    "id": 143,
-    "uid": 15,
-    "project": "AMC Project",
-    "category": "Work",
-    "start": "2026-06-09T15:46:10.538Z",
-    "duration": 915,
-    "date": "2026-06-09",
-    "type": "tracked",
-    "manual": false,
-    "screenshots": [
-      {
-        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_15/143_1781019982325.jpg",
-        "time": "2026-06-09T15:46:22.325Z",
-        "mouse": 569,
-        "keys": 85
-      },
-      {
-        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_15/143_1781019985707.jpg",
-        "time": "2026-06-09T15:46:25.707Z",
-        "mouse": 125,
-        "keys": 0
-      },
-      {
-        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_15/143_1781020882888.jpg",
-        "time": "2026-06-09T16:01:22.888Z",
-        "mouse": 1189,
-        "keys": 0
-      }
-    ],
-    "url": null
-  },
-  {
     "id": 121,
     "uid": 17,
     "project": "AMC Project",
@@ -4256,6 +4224,38 @@
         "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_17/140_1781020673136.jpg",
         "time": "2026-06-09T15:57:53.136Z",
         "mouse": 1,
+        "keys": 0
+      }
+    ],
+    "url": null
+  },
+  {
+    "id": 143,
+    "uid": 15,
+    "project": "AMC Project",
+    "category": "Work",
+    "start": "2026-06-09T15:46:10.538Z",
+    "duration": 930,
+    "date": "2026-06-09",
+    "type": "tracked",
+    "manual": false,
+    "screenshots": [
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_15/143_1781019982325.jpg",
+        "time": "2026-06-09T15:46:22.325Z",
+        "mouse": 569,
+        "keys": 85
+      },
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_15/143_1781019985707.jpg",
+        "time": "2026-06-09T15:46:25.707Z",
+        "mouse": 125,
+        "keys": 0
+      },
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_15/143_1781020882888.jpg",
+        "time": "2026-06-09T16:01:22.888Z",
+        "mouse": 1189,
         "keys": 0
       }
     ],
