@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- AMC Tracker v20260609r15k - Replace blocking alert with toast notification in leave submit -->
+<!-- AMC Tracker v20260609r15l - Replace blocking alert with toast notification in leave submit -->
 <!-- AMC Tracker v20260521r5 - OTP Login Build -->
 <html lang="en">
 <head>
@@ -1459,7 +1459,7 @@ function showInner(page, sec){  if(page==='admin'&&sec==='gusto'){setTimeout(gus
 async function startTimer(){
   const proj = document.getElementById('projInput').value.trim()||'Untitled';
   const cat = document.getElementById('catSelect').value;
-  secs=0; running=true;
+  secs=0; running=true; var _at=JSON.parse(localStorage.getItem('amc_active_timer')||'null'); if(_at&&cu&&_at.uid===cu.id&&_at.startEpoch){secs=Math.max(0,Math.floor((Date.now()-_at.startEpoch)/1000));} localStorage.setItem('amc_active_timer',JSON.stringify({uid:cu.id,startEpoch:Date.now()-secs*1000,project:proj,category:cat}));
   var _urlVal=document.getElementById('urlInput')?document.getElementById('urlInput').value.trim():''; var _urlHost=''; if(_urlVal){try{_urlHost=new URL(_urlVal.indexOf('://')!==-1?_urlVal:'https://'+_urlVal).hostname;}catch(e){_urlHost=_urlVal;}} curSess = {id:nsid++,uid:cu.id,project:proj,category:cat,start:new Date(),duration:0,screenshots:[],date:todayStr(),type:'tracked',url:_urlHost||null};
   sessions.push(curSess); setTimeout(syncSessionsToGitHub, 2000);
   saveSessions(); // sync online status immediately
@@ -1534,7 +1534,7 @@ async function capShot(){
 
 function manualSnap(){ if(!curSess){alert('Start tracking first.');return;} capShot(); }
 
-function stopTimer(){
+function stopTimer(){localStorage.removeItem('amc_active_timer');
   clearInterval(tInt); clearInterval(ssInt); running=false;
   if(curSess) curSess.duration=secs; var _sess=curSess; curSess=null; secs=0;
   document.getElementById('startBtn').disabled=false;
@@ -3936,7 +3936,7 @@ function completeLogin(user) {
   if (trackerDate) trackerDate.textContent = new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric',timeZone:'America/Phoenix'});
   
   // Navigate to tracker - safely
-  try { if (typeof goTo === 'function') goTo('tracker'); } catch(e) { 
+  try { if (typeof goTo === 'function') goTo('tracker'); setTimeout(resumeActiveTimer,400); } catch(e) { 
     try { if (typeof showInner === 'function') showInner('tracker'); } catch(e2) {}
   }
   
@@ -4360,6 +4360,18 @@ function renderDashboardCharts() {
       if (page === "dashboard") { setTimeout(renderDashboardCharts, 200); }
     };
   }
+function resumeActiveTimer(){
+  try{
+    var at=JSON.parse(localStorage.getItem('amc_active_timer')||'null');
+    if(!at||!cu||at.uid!==cu.id||!at.startEpoch) return;
+    var pi=document.getElementById('projInput');
+    var cs=document.getElementById('catSelect');
+    if(pi&&at.project) pi.value=at.project;
+    if(cs&&at.category) cs.value=at.category;
+    secs=Math.max(0,Math.floor((Date.now()-at.startEpoch)/1000));
+    if(typeof startTimer==='function'&&!running) startTimer();
+  }catch(e){console.error('resumeTimer:',e);}
+}
 })();
 
 </script>
