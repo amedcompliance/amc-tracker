@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- AMC Tracker v20260609r15h - Expose leave helper functions to global scope -->
+<!-- AMC Tracker v20260609r15i - Fix doModal addLeave: replace old field reads with submitLeaveRequest() -->
 <!-- AMC Tracker v20260521r5 - OTP Login Build -->
 <html lang="en">
 <head>
@@ -3544,21 +3544,7 @@ function doModal(){
     closeModal(); renderAdj(); populateAdjFilters(); updateMetrics();
 
   } else if(mmode==='addLeave'){
-    const uid=+document.getElementById('f-uid').value;
-    const type=document.getElementById('f-ltype').value;
-    const from=document.getElementById('f-lf').value; const to=document.getElementById('f-lt').value;
-    const status=document.getElementById('f-lst').value;
-    if(!from||!to||from>to){alert('Check dates.');return;}
-    const days=dateRange(from,to).length||1;
-    leaves.push({id:nlid++,uid,type,from,to,days,status,notes:document.getElementById('f-lnotes').value,teamsNotified:false});
-    const u=users.find(x=>x.id===uid);
-    if(u&&status==='approved'){
-      if(type==='Vacation'&&(u.leaveBalance.vacation||0)>=days) u.leaveBalance.vacation-=days;
-      else if(type==='Sick'&&(u.leaveBalance.sick||0)>=days) u.leaveBalance.sick-=days;
-      else if(type==='Personal'&&(u.leaveBalance.personal||0)>=days) u.leaveBalance.personal-=days;
-    }
-    addAudit(cu.id,'Leave logged','Leave',`${type} for ${u?.name} ${from}        ${to} (${days}d)        ${status}`);
-    closeModal(); renderLeaveLog(); renderLeaveBalances();
+    submitLeaveRequest();
 
   } else if(mmode==='addTitle'){
     const v=document.getElementById('f-t').value.trim(); if(!v){alert('Enter a title.');return;}
@@ -3590,10 +3576,6 @@ function doModal(){
     holidays.sort((a,b)=>a.date.localeCompare(b.date));
     addAudit(cu.id,'Holiday edited','System',`Updated: ${h.name}`);
     closeModal(); renderHolidays(); renderLeavePolicy();
-
-  } else if(mmode==='addLeave'){
-    submitLeaveRequest();
-  }
 }
 
 //              INIT                                                                                                                                                                                                                                                                                                                                                                                                                                     
