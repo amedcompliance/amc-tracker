@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- AMC Tracker v20260609r15f - Fix missing closing brace in doModal addLeave case -->
+<!-- AMC Tracker v20260609r15g - Fix doModal extra brace: remove redundant closing brace before addLeave case -->
 <!-- AMC Tracker v20260521r5 - OTP Login Build -->
 <html lang="en">
 <head>
@@ -3590,7 +3590,6 @@ function doModal(){
     holidays.sort((a,b)=>a.date.localeCompare(b.date));
     addAudit(cu.id,'Holiday edited','System',`Updated: ${h.name}`);
     closeModal(); renderHolidays(); renderLeavePolicy();
-  }
 
   } else if(mmode==='addLeave'){
     submitLeaveRequest();
