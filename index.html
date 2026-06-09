@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- AMC Tracker v20260609r15i - Fix doModal addLeave: replace old field reads with submitLeaveRequest() -->
+<!-- AMC Tracker v20260609r15j - Fix missing closing brace in doModal function -->
 <!-- AMC Tracker v20260521r5 - OTP Login Build -->
 <html lang="en">
 <head>
@@ -3576,6 +3576,7 @@ function doModal(){
     holidays.sort((a,b)=>a.date.localeCompare(b.date));
     addAudit(cu.id,'Holiday edited','System',`Updated: ${h.name}`);
     closeModal(); renderHolidays(); renderLeavePolicy();
+}
 }
 
 //              INIT                                                                                                                                                                                                                                                                                                                                                                                                                                     
