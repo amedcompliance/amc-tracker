@@ -285,30 +285,8 @@
       "needsSetup": true,
       "color": 1,
       "pin": "Gumral"
-    },
-    {
-      "id": 19,
-      "name": "Mary Elizabeth Lawas",
-      "email": "mary.lawas@amedcompliance.com",
-      "role": "employee",
-      "dept": 4,
-      "shift": 1,
-      "jobTitle": "Multimedia Team Lead",
-      "phone": "",
-      "status": "active",
-      "startDate": "2025-07-25",
-      "invited": true,
-      "manager": null,
-      "leaveBalance": {
-        "vacation": 6,
-        "sick": 4,
-        "personal": 2
-      },
-      "needsSetup": true,
-      "color": 2,
-      "pin": "Gumral"
     }
   ],
-  "updated": "2026-06-10T16:34:48.398Z",
+  "updated": "2026-06-10T16:39:28.553Z",
   "note": "AMC Time Tracker user database. Managed automatically by the app."
 }
