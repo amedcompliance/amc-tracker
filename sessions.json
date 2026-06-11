@@ -4392,6 +4392,226 @@
     "url": null
   },
   {
+    "id": 162,
+    "uid": 14,
+    "project": "AMC Project",
+    "category": "Work",
+    "start": "2026-06-11T15:32:45.258Z",
+    "duration": 11254,
+    "date": "2026-06-11",
+    "type": "tracked",
+    "manual": false,
+    "screenshots": [
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/162_1781191970054.jpg",
+        "time": "2026-06-11T15:32:50.055Z",
+        "mouse": 2041,
+        "keys": 142
+      },
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/162_1781192205179.jpg",
+        "time": "2026-06-11T15:36:45.179Z",
+        "mouse": 442,
+        "keys": 0
+      },
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/162_1781192208423.jpg",
+        "time": "2026-06-11T15:36:48.423Z",
+        "mouse": 86,
+        "keys": 0
+      },
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/162_1781192870808.jpg",
+        "time": "2026-06-11T15:47:50.808Z",
+        "mouse": 331,
+        "keys": 0
+      },
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/162_1781193773070.jpg",
+        "time": "2026-06-11T16:02:53.070Z",
+        "mouse": 468,
+        "keys": 0
+      },
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/162_1781194673067.jpg",
+        "time": "2026-06-11T16:17:53.067Z",
+        "mouse": 74,
+        "keys": 0
+      },
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/162_1781195573060.jpg",
+        "time": "2026-06-11T16:32:53.060Z",
+        "mouse": 1,
+        "keys": 0
+      },
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/162_1781196473073.jpg",
+        "time": "2026-06-11T16:47:53.073Z",
+        "mouse": 1,
+        "keys": 0
+      },
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/162_1781197373061.jpg",
+        "time": "2026-06-11T17:02:53.061Z",
+        "mouse": 1,
+        "keys": 0
+      },
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/162_1781198273056.jpg",
+        "time": "2026-06-11T17:17:53.056Z",
+        "mouse": 1,
+        "keys": 0
+      },
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/162_1781199173112.jpg",
+        "time": "2026-06-11T17:32:53.112Z",
+        "mouse": 1,
+        "keys": 0
+      },
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/162_1781200073057.jpg",
+        "time": "2026-06-11T17:47:53.057Z",
+        "mouse": 1,
+        "keys": 0
+      },
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/162_1781200973165.jpg",
+        "time": "2026-06-11T18:02:53.165Z",
+        "mouse": 1,
+        "keys": 0
+      },
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/162_1781201873081.jpg",
+        "time": "2026-06-11T18:17:53.081Z",
+        "mouse": 1,
+        "keys": 0
+      },
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/162_1781202773185.jpg",
+        "time": "2026-06-11T18:32:53.185Z",
+        "mouse": 1,
+        "keys": 0
+      }
+    ],
+    "url": null
+  },
+  {
+    "id": 163,
+    "uid": 14,
+    "project": "AMC Project",
+    "category": "Work",
+    "start": "2026-06-11T19:25:37.030Z",
+    "duration": 7800,
+    "date": "2026-06-12",
+    "type": "tracked",
+    "manual": false,
+    "screenshots": [
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/163_1781205937112.jpg",
+        "time": "2026-06-11T19:25:37.112Z",
+        "mouse": 446,
+        "keys": 0
+      },
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/163_1781206838075.jpg",
+        "time": "2026-06-11T19:40:38.075Z",
+        "mouse": 1564,
+        "keys": 0
+      },
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/163_1781207738074.jpg",
+        "time": "2026-06-11T19:55:38.074Z",
+        "mouse": 1,
+        "keys": 0
+      },
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/163_1781208638111.jpg",
+        "time": "2026-06-11T20:10:38.111Z",
+        "mouse": 1,
+        "keys": 0
+      },
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/163_1781209538108.jpg",
+        "time": "2026-06-11T20:25:38.108Z",
+        "mouse": 1,
+        "keys": 0
+      },
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/163_1781210438085.jpg",
+        "time": "2026-06-11T20:40:38.085Z",
+        "mouse": 276,
+        "keys": 0
+      },
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/163_1781211338076.jpg",
+        "time": "2026-06-11T20:55:38.076Z",
+        "mouse": 1,
+        "keys": 0
+      },
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/163_1781212238070.jpg",
+        "time": "2026-06-11T21:10:38.070Z",
+        "mouse": 1,
+        "keys": 0
+      },
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/163_1781213138092.jpg",
+        "time": "2026-06-11T21:25:38.092Z",
+        "mouse": 1,
+        "keys": 0
+      },
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/163_1781214038072.jpg",
+        "time": "2026-06-11T21:40:38.072Z",
+        "mouse": 582,
+        "keys": 0
+      },
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/163_1781214938108.jpg",
+        "time": "2026-06-11T21:55:38.108Z",
+        "mouse": 1,
+        "keys": 0
+      },
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/163_1781215838079.jpg",
+        "time": "2026-06-11T22:10:38.079Z",
+        "mouse": 1,
+        "keys": 0
+      },
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/163_1781216738170.jpg",
+        "time": "2026-06-11T22:25:38.170Z",
+        "mouse": 1,
+        "keys": 0
+      },
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/163_1781217638045.jpg",
+        "time": "2026-06-11T22:40:38.045Z",
+        "mouse": 1,
+        "keys": 0
+      },
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/163_1781218538113.jpg",
+        "time": "2026-06-11T22:55:38.113Z",
+        "mouse": 1,
+        "keys": 0
+      },
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/163_1781219438065.jpg",
+        "time": "2026-06-11T23:10:38.065Z",
+        "mouse": 755,
+        "keys": 0
+      },
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/163_1781220338258.jpg",
+        "time": "2026-06-11T23:25:38.258Z",
+        "mouse": 1,
+        "keys": 0
+      }
+    ],
+    "url": null
+  },
+  {
     "id": 4,
     "uid": 5,
     "project": "Untitled",
@@ -7655,7 +7875,7 @@
     "project": "AMC Project",
     "category": "Work",
     "start": "2026-06-11T21:06:33.509Z",
-    "duration": 9043,
+    "duration": 9112,
     "date": "2026-06-11",
     "type": "tracked",
     "manual": false,
@@ -7753,226 +7973,6 @@
     "type": "tracked",
     "manual": false,
     "screenshots": [],
-    "url": null
-  },
-  {
-    "id": 162,
-    "uid": 14,
-    "project": "AMC Project",
-    "category": "Work",
-    "start": "2026-06-11T15:32:45.258Z",
-    "duration": 11254,
-    "date": "2026-06-11",
-    "type": "tracked",
-    "manual": false,
-    "screenshots": [
-      {
-        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/162_1781191970054.jpg",
-        "time": "2026-06-11T15:32:50.055Z",
-        "mouse": 2041,
-        "keys": 142
-      },
-      {
-        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/162_1781192205179.jpg",
-        "time": "2026-06-11T15:36:45.179Z",
-        "mouse": 442,
-        "keys": 0
-      },
-      {
-        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/162_1781192208423.jpg",
-        "time": "2026-06-11T15:36:48.423Z",
-        "mouse": 86,
-        "keys": 0
-      },
-      {
-        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/162_1781192870808.jpg",
-        "time": "2026-06-11T15:47:50.808Z",
-        "mouse": 331,
-        "keys": 0
-      },
-      {
-        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/162_1781193773070.jpg",
-        "time": "2026-06-11T16:02:53.070Z",
-        "mouse": 468,
-        "keys": 0
-      },
-      {
-        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/162_1781194673067.jpg",
-        "time": "2026-06-11T16:17:53.067Z",
-        "mouse": 74,
-        "keys": 0
-      },
-      {
-        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/162_1781195573060.jpg",
-        "time": "2026-06-11T16:32:53.060Z",
-        "mouse": 1,
-        "keys": 0
-      },
-      {
-        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/162_1781196473073.jpg",
-        "time": "2026-06-11T16:47:53.073Z",
-        "mouse": 1,
-        "keys": 0
-      },
-      {
-        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/162_1781197373061.jpg",
-        "time": "2026-06-11T17:02:53.061Z",
-        "mouse": 1,
-        "keys": 0
-      },
-      {
-        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/162_1781198273056.jpg",
-        "time": "2026-06-11T17:17:53.056Z",
-        "mouse": 1,
-        "keys": 0
-      },
-      {
-        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/162_1781199173112.jpg",
-        "time": "2026-06-11T17:32:53.112Z",
-        "mouse": 1,
-        "keys": 0
-      },
-      {
-        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/162_1781200073057.jpg",
-        "time": "2026-06-11T17:47:53.057Z",
-        "mouse": 1,
-        "keys": 0
-      },
-      {
-        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/162_1781200973165.jpg",
-        "time": "2026-06-11T18:02:53.165Z",
-        "mouse": 1,
-        "keys": 0
-      },
-      {
-        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/162_1781201873081.jpg",
-        "time": "2026-06-11T18:17:53.081Z",
-        "mouse": 1,
-        "keys": 0
-      },
-      {
-        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/162_1781202773185.jpg",
-        "time": "2026-06-11T18:32:53.185Z",
-        "mouse": 1,
-        "keys": 0
-      }
-    ],
-    "url": null
-  },
-  {
-    "id": 163,
-    "uid": 14,
-    "project": "AMC Project",
-    "category": "Work",
-    "start": "2026-06-11T19:25:37.030Z",
-    "duration": 7800,
-    "date": "2026-06-12",
-    "type": "tracked",
-    "manual": false,
-    "screenshots": [
-      {
-        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/163_1781205937112.jpg",
-        "time": "2026-06-11T19:25:37.112Z",
-        "mouse": 446,
-        "keys": 0
-      },
-      {
-        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/163_1781206838075.jpg",
-        "time": "2026-06-11T19:40:38.075Z",
-        "mouse": 1564,
-        "keys": 0
-      },
-      {
-        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/163_1781207738074.jpg",
-        "time": "2026-06-11T19:55:38.074Z",
-        "mouse": 1,
-        "keys": 0
-      },
-      {
-        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/163_1781208638111.jpg",
-        "time": "2026-06-11T20:10:38.111Z",
-        "mouse": 1,
-        "keys": 0
-      },
-      {
-        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/163_1781209538108.jpg",
-        "time": "2026-06-11T20:25:38.108Z",
-        "mouse": 1,
-        "keys": 0
-      },
-      {
-        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/163_1781210438085.jpg",
-        "time": "2026-06-11T20:40:38.085Z",
-        "mouse": 276,
-        "keys": 0
-      },
-      {
-        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/163_1781211338076.jpg",
-        "time": "2026-06-11T20:55:38.076Z",
-        "mouse": 1,
-        "keys": 0
-      },
-      {
-        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/163_1781212238070.jpg",
-        "time": "2026-06-11T21:10:38.070Z",
-        "mouse": 1,
-        "keys": 0
-      },
-      {
-        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/163_1781213138092.jpg",
-        "time": "2026-06-11T21:25:38.092Z",
-        "mouse": 1,
-        "keys": 0
-      },
-      {
-        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/163_1781214038072.jpg",
-        "time": "2026-06-11T21:40:38.072Z",
-        "mouse": 582,
-        "keys": 0
-      },
-      {
-        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/163_1781214938108.jpg",
-        "time": "2026-06-11T21:55:38.108Z",
-        "mouse": 1,
-        "keys": 0
-      },
-      {
-        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/163_1781215838079.jpg",
-        "time": "2026-06-11T22:10:38.079Z",
-        "mouse": 1,
-        "keys": 0
-      },
-      {
-        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/163_1781216738170.jpg",
-        "time": "2026-06-11T22:25:38.170Z",
-        "mouse": 1,
-        "keys": 0
-      },
-      {
-        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/163_1781217638045.jpg",
-        "time": "2026-06-11T22:40:38.045Z",
-        "mouse": 1,
-        "keys": 0
-      },
-      {
-        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/163_1781218538113.jpg",
-        "time": "2026-06-11T22:55:38.113Z",
-        "mouse": 1,
-        "keys": 0
-      },
-      {
-        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/163_1781219438065.jpg",
-        "time": "2026-06-11T23:10:38.065Z",
-        "mouse": 755,
-        "keys": 0
-      },
-      {
-        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_14/163_1781220338258.jpg",
-        "time": "2026-06-11T23:25:38.258Z",
-        "mouse": 1,
-        "keys": 0
-      }
-    ],
     "url": null
   }
 ]
