@@ -6305,11 +6305,18 @@
     "project": "AMC Project",
     "category": "Work",
     "start": "2026-06-11T10:32:24.097Z",
-    "duration": 2,
+    "duration": 15,
     "date": "2026-06-11",
     "type": "tracked",
     "manual": false,
-    "screenshots": [],
+    "screenshots": [
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_16/156_1781173950794.jpg",
+        "time": "2026-06-11T10:32:30.794Z",
+        "mouse": 667,
+        "keys": 81
+      }
+    ],
     "url": null
   }
 ]
