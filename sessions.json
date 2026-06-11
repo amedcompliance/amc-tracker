@@ -7079,7 +7079,7 @@
     "project": "AMC Project",
     "category": "Work",
     "start": "2026-06-11T13:55:55.388Z",
-    "duration": 13725,
+    "duration": 16599,
     "date": "2026-06-11",
     "type": "tracked",
     "manual": false,
@@ -7177,6 +7177,24 @@
       {
         "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_13/161_1781199659285.jpg",
         "time": "2026-06-11T17:40:59.285Z",
+        "mouse": 1,
+        "keys": 0
+      },
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_13/161_1781200559234.jpg",
+        "time": "2026-06-11T17:55:59.234Z",
+        "mouse": 1,
+        "keys": 0
+      },
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_13/161_1781201459239.jpg",
+        "time": "2026-06-11T18:10:59.239Z",
+        "mouse": 1,
+        "keys": 0
+      },
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_13/161_1781202359267.jpg",
+        "time": "2026-06-11T18:25:59.267Z",
         "mouse": 1,
         "keys": 0
       }
