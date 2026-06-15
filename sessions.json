@@ -10348,11 +10348,18 @@
     "project": "AMC Project",
     "category": "Work",
     "start": "2026-06-15T10:30:05.938Z",
-    "duration": 1,
+    "duration": 16,
     "date": "2026-06-15",
     "type": "tracked",
     "manual": false,
-    "screenshots": [],
+    "screenshots": [
+      {
+        "url": "https://pub-a4e2d07f3868410181b72afe397c0020.r2.dev/screenshots/uid_16/180_1781519410500.jpg",
+        "time": "2026-06-15T10:30:10.500Z",
+        "mouse": 367,
+        "keys": 2
+      }
+    ],
     "url": null
   }
 ]
