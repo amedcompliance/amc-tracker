@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- AMC Tracker v20260616r3 - Stale session modal: ask user to keep or discard unfinished sessions -->
 <!-- AMC Tracker v20260616r2 - Fix: clear stale active timer if >16h old to prevent 163h display bug -->
 <!-- AMC Tracker v20260616r1 - Fix session dedup: use uid+id key to preserve ALL users sessions -->
 <!-- AMC Tracker v20260610r16a - Replace blocking alert with toast notification in leave submit -->
@@ -4368,7 +4369,35 @@ function resumeActiveTimer(){
     if(!at||!cu||at.uid!==cu.id||!at.startEpoch) return;
     var todayStr=new Date().toISOString().slice(0,10);
     var _elapsed=Math.floor((Date.now()-at.startEpoch)/1000);
-    if(new Date(at.startEpoch).toISOString().slice(0,10)!==todayStr||_elapsed>57600){localStorage.removeItem('amc_active_timer');return;}
+    var _isDiffDay=new Date(at.startEpoch).toISOString().slice(0,10)!==todayStr;
+    if(_isDiffDay||_elapsed>57600){
+      // Show user a choice instead of silently discarding
+      var _hrs=Math.floor(_elapsed/3600), _mins=Math.floor((_elapsed%3600)/60);
+      var _dateStr=new Date(at.startEpoch).toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'});
+      var _timeStr=new Date(at.startEpoch).toLocaleTimeString(undefined,{hour:'2-digit',minute:'2-digit'});
+      var _overlay=document.createElement('div');
+      _overlay.id='staleTimerOverlay';
+      _overlay.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.55);z-index:99999;display:flex;align-items:center;justify-content:center;';
+      _overlay.innerHTML='<div style="background:#1e1e2e;border:1px solid #3a3a5c;border-radius:14px;padding:28px 32px;max-width:420px;width:90%;box-shadow:0 8px 40px rgba(0,0,0,0.5);text-align:center;">'
+        +'<div style="font-size:2rem;margin-bottom:8px;">⏱️</div>'
+        +'<h3 style="color:#f5f5f5;margin:0 0 8px;font-size:1.1rem;">Unfinished Session Found</h3>'
+        +'<p style="color:#aaa;font-size:0.88rem;margin:0 0 18px;line-height:1.5;">You have a session that started on <strong style=\'color:#e0e0e0\'>' +_dateStr+' at '+_timeStr+'</strong><br>and ran for <strong style=\'color:#7c6fff\'>'+_hrs+'h '+_mins+'m</strong>. What would you like to do?</p>'
+        +'<div style="display:flex;gap:10px;justify-content:center;">'
+        +'<button id="staleKeepBtn" style="background:#7c6fff;color:#fff;border:none;border-radius:8px;padding:9px 22px;cursor:pointer;font-size:0.9rem;font-weight:600;">✅ Keep it</button>'
+        +'<button id="staleDiscardBtn" style="background:#3a3a5c;color:#ccc;border:none;border-radius:8px;padding:9px 22px;cursor:pointer;font-size:0.9rem;">🗑️ Discard it</button>'
+        +'</div></div>';
+      document.body.appendChild(_overlay);
+      document.getElementById('staleKeepBtn').onclick=function(){
+        document.body.removeChild(_overlay);
+        secs=Math.max(0,_elapsed);
+        if(typeof startTimer==='function'&&!running) startTimer();
+      };
+      document.getElementById('staleDiscardBtn').onclick=function(){
+        localStorage.removeItem('amc_active_timer');
+        document.body.removeChild(_overlay);
+      };
+      return;
+    }
     var pi=document.getElementById('projInput');
     var cs=document.getElementById('catSelect');
     if(pi&&at.project) pi.value=at.project;
