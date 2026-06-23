@@ -5,7 +5,6 @@
 
 export async function onRequestPost(context) {
   const { request, env } = context;
-
     // CORS headers
       const corsHeaders = {
           'Access-Control-Allow-Origin': '*',
@@ -32,7 +31,7 @@ export async function onRequestPost(context) {
                                                                                                           });
                                                                                                               }
                                                                                                               
-                                                                                                                  const owner = 'amedcompliance';
+                                                                                                                  const owner = 'AmericanMedicalCompliance';
                                                                                                                       const repo = 'amc-tracker';
                                                                                                                           const file = 'users.json';
                                                                                                                               const apiBase = 'https://api.github.com';
