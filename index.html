@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- AMC Tracker v20260623r1 - Fix timer: use wall-clock Date.now() for accurate elapsed time, eliminate setInterval drift -->
+<!-- AMC Tracker v20260623r2 - Fix timer: use wall-clock Date.now() for accurate elapsed time, eliminate setInterval drift -->
 <!-- AMC Tracker v20260616r3 - Stale session modal: ask user to keep or discard unfinished sessions -->
 <!-- AMC Tracker v20260616r2 - Fix: clear stale active timer if >16h old to prevent 163h display bug -->
 <!-- AMC Tracker v20260616r1 - Fix session dedup: use uid+id key to preserve ALL users sessions -->
@@ -1743,7 +1743,7 @@ function renderDashboard(){
   var _tlMemberIdsDash = _isTLDash ? getMyTeamMemberIds() : [];
   const allU = _isTLDash ? users.filter(function(u){return _tlMemberIdsDash.indexOf(u.id)!==-1;}) : users.filter(u=>u.role!=='admin');
   var _lsSess = JSON.parse(localStorage.getItem('amc_sessions')||'[]');
-  var allSess = (window.ghSessions && window.ghSessions.length > 0) ? window.ghSessions : _lsSess;
+  var allSess = (window._allSessions && window._allSessions.length > 0) ? window._allSessions : _lsSess;
   
   // Pending approvals
   const adjs = JSON.parse(localStorage.getItem('amc_adjustments')||'[]');
@@ -1756,8 +1756,8 @@ function renderDashboard(){
   document.getElementById('dash-leaves-count').textContent = pendingLeaves;
   
   // Active members (tracking today)
-  const today = new Date().toDateString();
-  const todaySess = allSess.filter(s=>new Date(s.start).toDateString()===today);
+  const _todayStr = todayStr();
+  const todaySess = allSess.filter(s=>s.date===_todayStr);
   const activeUids = [...new Set(todaySess.map(s=>s.uid))];
   document.getElementById('dash-active-count').textContent = activeUids.length;
   
