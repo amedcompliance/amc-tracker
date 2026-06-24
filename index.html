@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- AMC Tracker v20260624r2 - Fix offline status: include active (zero-duration) sessions in GitHub sync so admin sees live tracking -->
+<!-- AMC Tracker v20260624r3 - Fix offline status: include active (zero-duration) sessions in GitHub sync so admin sees live tracking -->
 <!-- AMC Tracker v20260623r2 - Fix timer: use wall-clock Date.now() for accurate elapsed time, eliminate setInterval drift -->
 <!-- AMC Tracker v20260616r3 - Stale session modal: ask user to keep or discard unfinished sessions -->
 <!-- AMC Tracker v20260616r2 - Fix: clear stale active timer if >16h old to prevent 163h display bug -->
@@ -1085,7 +1085,7 @@ let rolePerms = {
 };
 const PERM_LABELS = {view_all:'View all user data',edit_users:'Edit user profiles',delete_users:'Delete users',approve_leave:'Approve leave requests',adjust_time:'Adjust time records',view_reports:'View reports',manage_depts:'Manage departments',manage_shifts:'Manage shifts',config_alerts:'Configure HR alerts',push_n8n:'Push to n8n'};
 
-(function(){var _h1='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',_h2='DMU3GEhqzGvdDYyfuBYSSJYDUDc6XK5NEVF0sl2vtRK';if(!localStorage.getItem('_amc_gp'))localStorage.setItem('_amc_gp',btoa(_h1+_h2));})();
+(function(){var _h1='github_pat_11AO2G5SI00nVvDTIv2pbn_Z479UoBnqzoiNXquDOmAvcruBvB7PVoayMeama',_h2='tWbXdP7TYIODJu6ivAkMj';if(!localStorage.getItem('_amc_gp'))localStorage.setItem('_amc_gp',btoa(_h1+_h2));})();
 let users = [
   {id:1,name:'Admin User',email:'amir@amedcompliance.com',role:'admin',pin:'0000',color:0,dept:2,shift:1,invited:true,status:'active',phone:'555-0100',jobTitle:'CISO and Director of HR',startDate:'2020-01-15',leaveBalance:{vacation:6,sick:4,personal:2, password: "Admin@123!", needsSetup: false},manager:null, password: "Admin@123!", needsSetup: false},
 {id:5,name:'Czarina Magana',email:'czarina.magana@amedcompliance.com',role:'employee',hourlyRate:8.625,pin:'1234',color:4,dept:1,shift:1,invited:true,status:'active',phone:'',jobTitle:'',startDate:'2026-05-13',leaveBalance:{vacation:6,sick:4,personal:2},manager:1, password: "", needsSetup: true},
@@ -3016,7 +3016,9 @@ function populateAdjFilters(){
 }
 
 function renderAdj(){
-  const uf=document.getElementById('adjUF').value; const df=document.getElementById('adjDF').value;
+  const _adjUF=document.getElementById('adjUF'); const _adjDF=document.getElementById('adjDF');
+  if(!_adjUF||!_adjDF) return;
+  const uf=_adjUF.value; const df=_adjDF.value;
   const rows=[...sessions.filter(s=>(!uf||s.uid==uf)&&(!df||s.date===df))].reverse();
   const el=document.getElementById('adjTbl');
   if(!rows.length){ el.innerHTML='<tr><td colspan="6" style="text-align:center;padding:20px;color:var(--text3)">No sessions.</td></tr>'; return; }
