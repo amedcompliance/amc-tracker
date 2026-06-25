@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- AMC Tracker v20260625r1 - Fix: show unfinished-session modal for ALL stored sessions, prevent silent auto-resume --><!-- AMC Tracker v20260624r3 - Fix offline status: include active (zero-duration) sessions in GitHub sync so admin sees live tracking -->
+<!-- AMC Tracker v20260625r2 - AZ timezone, no auto-resume on load, pause/resume saves secs --><!-- AMC Tracker v20260624r3 - Fix offline status: include active (zero-duration) sessions in GitHub sync so admin sees live tracking -->
 <!-- AMC Tracker v20260623r2 - Fix timer: use wall-clock Date.now() for accurate elapsed time, eliminate setInterval drift -->
 <!-- AMC Tracker v20260616r3 - Stale session modal: ask user to keep or discard unfinished sessions -->
 <!-- AMC Tracker v20260616r2 - Fix: clear stale active timer if >16h old to prevent 163h display bug -->
 <!-- AMC Tracker v20260616r1 - Fix session dedup: use uid+id key to preserve ALL users sessions -->
-<!-- AMC Tracker v20260610r16a - Replace blocking alert with toast notification in leave submit -->
+<!-- AMC Tracker v20260610r16a - Replace blocking alert with toast notificaion in leave submit -->
 <!-- AMC Tracker v20260521r5 - OTP Login Build -->
 <html lang="en">
 <head>
@@ -1227,7 +1227,7 @@ let mmode='', medit=null, webhookUrl='', activeAlerts=[];
 const pad = n => String(n).padStart(2,'0');
 const fmtS = s => { const h=Math.floor(s/3600),m=Math.floor((s%3600)/60),sc=s%60; return `${pad(h)}:${pad(m)}:${pad(sc)}`; };
 const fmtHM = s => `${Math.floor(s/3600)}h ${Math.floor((s%3600)/60)}m`;
-function todayStr(){ var d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function todayStr(){ return new Date().toLocaleDateString('en-CA',{timeZone:'America/Phoenix'}); }
 const ini = n => n.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
 const avStyle = i => { const c=AV_COLORS[i%AV_COLORS.length]; return `background:${c[0]};color:${c[1]}`; };
 function addAudit(uid,action,cat,detail){ auditLog.unshift({id:naudid++,uid,action,category:cat,detail,ts:new Date()}); }
@@ -1468,7 +1468,7 @@ function showInner(page, sec){  if(page==='admin'&&sec==='gusto'){setTimeout(gus
 async function startTimer(){
   const proj = document.getElementById('projInput').value.trim()||'Untitled';
   const cat = document.getElementById('catSelect').value;
-  secs=0; _timerStartMs=Date.now(); running=true; var _at=JSON.parse(localStorage.getItem('amc_active_timer')||'null'); if(_at&&cu&&_at.uid===cu.id&&_at.startEpoch){var _hbGap=_at.lastHeartbeat?Math.floor((Date.now()-_at.lastHeartbeat)/1000):9999;secs=(_hbGap>120&&_at.secs)?_at.secs:Math.max(0,Math.floor((Date.now()-_at.startEpoch)/1000));} localStorage.setItem('amc_active_timer',JSON.stringify({uid:cu.id,startEpoch:Date.now()-secs*1000,project:proj,category:cat}));
+  var _psd=JSON.parse(localStorage.getItem('amc_paused_timer')||'null'); secs=(_psd&&_psd.uid===cu.id&&_psd.date===todayStr())?_psd.secs:0; localStorage.removeItem('amc_paused_timer'); _timerStartMs=Date.now()-secs*1000; running=true; var _at=JSON.parse(localStorage.getItem('amc_active_timer')||'null'); if(_at&&cu&&_at.uid===cu.id&&_at.startEpoch){var _hbGap=_at.lastHeartbeat?Math.floor((Date.now()-_at.lastHeartbeat)/1000):9999;secs=(_hbGap>120&&_at.secs)?_at.secs:Math.max(0,Math.floor((Date.now()-_at.startEpoch)/1000));} localStorage.setItem('amc_active_timer',JSON.stringify({uid:cu.id,startEpoch:Date.now()-secs*1000,project:proj,category:cat}));
   var _urlVal=document.getElementById('urlInput')?document.getElementById('urlInput').value.trim():''; var _urlHost=''; if(_urlVal){try{_urlHost=new URL(_urlVal.indexOf('://')!==-1?_urlVal:'https://'+_urlVal).hostname;}catch(e){_urlHost=_urlVal;}} curSess = {id:nsid++,uid:cu.id,project:proj,category:cat,start:new Date(),duration:0,screenshots:[],date:todayStr(),type:'tracked',url:_urlHost||null};
   sessions.push(curSess); setTimeout(syncSessionsToGitHub, 2000);
   saveSessions(); // sync online status immediately
@@ -1545,7 +1545,7 @@ function manualSnap(){ if(!curSess){alert('Start tracking first.');return;} capS
 
 function stopTimer(){localStorage.removeItem('amc_active_timer');
   clearInterval(tInt); clearInterval(ssInt); running=false;
-  if(curSess) curSess.duration=secs; var _sess=curSess; curSess=null; secs=0;
+  if(curSess) curSess.duration=secs; var _sess=curSess; if(cu&&secs>0){localStorage.setItem('amc_paused_timer',JSON.stringify({uid:cu.id,date:todayStr(),secs:secs,project:_sess?_sess.project:'',category:_sess?_sess.category:'Work'}));} curSess=null; secs=0;
   document.getElementById('startBtn').disabled=false;
   document.getElementById('stopBtn').disabled=true;
   document.getElementById('timerDisp').classList.remove('running');
@@ -4379,7 +4379,7 @@ function renderDashboardCharts() {
       if (page === "dashboard") { setTimeout(renderDashboardCharts, 200); }
     };
   }
-function resumeActiveTimer(){
+function resumeActiveTimer(){ localStorage.removeItem('amc_active_timer'); return; } function _oldResumeActiveTimer_disabled(){
   try{
     var at=JSON.parse(localStorage.getItem('amc_active_timer')||'null');
     if(!at||!cu||at.uid!==cu.id||!at.startEpoch) return;
