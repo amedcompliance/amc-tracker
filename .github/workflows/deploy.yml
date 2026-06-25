@@ -1,20 +1,33 @@
-name: Deploy to Cloudflare Pages
+name: Deploy AMC-Table to Cloudflare Pages
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    name: Deploy
+    name: Deploy AMC-Table
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout AMC-Table repo
+        uses: actions/checkout@v4
+        with:
+          repository: AmericanMedicalCompliance/AMC-Table
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
 
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: 9ed697b848e3ee14c4a6da7a20264748
-          command: pages deploy . --project-name=amc-table --branch=main
+          command: pages deploy out --project-name=amc-table --branch=main
