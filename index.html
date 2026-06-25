@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- AMC Tracker v20260624r3 - Fix offline status: include active (zero-duration) sessions in GitHub sync so admin sees live tracking -->
+<!-- AMC Tracker v20260625r1 - Fix: show unfinished-session modal for ALL stored sessions, prevent silent auto-resume --><!-- AMC Tracker v20260624r3 - Fix offline status: include active (zero-duration) sessions in GitHub sync so admin sees live tracking -->
 <!-- AMC Tracker v20260623r2 - Fix timer: use wall-clock Date.now() for accurate elapsed time, eliminate setInterval drift -->
 <!-- AMC Tracker v20260616r3 - Stale session modal: ask user to keep or discard unfinished sessions -->
 <!-- AMC Tracker v20260616r2 - Fix: clear stale active timer if >16h old to prevent 163h display bug -->
@@ -4386,7 +4386,7 @@ function resumeActiveTimer(){
     var todayStr=new Date().toISOString().slice(0,10);
     var _hbGap=at.lastHeartbeat?Math.floor((Date.now()-at.lastHeartbeat)/1000):9999; var _elapsed=(_hbGap>120&&at.secs)?at.secs:Math.floor((Date.now()-at.startEpoch)/1000);
     var _isDiffDay=new Date(at.startEpoch).toISOString().slice(0,10)!==todayStr;
-    if(_isDiffDay||_elapsed>57600){
+    if(_isDiffDay||_elapsed>=0){
       // Show user a choice instead of silently discarding
       var _hrs=Math.floor(_elapsed/3600), _mins=Math.floor((_elapsed%3600)/60);
       var _dateStr=new Date(at.startEpoch).toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'});
