@@ -1,28 +1,16 @@
-name: Create Cloudflare Token for AMC-Table
+name: Create CF Token
 on:
   workflow_dispatch:
-  jobs:
-    create-token:
-        runs-on: ubuntu-latest
-            steps:
-                  - name: Create new Cloudflare API token
-                          run: |
-                                    RESPONSE=$(curl -s -X POST "https://api.cloudflare.com/client/v4/user/tokens" \
-                                                -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
-                                                            -H "Content-Type: application/json" \
-                                                                        --data '{
-                                                                                      "name": "AMC-Table-Deploy-2026",
-                                                                                                    "policies": [{
-                                                                                                                    "effect": "allow",
-                                                                                                                                    "resources": {
-                                                                                                                                                      "com.cloudflare.api.account.9ed697b848e3ee14c4a6da7a20264748": "*"
-                                                                                                                                                                      },
-                                                                                                                                                                                      "permission_groups": [{
-                                                                                                                                                                                                        "id": "8d28297797f24fb8a0c332fe0866ec89",
-                                                                                                                                                                                                                          "name": "Pages Write"
-                                                                                                                                                                                                                                          }]
-                                                                                                                                                                                                                                                        }]
-                                                                                                                                                                                                                                                                    }')
-                                                                                                                                                                                                                                                                              echo "API Response: $RESPONSE"
-                                                                                                                                                                                                                                                                                        NEW_TOKEN=$(echo "$RESPONSE" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d['result']['value'])" 2>/dev/null || echo "PARSE_ERROR")
-                                                                                                                                                                                                                                                                                                  echo "::notice::NEW_CLOUDFLARE_TOKEN=$NEW_TOKEN"
+jobs:
+  create-token:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Cloudflare Token
+        env:
+          CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          PAYLOAD='{"name":"AMC-Table-Deploy-New","policies":[{"effect":"allow","resources":{"com.cloudflare.api.account.9ed697b848e3ee14c4a6da7a20264748":"*"},"permission_groups":[{"id":"8d28297797f24fb8a0c332fe0866ec89","name":"Pages Write"}]}]}'
+          RESPONSE=$(curl -s -X POST "https://api.cloudflare.com/client/v4/user/tokens" -H "Authorization: Bearer $CF_TOKEN" -H "Content-Type: application/json" -d "$PAYLOAD")
+          echo "Response: $RESPONSE"
+          NEW_TOKEN=$(echo "$RESPONSE" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('result',{}).get('value','ERR'))" 2>&1)
+          echo "TOKEN: $NEW_TOKEN"
