@@ -1469,7 +1469,7 @@ async function startTimer(){
   const proj = document.getElementById('projInput').value.trim()||'Untitled';
   const cat = document.getElementById('catSelect').value;
   var _psd=JSON.parse(localStorage.getItem('amc_paused_timer')||'null'); secs=(_psd&&_psd.uid===cu.id&&_psd.date===todayStr())?_psd.secs:0; localStorage.removeItem('amc_paused_timer'); _timerStartMs=Date.now()-secs*1000; running=true; /* removed stale active_timer resume - use paused_timer only */ localStorage.setItem('amc_active_timer',JSON.stringify({uid:cu.id,startEpoch:Date.now()-secs*1000,project:proj,category:cat}));
-  var _urlVal=document.getElementById('urlInput')?document.getElementById('urlInput').value.trim():''; var _urlHost=''; if(_urlVal){try{_urlHost=new URL(_urlVal.indexOf('://')!==-1?_urlVal:'https://'+_urlVal).hostname;}catch(e){_urlHost=_urlVal;}} curSess = {id:nsid++,uid:cu.id,project:proj,category:cat,start:new Date(),duration:0,screenshots:[],date:todayStr(),type:'tracked',url:_urlHost||null};
+  var _urlVal=document.getElementById('urlInput')?document.getElementById('urlInput').value.trim():''; var _urlHost=''; if(_urlVal){try{_urlHost=new URL(_urlVal.indexOf('://')!==-1?_urlVal:'https://'+_urlVal).hostname;}catch(e){_urlHost=_urlVal;}} curSess = {id:nsid++,uid:cu.id,project:proj,category:cat,start:new Date(),duration:secs,screenshots:[],date:todayStr(),type:'tracked',url:_urlHost||null};
   sessions.push(curSess); setTimeout(syncSessionsToGitHub, 2000);
   saveSessions(); // sync online status immediately
   document.getElementById('startBtn').disabled=false;
@@ -1545,7 +1545,7 @@ function manualSnap(){ if(!curSess){alert('Start tracking first.');return;} capS
 
 function stopTimer(){localStorage.removeItem('amc_active_timer');
   clearInterval(tInt); clearInterval(ssInt); running=false;
-  if(curSess) curSess.duration=secs; var _sess=curSess; if(cu&&secs>0){localStorage.setItem('amc_paused_timer',JSON.stringify({uid:cu.id,date:todayStr(),secs:secs,project:_sess?_sess.project:'',category:_sess?_sess.category:'Work'}));} curSess=null; secs=0;
+  if(curSess) curSess.duration=0; var _sess=curSess; if(cu&&secs>0){localStorage.setItem('amc_paused_timer',JSON.stringify({uid:cu.id,date:todayStr(),secs:secs,project:_sess?_sess.project:'',category:_sess?_sess.category:'Work'}));} curSess=null; secs=0;
   document.getElementById('startBtn').disabled=false;
   document.getElementById('stopBtn').disabled=true;
   document.getElementById('timerDisp').classList.remove('running');
